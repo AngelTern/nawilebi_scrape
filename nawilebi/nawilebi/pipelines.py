@@ -21,6 +21,34 @@ class NawilebiPipeline:
 
         return item
 
+import mysql.connector
+
+class SaveToMySQLPipeline:
+    def __init__(self):
+        self.conn = mysql.connector.connect(
+            host = 'localhost',
+            user = 'root',
+            password = '12XklsD@?NmG1509',
+            database = 'nawilebi'
+        )
+
+        self.cur = self.conn.cursor()
+        
+        self.cur.execute("""
+                         CREATE TABLE IF NOT EXISTS nawilebi()
+                         """)
+    
+    def process_item(self, item, spider):
+        self.cur.execute("""
+                         insert into nawilebi()""")
+        
+        self.conn.commit()
+        return item
+    
+    def close_spider(self, item, spider):
+        self.cur.close()
+        self.conn.close()
+        
 class AutopiaPipeline:
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
@@ -37,3 +65,5 @@ class AutopiaPipeline:
                     adapter[field_name] = "not_stock"
         
         return item
+    
+    
