@@ -8,6 +8,7 @@ class AutopiaSpider(scrapy.Spider):
 
     custom_settings = {
         'ITEM_PIPELINES': {
+            "nawilebi.pipelines.NawilebiPipeline": 100,
             'nawilebi.pipelines.AutopiaPipeline': 200,
         },
         'DOWNLOAD_DELAY': 0.5,
@@ -78,10 +79,10 @@ class AutopiaSpider(scrapy.Spider):
         #item["oem"] = product_description.css("div.reward:nth-of-type(2) span::text").get()
         item["price"] = response.css("div.content-product-right > div:nth-of-type(3) span::text").get()
         
-        if response.css("div.content-product-right > div:nth-of-type(3) div:nth-of-type(2)::attr(class)").get() == "modal-wrapper":
+        '''if response.css("div.content-product-right > div:nth-of-type(3) div:nth-of-type(2)::attr(class)").get() == "modal-wrapper":
             item["in_stock"] = "in_stock"
         else:
-            item["in_stock"] = "not_stock"
-        #item["in_stock"] = response.css("div.content-product-right > div:nth-of-type(3) div:nth-of-type(2)::attr(class)").get()
+            item["in_stock"] = "not_stock"'''
+        item["in_stock"] = response.css("div.content-product-right > div:nth-of-type(3) div:nth-of-type(2)::attr(class)").get()
 
         yield item
