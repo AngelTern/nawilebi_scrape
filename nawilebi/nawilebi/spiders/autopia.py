@@ -9,7 +9,8 @@ class AutopiaSpider(scrapy.Spider):
     custom_settings = {
         'ITEM_PIPELINES': {
             'nawilebi.pipelines.AutopiaPipeline': 200,
-        }
+        },
+        'DOWNLOAD_DELAY': 0.5,
     }
 
     def parse(self, response):
