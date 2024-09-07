@@ -68,6 +68,7 @@ class AutopiaSpider(scrapy.Spider):
         item["car_mark"] = response.css(".price-tax::text").get()
         item["part_full_name"] = response.css("div.content-product-right > div:nth-of-type(1) h1::text").get()
         item["year"] = response.css("div.inner-box-desc div:nth-of-type(3)::text").get()
+        #item["oem"] = product_description.css("div.reward:nth-of-type(2) span::text").get()
         item["price"] = response.css("div.content-product-right > div:nth-of-type(3) span::text").get()
         
         if response.css("div.content-product-right > div:nth-of-type(3) div:nth-of-type(2)::attr(class)").get() == "modal-wrapper":
