@@ -6,6 +6,12 @@ class AutopiaSpider(scrapy.Spider):
     allowed_domains = ["autopia.ge"]
     start_urls = ["https://autopia.ge"]
 
+    custom_settings = {
+        'ITEM_PIPELINES': {
+            'nawilebi.pipelines.AutopiaPipeline': 200,
+        }
+    }
+
     def parse(self, response):
         
         start_url = response.url
