@@ -13,6 +13,7 @@ class NawilebiItem(scrapy.Item):
     part_url = scrapy.Field()
     car_mark = scrapy.Field()
     part_full_name = scrapy.Field()
+    car_model = scrapy.Field()
     year = scrapy.Field()
     #oem = scrapy.Field()
     price = scrapy.Field()

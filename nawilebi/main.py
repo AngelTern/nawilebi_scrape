@@ -4,7 +4,7 @@ from twisted.internet import reactor
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.project import get_project_settings
 
-from nawilebi.nawilebi.spiders.autopia import AutopiaSpider
+from nawilebi.spiders.autopia import AutopiaSpider
 
 def main():
     configure_logging()
