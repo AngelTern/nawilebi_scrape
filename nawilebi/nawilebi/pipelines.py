@@ -42,8 +42,8 @@ class SaveToMySQLPipeline:
                              id int NOT NULL auto_increment, 
                              part_url VARCHAR(1000),
                              car_mark VARCHAR(70),
-                             part_full_name VARCHAR(150),
                              car_model VARCHAR(150),
+                             part_full_name VARCHAR(150),
                              year VARCHAR(10),
                              price INT,
                              in_stock BOOLEAN,
@@ -55,12 +55,12 @@ class SaveToMySQLPipeline:
     def process_item(self, item, spider):
         self.cur.execute("""
                          insert into nawilebi(
-                             part_url, car_mark, part_full_name, car_model, year, price, in_stock, website) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
+                             part_url, car_mark, car_model, part_full_name, year, price, in_stock, website) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
                              (
                                 item.get('part_url'),
                                 item.get('car_mark'),
-                                item.get('part_full_name'),
                                 item.get('car_model'),
+                                item.get('part_full_name'),
                                 item.get('year'),
                                 item.get('price'),
                                 item.get('in_stock'),
@@ -93,9 +93,10 @@ class AutopiaPipeline:
             if field_name == "part_full_name" and "year" in field_names:
                 part_full_name = value
                 year = adapter.get("year")
+                car_mark = adapter.get("car_mark")
                 
                 if part_full_name and year:
-                    georgian_string, car_model = process_part_full_name_autopia(part_full_name, year)
+                    georgian_string, car_model = process_part_full_name_autopia(part_full_name, year, car_mark)
 
                     if georgian_string is None or car_model is None:
                         spider.logger.info(f"Dropping item as part_full_name contains 'სატესტო': {part_full_name}")
