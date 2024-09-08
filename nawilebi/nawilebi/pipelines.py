@@ -8,6 +8,8 @@
 from itemadapter import ItemAdapter
 from additional_functions import extract_numbers
 from additional_functions import process_part_full_name
+import logging
+
 
 class NawilebiPipeline:
     def process_item(self, item, spider):
@@ -66,7 +68,7 @@ class SaveToMySQLPipeline:
         self.conn.commit()
         return item
     
-    def close_spider(self, item, spider):
+    def close_spider(self, spider):
         self.cur.close()
         self.conn.close()
         
@@ -85,16 +87,19 @@ class AutopiaPipeline:
                 else:
                     adapter[field_name] = False
             if field_name == "price":
-                adapter[field_name] = int(extract_numbers(value))
+                adapter[field_name] = int(extract_numbers(value)) if value else 0
             if field_name == "part_full_name" and "year" in field_names:
                 part_full_name = value
                 year = adapter.get("year")
 
-                georgian_string, car_model = process_part_full_name(part_full_name, year)
+                if part_full_name and year:
+                    georgian_string, car_model = process_part_full_name(part_full_name, year)
 
-                adapter["part_full_name"] = georgian_string
-                adapter["car_model"] = car_model  
-                
+                    adapter["part_full_name"] = georgian_string
+                    adapter["car_model"] = car_model
+                else:
+                    spider.logger.warning(f"Missing part_full_name or year for item: {item}")
+                    
         
         return item
     

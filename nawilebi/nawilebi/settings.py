@@ -19,6 +19,14 @@ NEWSPIDER_MODULE = "nawilebi.spiders"
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
+LOG_ENABLED = True
+LOG_LEVEL = 'DEBUG'
+
+LOG_FILE = 'scrapy_output.log'
+LOG_FORMAT = '%(asctime)s [%(name)s] %(levelname)s: %(message)s'
+LOG_DATEFORMAT = '%Y-%m-%d %H:%M:%S'
+
+
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
