@@ -1,7 +1,7 @@
 {% extends "table_base.html" %}
 
 {% block content %}
-  <!-- Filter Section -->
+
   <div class="filter-bar mb-3">
     <div class="row">
       <div class="col-md-3">
@@ -50,7 +50,7 @@
     </div>
   </div>
 
-  <!-- Table Section -->
+
   <table id="data" class="table table-striped">
     <thead>
       <tr>
@@ -95,10 +95,10 @@
           {data: 'in_stock'},
           {data: 'website'}
         ],
-        order: []  // Disable default sorting
+        order: []
       });
 
-      // Load Car Marks
+      
       $.ajax({
         url: '/api/filters/car_mark',
         success: function(data) {
@@ -108,7 +108,7 @@
         }
       });
 
-      // Load Websites
+      
       $.ajax({
         url: '/api/filters/website',
         success: function(data) {
@@ -118,7 +118,7 @@
         }
       });
 
-      // When Car Mark filter changes
+      
       $('#car_mark_filter').change(function() {
         var carMark = $(this).val();
         $.ajax({
@@ -157,15 +157,15 @@
         table.draw(false);
       });
 
-      // Redraw the table when any other filter is changed
+      
       $('#car_model_filter, #part_full_name_filter, #year_filter, #in_stock_filter, #website_filter').change(function() {
-        table.draw(false);  // False prevents sorting from triggering
+        table.draw(false);  
       });
 
       // Reset filters
       $('#reset_filters').click(function() {
         $('#car_mark_filter, #car_model_filter, #part_full_name_filter, #year_filter, #in_stock_filter, #website_filter').val('');
-        table.draw(false);  // Reset the table
+        table.draw(false);  
       });
     });
   </script>
