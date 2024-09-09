@@ -1,0 +1,172 @@
+{% extends "table_base.html" %}
+
+{% block content %}
+  <!-- Filter Section -->
+  <div class="filter-bar mb-3">
+    <div class="row">
+      <div class="col-md-3">
+        <label for="car_mark_filter">Car Mark:</label>
+        <select id="car_mark_filter" class="form-control">
+          <option value="">All Car Marks</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="car_model_filter">Car Model:</label>
+        <select id="car_model_filter" class="form-control">
+          <option value="">All Car Models</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="part_full_name_filter">Part Name:</label>
+        <select id="part_full_name_filter" class="form-control">
+          <option value="">All Part Names</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="year_filter">Year:</label>
+        <select id="year_filter" class="form-control">
+          <option value="">All Years</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-md-3">
+        <label for="in_stock_filter">In Stock:</label>
+        <select id="in_stock_filter" class="form-control">
+          <option value="">All</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label for="website_filter">Website:</label>
+        <select id="website_filter" class="form-control">
+          <option value="">All Websites</option>
+        </select>
+      </div>
+      <div class="col-md-3 align-self-end">
+        <button id="reset_filters" class="btn btn-secondary">Reset Filters</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table Section -->
+  <table id="data" class="table table-striped">
+    <thead>
+      <tr>
+        <th>Part URL</th>
+        <th>Car Mark</th>
+        <th>Car Model</th>
+        <th>Part Name</th>
+        <th>Year</th>
+        <th>Price</th>
+        <th>In Stock</th>
+        <th>Website</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    $(document).ready(function () {
+      var table = $('#data').DataTable({
+        ajax: {
+          url: '/api/data',
+          data: function(d) {
+            d.car_mark = $('#car_mark_filter').val();
+            d.car_model = $('#car_model_filter').val();
+            d.part_full_name = $('#part_full_name_filter').val();
+            d.year = $('#year_filter').val();
+            d.in_stock = $('#in_stock_filter').val();
+            d.website = $('#website_filter').val();
+          }
+        },
+        serverSide: true,
+        columns: [
+          {data: 'part_url'},
+          {data: 'car_mark'},
+          {data: 'car_model'},
+          {data: 'part_full_name'},
+          {data: 'year'},
+          {data: 'price'},
+          {data: 'in_stock'},
+          {data: 'website'}
+        ],
+        order: []  // Disable default sorting
+      });
+
+      // Load Car Marks
+      $.ajax({
+        url: '/api/filters/car_mark',
+        success: function(data) {
+          data.forEach(function(mark) {
+            $('#car_mark_filter').append('<option value="'+mark+'">'+mark+'</option>');
+          });
+        }
+      });
+
+      // Load Websites
+      $.ajax({
+        url: '/api/filters/website',
+        success: function(data) {
+          data.forEach(function(website) {
+            $('#website_filter').append('<option value="'+website+'">'+website+'</option>');
+          });
+        }
+      });
+
+      // When Car Mark filter changes
+      $('#car_mark_filter').change(function() {
+        var carMark = $(this).val();
+        $.ajax({
+          url: '/api/filters/car_model',
+          data: {car_mark: carMark},
+          success: function(data) {
+            $('#car_model_filter').empty().append('<option value="">All Car Models</option>');
+            data.forEach(function(model) {
+              $('#car_model_filter').append('<option value="'+model+'">'+model+'</option>');
+            });
+          }
+        });
+
+        $.ajax({
+          url: '/api/filters/part_full_name',
+          data: {car_mark: carMark},
+          success: function(data) {
+            $('#part_full_name_filter').empty().append('<option value="">All Part Names</option>');
+            data.forEach(function(partName) {
+              $('#part_full_name_filter').append('<option value="'+partName+'">'+partName+'</option>');
+            });
+          }
+        });
+
+        $.ajax({
+          url: '/api/filters/year',
+          data: {car_mark: carMark},
+          success: function(data) {
+            $('#year_filter').empty().append('<option value="">All Years</option>');
+            data.forEach(function(year) {
+              $('#year_filter').append('<option value="'+year+'">'+year+'</option>');
+            });
+          }
+        });
+
+        table.draw(false);
+      });
+
+      // Redraw the table when any other filter is changed
+      $('#car_model_filter, #part_full_name_filter, #year_filter, #in_stock_filter, #website_filter').change(function() {
+        table.draw(false);  // False prevents sorting from triggering
+      });
+
+      // Reset filters
+      $('#reset_filters').click(function() {
+        $('#car_mark_filter, #car_model_filter, #part_full_name_filter, #year_filter, #in_stock_filter, #website_filter').val('');
+        table.draw(false);  // Reset the table
+      });
+    });
+  </script>
+{% endblock %}

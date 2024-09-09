@@ -1,20 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Login</title>
-        <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="{{ url_for('static', filename='login_style.css') }}">
     </head>
     <body>
-        <h1>Login Page</h1>
-        <form method = "POST" action="">
-            {{ form.hidden_tag() }}
-            {{ form.username }}
-            {{ form.password }}
-            {{ form.submit }}
+        <div class="login-container">
+            <h1>Login Page</h1>
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    {{ form.username(class="form-control") }}
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    {{ form.password(class="form-control") }}
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class="btn-primary") }}
+                </div>
+            </form>
+        </div>
         <script src="" async defer></script>
     </body>
 </html>
