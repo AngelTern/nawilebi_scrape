@@ -2,6 +2,7 @@
 
 {% block content %}
 
+  <!-- Filter Bar Section -->
   <div class="filter-bar mb-3">
     <div class="row">
       <div class="col-md-3">
@@ -50,7 +51,7 @@
     </div>
   </div>
 
-
+  <!-- Table Section -->
   <table id="data" class="table table-striped">
     <thead>
       <tr>
@@ -75,7 +76,7 @@
       var table = $('#data').DataTable({
         ajax: {
           url: '/api/data',
-          data: function(d) {
+          data: function (d) {
             d.car_mark = $('#car_mark_filter').val();
             d.car_model = $('#car_model_filter').val();
             d.part_full_name = $('#part_full_name_filter').val();
@@ -95,78 +96,146 @@
           {data: 'in_stock'},
           {data: 'website'}
         ],
-        order: []
+        order: []  // Disable default sorting
       });
-
-      
+    
+      // Load All Car Models, Part Names, and Years on page load
+      $.ajax({
+        url: '/api/filters/car_model',
+        success: function (data) {
+          $('#car_model_filter').empty().append('<option value="">All Car Models</option>');
+          data.forEach(function (model) {
+            $('#car_model_filter').append('<option value="'+model+'">'+model+'</option>');
+          });
+        }
+      });
+    
+      $.ajax({
+        url: '/api/filters/part_full_name',
+        success: function (data) {
+          $('#part_full_name_filter').empty().append('<option value="">All Part Names</option>');
+          data.forEach(function (partName) {
+            $('#part_full_name_filter').append('<option value="'+partName+'">'+partName+'</option>');
+          });
+        }
+      });
+    
+      $.ajax({
+        url: '/api/filters/year',
+        success: function (data) {
+          $('#year_filter').empty().append('<option value="">All Years</option>');
+          data.forEach(function (year) {
+            $('#year_filter').append('<option value="'+year+'">'+year+'</option>');
+          });
+        }
+      });
+    
+      // Load Car Marks
       $.ajax({
         url: '/api/filters/car_mark',
-        success: function(data) {
-          data.forEach(function(mark) {
+        success: function (data) {
+          $('#car_mark_filter').empty().append('<option value="">All Car Marks</option>');
+          data.forEach(function (mark) {
             $('#car_mark_filter').append('<option value="'+mark+'">'+mark+'</option>');
           });
         }
       });
-
-      
+    
+      // Load Websites
       $.ajax({
         url: '/api/filters/website',
-        success: function(data) {
-          data.forEach(function(website) {
+        success: function (data) {
+          $('#website_filter').empty().append('<option value="">All Websites</option>');
+          data.forEach(function (website) {
             $('#website_filter').append('<option value="'+website+'">'+website+'</option>');
           });
         }
       });
-
-      
-      $('#car_mark_filter').change(function() {
+    
+      // When Car Mark filter changes
+      $('#car_mark_filter').change(function () {
         var carMark = $(this).val();
+        
         $.ajax({
           url: '/api/filters/car_model',
           data: {car_mark: carMark},
-          success: function(data) {
+          success: function (data) {
             $('#car_model_filter').empty().append('<option value="">All Car Models</option>');
-            data.forEach(function(model) {
+            data.forEach(function (model) {
               $('#car_model_filter').append('<option value="'+model+'">'+model+'</option>');
             });
           }
         });
-
+    
         $.ajax({
           url: '/api/filters/part_full_name',
           data: {car_mark: carMark},
-          success: function(data) {
+          success: function (data) {
             $('#part_full_name_filter').empty().append('<option value="">All Part Names</option>');
-            data.forEach(function(partName) {
+            data.forEach(function (partName) {
               $('#part_full_name_filter').append('<option value="'+partName+'">'+partName+'</option>');
             });
           }
         });
-
+    
         $.ajax({
           url: '/api/filters/year',
           data: {car_mark: carMark},
-          success: function(data) {
+          success: function (data) {
             $('#year_filter').empty().append('<option value="">All Years</option>');
-            data.forEach(function(year) {
+            data.forEach(function (year) {
               $('#year_filter').append('<option value="'+year+'">'+year+'</option>');
             });
           }
         });
-
+    
         table.draw(false);
       });
-
-      
-      $('#car_model_filter, #part_full_name_filter, #year_filter, #in_stock_filter, #website_filter').change(function() {
-        table.draw(false);  
+    
+      // Redraw the table when any other filter is changed
+      $('#car_model_filter, #part_full_name_filter, #year_filter, #in_stock_filter, #website_filter').change(function () {
+        table.draw(false);  // False prevents sorting from triggering
       });
-
+    
       // Reset filters
-      $('#reset_filters').click(function() {
+      $('#reset_filters').click(function () {
+        // Reset all filter values
         $('#car_mark_filter, #car_model_filter, #part_full_name_filter, #year_filter, #in_stock_filter, #website_filter').val('');
-        table.draw(false);  
+    
+        // Reset all dropdown filters to show all options again
+        $.ajax({
+          url: '/api/filters/car_model',
+          success: function (data) {
+            $('#car_model_filter').empty().append('<option value="">All Car Models</option>');
+            data.forEach(function (model) {
+              $('#car_model_filter').append('<option value="'+model+'">'+model+'</option>');
+            });
+          }
+        });
+    
+        $.ajax({
+          url: '/api/filters/part_full_name',
+          success: function (data) {
+            $('#part_full_name_filter').empty().append('<option value="">All Part Names</option>');
+            data.forEach(function (partName) {
+              $('#part_full_name_filter').append('<option value="'+partName+'">'+partName+'</option>');
+            });
+          }
+        });
+    
+        $.ajax({
+          url: '/api/filters/year',
+          success: function (data) {
+            $('#year_filter').empty().append('<option value="">All Years</option>');
+            data.forEach(function (year) {
+              $('#year_filter').append('<option value="'+year+'">'+year+'</option>');
+            });
+          }
+        });
+    
+        table.draw(false); // Reset the table
       });
     });
+    
   </script>
 {% endblock %}

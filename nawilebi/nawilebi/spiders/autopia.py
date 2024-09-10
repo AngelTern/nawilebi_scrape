@@ -31,8 +31,7 @@ class AutopiaSpider(scrapy.Spider):
     def parse_car_mark(self, response):
         start_url = response.meta["start_url"]
 
-        # Ensure that products_list is a list of selector objects
-        products_list = response.css("div.products-list > div")  # Select the direct div children
+        products_list = response.css("div.products-list > div")
 
         for product in products_list:
             product_class = product.css("div::attr(class)").get()
@@ -49,11 +48,9 @@ class AutopiaSpider(scrapy.Spider):
     def parse_car_part_list(self, response):
         start_url = response.meta["start_url"]
         
-        # Ensure product_list_part is a list of selector objects
-        product_list_part = response.css("div.products-list > div")  # Adjust the CSS selector if needed
+        product_list_part = response.css("div.products-list > div") 
 
         for product_part in product_list_part:
-            # Extract the class attribute safely
             product_class = product_part.css("div::attr(class)").get()
             
             if product_class and "_product" not in product_class:

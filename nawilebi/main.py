@@ -5,6 +5,7 @@ from scrapy.crawler import CrawlerRunner
 from scrapy.utils.project import get_project_settings
 
 from nawilebi.spiders.autopia import AutopiaSpider
+from nawilebi.spiders.vgparts import VgpartsSpider
 
 def main():
     configure_logging()

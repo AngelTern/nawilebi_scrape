@@ -24,3 +24,22 @@ def process_part_full_name_autopia(part_full_name, year, car_mark):
         car_model = "" 
 
     return part_name, car_model
+
+def get_digits_after_last_slash(string):
+    match = re.match(r"/(\d+)(?=[^/]*$)", string)
+    if match:
+        return match.group(1)
+    return None
+
+def process_part_ful_name_vgparts(car_model):
+    match = re.search(r'\((\d{4})\s*-\s*(\d{4})\)', car_model)
+    
+    if match:
+        year = match.group(0).strip('()').replace(' ', '')
+        car_model = re.sub(r'\(\d{4}\s*-\s*\d{4}\)', '', car_model).strip()
+        return year, car_model
+    return None, car_model
+        
+        
+def unicode_to_georgian(unicode_str):
+    return unicode_str.encode('utf-8').decode('unicode-escape')
