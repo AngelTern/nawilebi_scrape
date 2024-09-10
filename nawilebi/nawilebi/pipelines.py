@@ -112,8 +112,11 @@ class AutopiaPipeline:
         return item
     
     
-class VgpartsPipelines():
+import logging
+
+class VgpartsPipelines:
     def process_item(self, item, spider):
+        logging.info("Processing item in VgpartsPipelines")  # Log to check if it's working
         adapter = ItemAdapter(item)
         field_names = adapter.field_names()
         
@@ -125,4 +128,8 @@ class VgpartsPipelines():
                 adapter["car_model"] = car_model
             '''if field_name == "part_full_name":
                 adapter[field_name] = unicode_to_georgian(value)'''
+        return item
+    
+class TopaoutopartsPopelines():
+    def process_item(self, item, spider):
         return item

@@ -32,13 +32,14 @@ def get_digits_after_last_slash(string):
     return None
 
 def process_part_ful_name_vgparts(car_model):
-    match = re.search(r'\((\d{4})\s*-\s*(\d{4})\)', car_model)
+    match = re.search(r'(\d{4})\s*-\s*(\d{4})', car_model)
     
     if match:
-        year = match.group(0).strip('()').replace(' ', '')
-        car_model = re.sub(r'\(\d{4}\s*-\s*\d{4}\)', '', car_model).strip()
-        return year, car_model
-    return None, car_model
+        year = f"{match.group(1)}-{match.group(2)}"
+        car_model_cleaned = re.sub(r'\s*\d{4}\s*-\s*\d{4}', '', car_model).strip()
+        return year, car_model_cleaned
+    else:
+        return None, car_model
         
         
 def unicode_to_georgian(unicode_str):
