@@ -13,7 +13,7 @@ class TopautopartsSpider(scrapy.Spider):
         'ITEM_PIPELINES': {
             "nawilebi.pipelines.NawilebiPipeline": 100,
             "nawilebi.pipelines.TopaoutopartsPopelines": 200,
-            #"nawilebi.pipelines.SaveToMySQLPipeline": 900
+            "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
         'DOWNLOAD_DELAY': 0.5,
     }
@@ -57,9 +57,9 @@ class TopautopartsSpider(scrapy.Spider):
         price = response.css("div.product__details--info div:nth-of-type(1) span::text").get()
         car_mark = response.css("div.product__variant div:nth-of-type(3) div p:nth-of-type(1) span::text").get()
 
-        if not part_name or not car_mark or not price:
+        '''if not part_name or not car_mark or not price:
             self.logger.warning(f"Missing data on page: {part_url}")
-            return  # Skip if crucial data is missing
+            return  # Skip if crucial data is missing'''
 
         span_elements_stock = response.css("div.product__variant div:nth-of-type(3) div p:nth-of-type(4) span[style]")
 

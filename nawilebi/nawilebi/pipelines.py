@@ -9,7 +9,7 @@ from itemadapter import ItemAdapter
 import logging
 
 #from nawilebi.utilities.additional_functions import extract_numbers, process_part_full_name
-from utilities.additional_functions import extract_numbers, process_part_full_name_autopia, process_part_ful_name_vgparts, unicode_to_georgian
+from utilities.additional_functions import *
 
 class NawilebiPipeline:
     def process_item(self, item, spider):
@@ -21,6 +21,8 @@ class NawilebiPipeline:
 
             if isinstance(value, str):
                 adapter[field_name] = value.strip()
+            if field_name == "price":
+                adapter[field_name] = parse_price(value)
 
         return item
 
@@ -118,14 +120,14 @@ import logging
 
 class VgpartsPipelines:
     def process_item(self, item, spider):
-        logging.info("Processing item in VgpartsPipelines")  # Log to check if it's working
+        #logging.info("Processing item in VgpartsPipelines")  # Log to check if it's working
         adapter = ItemAdapter(item)
         field_names = adapter.field_names()
         
         for field_name in field_names:
             value = adapter.get(field_name)
             if field_name == "car_model":
-                year, car_model = process_part_ful_name_vgparts(value)
+                year, car_model = process_car_model_vgparts(value)
                 adapter["year"] = year
                 adapter["car_model"] = car_model
             '''if field_name == "part_full_name":
@@ -134,4 +136,16 @@ class VgpartsPipelines:
     
 class TopaoutopartsPopelines():
     def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        field_names = adapter.field_names()
+        for field_name in field_names:
+            value = adapter.get(field_name)
+            if field_name == "car_model":
+                year_range, car_model = process_car_model_topautoparts(value)
+                adapter["year"] = year_range
+                adapter["car_model"] = car_model
+            if field_name == "part_full_name":
+                adapter[field_name] = process_car_part_full_topautoparts(value, adapter["year"], adapter["car_model"] )
+            
+        
         return item

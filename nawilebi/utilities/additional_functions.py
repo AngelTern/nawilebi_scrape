@@ -37,7 +37,7 @@ def get_digits_after_last_equal(string):
         return match.group(1)
     return None
 
-def process_part_ful_name_vgparts(car_model):
+def process_car_model_vgparts(car_model):
     match = re.search(r'(\d{4})\s*-\s*(\d{4})', car_model)
     
     if match:
@@ -48,6 +48,22 @@ def process_part_ful_name_vgparts(car_model):
     else:
         return None, car_model
         
+def process_car_model_topautoparts(car_model):
+    match = re.search(r'(\d{2,4}-\d{2,4})', car_model)
+    if match:
+        year_range = match.group(0)
+        car_model = car_model.replace(year_range, '').strip()
+        return year_range, car_model
+    else:
+        return None, car_model
+
+def process_car_part_full_topautoparts(car_part_full, year, car_model):
+    car_part_full = car_part_full.replace(year, '').strip()
+    car_part_full = car_part_full.replace(car_model, '').strip()
+    return car_part_full
         
 def unicode_to_georgian(unicode_str):
     return unicode_str.encode('utf-8').decode('unicode-escape')
+
+def parse_price(string):
+    return re.sub(r'[^\d.]', '', string)
