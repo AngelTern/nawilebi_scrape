@@ -47,7 +47,7 @@ class SaveToMySQLPipeline:
                              car_model VARCHAR(150),
                              part_full_name VARCHAR(150),
                              year VARCHAR(10),
-                             price INT,
+                             price NUMERIC,
                              in_stock BOOLEAN,
                              website VARCHAR(255),
                              city VARCHAR(50),

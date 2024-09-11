@@ -62,8 +62,15 @@ def process_car_part_full_topautoparts(car_part_full, year, car_model):
     car_part_full = car_part_full.replace(car_model, '').strip()
     return car_part_full
         
+def adjust_car_model_name(car_model):
+    car_model_lowered = car_model.lower()
+    car_model_adjusted = car_model_lowered.replace(" ", "-")
+    return car_model_adjusted
+
 def unicode_to_georgian(unicode_str):
     return unicode_str.encode('utf-8').decode('unicode-escape')
 
 def parse_price(string):
-    return re.sub(r'[^\d.]', '', string)
+    cleaned_string = re.sub(r'[^\d,]', '', string)
+    cleaned_string = cleaned_string.replace(',', '.')
+    return float(cleaned_string) if cleaned_string else None
