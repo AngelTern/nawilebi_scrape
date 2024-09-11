@@ -26,7 +26,13 @@ def process_part_full_name_autopia(part_full_name, year, car_mark):
     return part_name, car_model
 
 def get_digits_after_last_slash(string):
-    match = re.match(r"/(\d+)(?=[^/]*$)", string)
+    match = re.search(r"/(\d+)(?=[^/]*$)", string)
+    if match:
+        return match.group(1)
+    return None
+
+def get_digits_after_last_equal(string):
+    match =re.search(r"=(\d+)(?=[^=]*$)", string)
     if match:
         return match.group(1)
     return None

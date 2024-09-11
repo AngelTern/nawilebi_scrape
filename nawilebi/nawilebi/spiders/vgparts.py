@@ -1,6 +1,5 @@
 import scrapy
 from nawilebi.items import NawilebiItem
-import re
 from utilities.additional_functions import get_digits_after_last_slash
 import json
 
