@@ -12,7 +12,7 @@ class TopautopartsSpider(scrapy.Spider):
         'ITEM_PIPELINES': {
             "nawilebi.pipelines.NawilebiPipeline": 100,
             "nawilebi.pipelines.TopaoutopartsPopelines": 200,
-            "nawilebi.pipelines.SaveToMySQLPipeline": 900
+            #"nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
         'DOWNLOAD_DELAY': 0.5,
     }
@@ -49,13 +49,33 @@ class TopautopartsSpider(scrapy.Spider):
                                   meta = {"car_model": car_model})
             
     def parse_part_page(self, response):
+        item = NawilebiItem()
         car_model = response.meta["car_model"]
         part_url = response.url
         part_name = response.css("div.product__details--info h2::text").get()
         price = response.css("div.product__details--info div:nth-of-type(1) span::text").get()
-        car_mark = response.css("div.product__variant div:nth-of-type(3) div p:nth-of-type(1) span::text")
+        car_mark = response.css("div.product__variant div:nth-of-type(3) div p:nth-of-type(1) span::text").get()
+
+        span_elements_stock = response.css("div.product__variant div:nth-of-type(3) div p:nth-of-type(4) span[style]")
         
-        
-        item = NawilebiItem()
-        
+        for span in span_elements_stock:
+            style = span.attrib.get('style', '')
+            span_text = span.css('::text').get().strip()
+
+            item['website'] = "https://topautoparts.ge/"
+            item['part_url'] = part_url
+            item['car_mark'] = car_mark
+            item['part_full_name'] = part_name
+            item['car_model'] = car_model
+            item['year'] = None
+            item['price'] = price
+            
+            if span_text in ["ბათუმი", "თბილისი"]:
+                item['city'] = span_text
+                if 'color:red' in style:
+                    item['in_stock'] = False
+                elif 'color:green' in style:
+                    item['in_stock'] = True
+                yield item
+               
         

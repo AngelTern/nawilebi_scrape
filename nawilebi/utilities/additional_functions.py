@@ -37,6 +37,7 @@ def process_part_ful_name_vgparts(car_model):
     if match:
         year = f"{match.group(1)}-{match.group(2)}"
         car_model_cleaned = re.sub(r'\s*\d{4}\s*-\s*\d{4}', '', car_model).strip()
+        car_model_cleaned = re.sub(r'\s*\(\)\s*$', '', car_model_cleaned)
         return year, car_model_cleaned
     else:
         return None, car_model

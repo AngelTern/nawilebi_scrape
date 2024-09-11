@@ -48,6 +48,7 @@ class SaveToMySQLPipeline:
                              price INT,
                              in_stock BOOLEAN,
                              website VARCHAR(255),
+                             city VARCHAR(50),
                              PRIMARY KEY (id)                                                         
                          )
                          """)
@@ -55,7 +56,7 @@ class SaveToMySQLPipeline:
     def process_item(self, item, spider):
         self.cur.execute("""
                          insert into nawilebi(
-                             part_url, car_mark, car_model, part_full_name, year, price, in_stock, website) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)""",
+                             part_url, car_mark, car_model, part_full_name, year, price, in_stock, city, website) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)""",
                              (
                                 item.get('part_url'),
                                 item.get('car_mark'),
@@ -64,6 +65,7 @@ class SaveToMySQLPipeline:
                                 item.get('year'),
                                 item.get('price'),
                                 item.get('in_stock'),
+                                item.get('city'),
                                 item.get('website')
                              ))
         

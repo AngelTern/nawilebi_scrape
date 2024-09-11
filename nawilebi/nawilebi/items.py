@@ -18,4 +18,5 @@ class NawilebiItem(scrapy.Item):
     #oem = scrapy.Field()
     price = scrapy.Field()
     in_stock = scrapy.Field()
+    city = scrapy.Field()
     pass
