@@ -75,10 +75,26 @@ def process_part_full_name(part_full_name, car_model):
     part_full_name_final = re.sub(r'(\b\d{2,4}(?:-\d{2,4})?\b)', '', part_full_name_adjusted).strip()
     return part_full_name_final
 
+
+def process_car_model_vsauto(car_model):
+    match = re.search(r'(\d{2,4}-\d{2,4})', car_model)
+    if match:
+        year_range = match.group(0)
+        car_model = car_model.replace(year_range, '').strip()
+        return year_range, car_model
+    else:
+        return None, car_model
+
+
+'''---------------------------------------------------------'''
+
 def unicode_to_georgian(unicode_str):
     return unicode_str.encode('utf-8').decode('unicode-escape')
 
 def parse_price(string):
-    cleaned_string = re.sub(r'[^\d,]', '', string)
+    if not string:
+        return None
+    
+    cleaned_string = re.sub(r'[^\d.,]', '', string)
     cleaned_string = cleaned_string.replace(',', '.')
     return float(cleaned_string) if cleaned_string else None

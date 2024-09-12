@@ -23,6 +23,9 @@ class NawilebiPipeline:
                 adapter[field_name] = value.strip()
             if field_name == "price":
                 adapter[field_name] = parse_price(value)
+            if field_name == "original_price":
+                if value != None:
+                    adapter[field_name] = parse_price(value)
 
         return item
 
@@ -48,6 +51,7 @@ class SaveToMySQLPipeline:
                              part_full_name VARCHAR(150),
                              year VARCHAR(10),
                              price NUMERIC,
+                             original_price Numeric,
                              in_stock BOOLEAN,
                              website VARCHAR(255),
                              city VARCHAR(50),
@@ -58,7 +62,7 @@ class SaveToMySQLPipeline:
     def process_item(self, item, spider):
         self.cur.execute("""
                          insert into nawilebi(
-                             part_url, car_mark, car_model, part_full_name, year, price, in_stock, city, website) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)""",
+                             part_url, car_mark, car_model, part_full_name, year, price, original_price, in_stock, city, website) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
                              (
                                 item.get('part_url'),
                                 item.get('car_mark'),
@@ -66,6 +70,7 @@ class SaveToMySQLPipeline:
                                 item.get('part_full_name'),
                                 item.get('year'),
                                 item.get('price'),
+                                item.get('original_price'),
                                 item.get('in_stock'),
                                 item.get('city'),
                                 item.get('website')
@@ -161,5 +166,18 @@ class CarpartsPipeline():
             if field_name == "part_full_name":
                 adapter[field_name] = process_part_full_name(value, adapter.get("car_model"))
 
+        
+        return item
+    
+class VsautoPipeline():
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        field_names = adapter.field_names()
+        for field_name in field_names:
+            value = adapter.get(field_name)
+            if field_name == "car_model":
+                year, car_model = process_car_model_vsauto(value)
+                adapter["year"] = year
+                adapter["car_model"] = car_model
         
         return item

@@ -17,6 +17,7 @@ class NawilebiItem(scrapy.Item):
     year = scrapy.Field()
     #oem = scrapy.Field()
     price = scrapy.Field()
+    original_price = scrapy.Field()
     in_stock = scrapy.Field()
     city = scrapy.Field()
     pass
