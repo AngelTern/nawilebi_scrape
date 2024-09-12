@@ -10,7 +10,7 @@ class VgpartsSpider(scrapy.Spider):
     custom_settings = {
         'ITEM_PIPELINES': {
             "nawilebi.pipelines.NawilebiPipeline": 100,
-            'nawilebi.pipelines.VgpartsPipelines': 200,
+            'nawilebi.pipelines.VgpartsPipeline': 200,
             "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
         'DOWNLOAD_DELAY': 0.5,

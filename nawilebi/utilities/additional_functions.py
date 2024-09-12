@@ -62,10 +62,18 @@ def process_car_part_full_topautoparts(car_part_full, year, car_model):
     car_part_full = car_part_full.replace(car_model, '').strip()
     return car_part_full
         
-def adjust_car_model_name(car_model):
+def adjust_car_model_name_carparts(car_model):
     car_model_lowered = car_model.lower()
     car_model_adjusted = car_model_lowered.replace(" ", "-")
     return car_model_adjusted
+
+def process_car_model_carparts(car_model):
+    return re.sub(r'(\b\d{2,4}(?:-\d{2,4})?\b)', '', car_model).strip()
+
+def process_part_full_name(part_full_name, car_model):
+    part_full_name_adjusted = re.sub(re.escape(car_model), '', part_full_name, flags=re.IGNORECASE).strip()
+    part_full_name_final = re.sub(r'(\b\d{2,4}(?:-\d{2,4})?\b)', '', part_full_name_adjusted).strip()
+    return part_full_name_final
 
 def unicode_to_georgian(unicode_str):
     return unicode_str.encode('utf-8').decode('unicode-escape')

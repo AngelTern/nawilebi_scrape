@@ -1,5 +1,5 @@
 import scrapy
-from utilities.additional_functions import adjust_car_model_name
+from utilities.additional_functions import adjust_car_model_name_carparts
 from nawilebi.items import NawilebiItem
 
 class CarpartsSpider(scrapy.Spider):
@@ -9,8 +9,8 @@ class CarpartsSpider(scrapy.Spider):
     custom_settings = {
         'ITEM_PIPELINES': {
             "nawilebi.pipelines.NawilebiPipeline": 100,
-            #"nawilebi.pipelines.CarpartsPipeline": 200,
-            #"nawilebi.pipelines.SaveToMySQLPipeline": 900
+            "nawilebi.pipelines.CarpartsPipeline": 200,
+            "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
         'DOWNLOAD_DELAY': 0.5,
     }
@@ -34,7 +34,7 @@ class CarpartsSpider(scrapy.Spider):
             relative_url = car_model.css(".shop-item .details p a::attr(href)").get()
             car_model_url = "https://car-parts.ge" + relative_url 
             car_model_name = car_model.css(".shop-item .details p a::text").get()
-            car_model_name_adjusted = adjust_car_model_name(car_model_name)
+            car_model_name_adjusted = adjust_car_model_name_carparts(car_model_name)
             car_model_url_pagination = f"https://car-parts.ge/ka/produqcia/{car_model_name_adjusted}?page="
             
             yield response.follow(car_model_url, callback = self.parse_car_model,
