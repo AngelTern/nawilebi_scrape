@@ -101,9 +101,47 @@ def process_car_model_autotrans(car_model):
         return f"{start_year}-"
     return None
     
-def clean_car_model(car_model):
+def clean_car_model_autotrans(car_model):
     year_pattern = re.compile(r'(\d{2,4})(?:-(\d{2,4}|ON))')
     return re.sub(year_pattern, '', car_model).strip()
+
+def process_part_full_name_carline(part_full_name, car_model, car_mark):
+    part_full_name_1 = re.sub(car_model, '', part_full_name, flags=re.IGNORECASE).strip()
+    part_full_name_2 = re.sub(car_mark, '', part_full_name_1, flags=re.IGNORECASE).strip()
+    year_pattern = re.compile(r'(\d{2,4})')
+    part_full_name_adjusted = re.sub(year_pattern, '', part_full_name_2).replace('-', '').strip()
+    return part_full_name_adjusted
+    
+def clean_car_model_carline(car_model, car_mark):
+    if car_mark == "CHEVROLET":
+        car_model_adjusted = re.sub("CHEVY", '', car_model).strip()
+    else:
+        car_model_adjusted = re.sub(car_mark, '', car_model).strip()
+    year_pattern = re.compile(r'\d{2,4}')
+    match = year_pattern.search(car_model)
+    if match:
+        year_string = match.group()
+        return year_string, re.sub(year_string, '', car_model_adjusted).strip()
+    return None, car_model
+
+def process_kia_carline(part_full_name):
+    pattern_1 = re.compile(r"(SOUL 2009)")
+    pattern_2 = re.compile(r"(CERATO)")
+    
+    match_1 = pattern_1.search(part_full_name)
+    match_2 = pattern_2.search(part_full_name)
+    
+    if match_1:
+        car_model = match_1.group()
+        return car_model, re.sub(car_model, '', part_full_name).replace('-', '').strip()
+    
+    elif match_2:
+        car_model = match_2.group()
+        return car_model, re.sub(car_model, '', part_full_name).replace('-', '').strip()
+    
+    return None, part_full_name
+
+        
 
 '''---------------------------------------------------------'''
 

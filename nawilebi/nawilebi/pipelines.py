@@ -196,6 +196,28 @@ class AutotransPipeline():
             value = adapter.get(field_name)
             if field_name == "car_model":
                 adapter["year"] = process_car_model_autotrans(value)
-                adapter["car_model"] = clean_car_model(value)
+                adapter["car_model"] = clean_car_model_autotrans(value)
         
+        return item
+    
+class CarlinePipeline():
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        field_names = adapter.field_names()
+        for field_name in field_names:
+            value = adapter.get(field_name)
+            if field_name == "car_mark":
+                if value == "KIA":
+                    adapter["car_model"], adapter["part_full_name"] = process_kia_carline(adapter.get("part_full_name"))
+            if field_name == "car_model":
+                adapter["year"], adapter[field_name] = clean_car_model_carline(value, adapter.get("car_mark"))
+            if field_name == "in_stock":
+                if value == 'არ არის მარაგში':
+                    adapter[field_name] = False
+                elif value == "მარაგში":
+                    adapter[field_name] = True
+            elif field_name == "part_full_name":
+                adapter["part_full_name"] = process_part_full_name_carline(value, adapter.get("car_model"), adapter.get("car_mark"))
+            
+
         return item
