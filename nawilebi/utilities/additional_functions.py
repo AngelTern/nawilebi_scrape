@@ -89,9 +89,32 @@ def adjust_for_next_url_autotrans(car_mark, car_model):
     car_model_adjusted = re.sub(r"\s+", "-", car_model.lower())
     return car_mark_adjusted, car_model_adjusted
 
-
+def process_car_model_autotrans(car_model):
+    year_pattern = re.compile(r'(\d{2,4})(?:-(\d{2,4}|ON))')
+    match = year_pattern.search(car_model)
+    if match:
+        start_year = format_year(match.group(1))
+        end_year = match.group(2)
+        if end_year and end_year != 'ON':
+            end_year = format_year(end_year)
+            return f"{start_year}-{end_year}"
+        return f"{start_year}-"
+    return None
+    
+def clean_car_model(car_model):
+    year_pattern = re.compile(r'(\d{2,4})(?:-(\d{2,4}|ON))')
+    return re.sub(year_pattern, '', car_model).strip()
 
 '''---------------------------------------------------------'''
+
+def format_year(year):
+    year = int(year)
+    if year < 100:
+        if year >= 50:
+            return 1900 + year
+        else:
+            return 2000 + year
+    return year
 
 def unicode_to_georgian(unicode_str):
     return unicode_str.encode('utf-8').decode('unicode-escape')

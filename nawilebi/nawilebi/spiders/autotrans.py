@@ -9,7 +9,7 @@ class AutotransSpider(scrapy.Spider):
     custom_settings = {
         'ITEM_PIPELINES': {
             "nawilebi.pipelines.NawilebiPipeline": 100,
-            #"nawilebi.pipelines.AutotransPipeline": 200,
+            "nawilebi.pipelines.AutotransPipeline": 200,
             "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
         'DOWNLOAD_DELAY': 0.5,  
@@ -18,6 +18,15 @@ class AutotransSpider(scrapy.Spider):
         'AUTOTHROTTLE_MAX_DELAY': 60,   
         'AUTOTHROTTLE_TARGET_CONCURRENCY': 1.0,
     }
+    
+    avoid_urls = [
+        "https://autotrans.ge/product/102/",
+        "https://autotrans.ge/product/gray-shoes/",
+        "https://autotrans.ge/product/audi/",
+        "https://autotrans.ge/product/honda/"
+    ]
+    
+    '''-----------------------------------------'''
     '''page_count = 1
     
     def parse(self, response):
@@ -60,7 +69,7 @@ class AutotransSpider(scrapy.Spider):
         
         yield item'''
         
-        
+    '''------------------------------------------------------'''
         
     def parse(self, response):
         car_mark_list = response.css("#main > div > section > ul > li")
@@ -89,35 +98,49 @@ class AutotransSpider(scrapy.Spider):
             for i in pages_list:
                 car_mark_adjusted, car_model_adjusted = adjust_for_next_url_autotrans(response.meta["car_mark"], response.meta["car_model"])
 
-                next_page_url = f"https://autotrans.ge/product-category/{car_mark_adjusted}/{car_model_adjusted}/page/" + str(i) + "/"                
+                next_page_url = f"https://autotrans.ge/product-category/{car_mark_adjusted}/{car_model_adjusted}/page/{i}/"
                 yield response.follow(next_page_url, callback=self.next_page_parse,
-                                    meta={"car_mark": response.meta["car_mark"], "car_model": response.meta["car_model"]})
+                                      meta={"car_mark": response.meta["car_mark"], "car_model": response.meta["car_model"]})
         else:
             item = NawilebiItem()
             car_part_list = response.css("#main > div > section > ul > li")
             
             for car_part in car_part_list:
-                    item["part_full_name"] = car_part.css("h2 a::text").get()
-                    item["car_mark"] = response.meta["car_mark"]
-                    item["car_model"] = response.meta["car_model"]
-                    item["year"] = None
-                    item["part_url"] = car_part.css("h2 a::attr(href)").get()
-                    item["website"] = "https://autotrans.ge/"
-                    item["original_price"] = car_part.css("span.price del span::text").get()
-                    item["price"] = car_part.css("span.price ins span::text").get()
-                    
-                    yield item
-    
-    def next_page_parse(self, response):
-        item = NawilebiItem()
-        car_part_list = response.css("#main > div > section > ul > li")
-            
-        for car_part in car_part_list:
+                part_url = car_part.css("h2 a::attr(href)").get()
+                
+                if part_url in self.avoid_urls:
+                    self.logger.info(f"Skipping URL: {part_url}")
+                    continue  # Skip this URL and continue with the next one
+
                 item["part_full_name"] = car_part.css("h2 a::text").get()
                 item["car_mark"] = response.meta["car_mark"]
                 item["car_model"] = response.meta["car_model"]
                 item["year"] = None
-                item["part_url"] = car_part.css("h2 a::attr(href)").get()
+                item["part_url"] = part_url
                 item["website"] = "https://autotrans.ge/"
                 item["original_price"] = car_part.css("span.price del span::text").get()
-                item["price"] = car_part.css("span.price ins span::text").get
+                item["price"] = car_part.css("span.price ins span::text").get()
+
+                yield item
+
+    def next_page_parse(self, response):
+        item = NawilebiItem()
+        car_part_list = response.css("#main > div > section > ul > li")
+        
+        for car_part in car_part_list:
+            part_url = car_part.css("h2 a::attr(href)").get()
+
+            if part_url in self.avoid_urls:
+                self.logger.info(f"Skipping URL: {part_url}")
+                continue  # Skip this URL and continue with the next one
+
+            item["part_full_name"] = car_part.css("h2 a::text").get()
+            item["car_mark"] = response.meta["car_mark"]
+            item["car_model"] = response.meta["car_model"]
+            item["year"] = None
+            item["part_url"] = part_url
+            item["website"] = "https://autotrans.ge/"
+            item["original_price"] = car_part.css("span.price del span::text").get()
+            item["price"] = car_part.css("span.price ins span::text").get()
+
+            yield item

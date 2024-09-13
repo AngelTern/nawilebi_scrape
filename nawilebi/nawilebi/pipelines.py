@@ -26,8 +26,14 @@ class NawilebiPipeline:
             if field_name == "original_price":
                 if value != None:
                     adapter[field_name] = parse_price(value)
+            
 
         return item
+
+class PriceProcessPipeline:
+    def process_item(self, item, spider):
+        return item
+
 
 import mysql.connector
 
@@ -49,7 +55,7 @@ class SaveToMySQLPipeline:
                              car_mark VARCHAR(70),
                              car_model VARCHAR(150),
                              part_full_name VARCHAR(150),
-                             year VARCHAR(10),
+                             year VARCHAR(20),
                              price NUMERIC,
                              original_price Numeric,
                              in_stock BOOLEAN,
@@ -179,5 +185,17 @@ class VsautoPipeline():
                 year, car_model = process_car_model_vsauto(value)
                 adapter["year"] = year
                 adapter["car_model"] = car_model
+        
+        return item
+    
+class AutotransPipeline():
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        field_names = adapter.field_names()
+        for field_name in field_names:
+            value = adapter.get(field_name)
+            if field_name == "car_model":
+                adapter["year"] = process_car_model_autotrans(value)
+                adapter["car_model"] = clean_car_model(value)
         
         return item
