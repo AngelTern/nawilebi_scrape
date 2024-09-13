@@ -84,6 +84,11 @@ def process_car_model_vsauto(car_model):
         return year_range, car_model
     else:
         return None, car_model
+def adjust_for_next_url_autotrans(car_mark, car_model):
+    car_mark_adjusted = car_mark.lower()
+    car_model_adjusted = re.sub(r"\s+", "-", car_model.lower())
+    return car_mark_adjusted, car_model_adjusted
+
 
 
 '''---------------------------------------------------------'''
