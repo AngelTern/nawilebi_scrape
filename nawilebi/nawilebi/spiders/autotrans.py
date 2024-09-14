@@ -8,10 +8,10 @@ class AutotransSpider(scrapy.Spider):
     start_urls = ["https://autotrans.ge/products/"]
     custom_settings = {
         'ITEM_PIPELINES': {
-            "nawilebi.pipelines.NawilebiPipeline": 100,
-            "nawilebi.pipelines.AutopiaPipeline": 200,
-            "nawilebi.pipelines.YearProcessPipeline": 300,
-            "nawilebi.pipelines.SaveToMySQLPipeline": 900
+            #"nawilebi.pipelines.NawilebiPipeline": 100,
+            "nawilebi.pipelines.AutotransPipeline": 200,
+            #"nawilebi.pipelines.YearProcessPipeline": 300,
+            #"nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
         'DOWNLOAD_DELAY': 0.5,
         'AUTOTHROTTLE_ENABLED': True,
@@ -119,9 +119,16 @@ class AutotransSpider(scrapy.Spider):
                 item["year"] = None
                 item["part_url"] = part_url
                 item["website"] = "https://autotrans.ge/"
-                item["original_price"] = car_part.css("span.price del span::text").get()
-                item["price"] = car_part.css("span.price ins span::text").get()
-
+                price_span = car_part.css("span.price span")
+                
+                if price_span.css("del"):
+                    item["original_price"] = car_part.css("span.price span del span bdi::text").get()
+                    item["price"] = car_part.css("span.price span ins span bdi::text").get()
+                else:
+                    item["price"] = car_part.css("span.ptice span bdi::text").get()
+                    
+                item["start_year"] = None
+                item["end_year"] = None
                 yield item
 
     def next_page_parse(self, response):
@@ -141,7 +148,14 @@ class AutotransSpider(scrapy.Spider):
             item["year"] = None
             item["part_url"] = part_url
             item["website"] = "https://autotrans.ge/"
-            item["original_price"] = car_part.css("span.price del span::text").get()
-            item["price"] = car_part.css("span.price ins span::text").get()
-
+            price_span = car_part.css("span.price span")
+            
+            if price_span.css("del"):
+                item["original_price"] = car_part.css("span.price span del span bdi::text").get()
+                item["price"] = car_part.css("span.price span ins span bdi::text").get()
+            else:
+                item["price"] = car_part.css("span.ptice span bdi::text").get()
+                
+            item["start_year"] = None
+            item["end_year"] = None
             yield item

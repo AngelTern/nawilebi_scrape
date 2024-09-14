@@ -1,30 +1,55 @@
 import re
+from datetime import datetime
 
 def extract_numbers(string):
     return re.sub(r'\D', '', string)
 
-def process_part_full_name_autopia(part_full_name, year, car_mark):
+def process_car_model_autopia(car_model, car_mark):
+    car_model_unchanged = car_model
+    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{0,4})')
     
-    if "სატესტო" in part_full_name:
-        return None, None
+    car_model_without_mark = re.sub(re.escape(car_mark), '', car_model, flags=re.IGNORECASE).strip()
     
-    year_pattern = re.compile(re.escape(year))  
-    modified_string = year_pattern.sub('', part_full_name).strip()  
-    
-    modified_string = modified_string.rstrip('-').strip()
+    car_model_adjusted = re.sub(year_pattern, '', car_model_without_mark).strip()
 
-    if "-" in modified_string:
-        split_values = modified_string.split("-", 1)  
-        part_name = split_values[0].strip()  
-        car_model = split_values[1].strip()
-        car_model = car_model.replace(car_mark, '').strip()
-        
+    return car_model_adjusted, car_model_unchanged
+
+
+
+def process_part_full_name_autopia(part_full_name, car_model, car_mark):
+    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{0,4})')
+    part_full_name_adjusted = re.sub(re.escape(car_model), '', part_full_name).strip()
+    
+    part_full_name_adjusted = re.sub(year_pattern, '', part_full_name_adjusted).strip()
+    
+    part_full_name_adjusted = re.sub(re.escape(car_mark), '', part_full_name_adjusted).strip()    
+    
+    part_full_name_adjusted = re.sub('-', '', part_full_name_adjusted).strip()
+    
+    return part_full_name_adjusted
+
+
+def process_year_autopia(year):
+    year_stripped = year.strip()
+    current_year = datetime.now().year
+    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{0,4})')
+    match = re.search(year_pattern, year_stripped)
+
+    start_year = None
+    end_year = None
+
+    if match:
+        start_year = match.group(1)
+        end_year = match.group(2) if match.group(2) else current_year
     else:
-        part_name = modified_string 
-        car_model = "" 
+        try:
+            start_year = int(year_stripped)
+            end_year = start_year
+        except ValueError:
+            pass
 
-    return part_name, car_model
-
+    return start_year, end_year
+    
 def get_digits_after_last_slash(string):
     match = re.search(r"/(\d+)(?=[^/]*$)", string)
     if match:
@@ -89,21 +114,24 @@ def adjust_for_next_url_autotrans(car_mark, car_model):
     car_model_adjusted = re.sub(r"\s+", "-", car_model.lower())
     return car_mark_adjusted, car_model_adjusted
 
-def process_car_model_autotrans(car_model):
-    year_pattern = re.compile(r'(\d{2,4})(?:-(\d{2,4}|ON))')
+def process_and_clean_car_model_autotrans(car_model):
+    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4})')
     match = year_pattern.search(car_model)
+    
+    start_year = None
+    end_year = None
+    
     if match:
         start_year = format_year(match.group(1))
-        end_year = match.group(2)
-        if end_year and end_year != 'ON':
-            end_year = format_year(end_year)
-            return f"{start_year}-{end_year}"
-        return f"{start_year}-"
-    return None
-    
-def clean_car_model_autotrans(car_model):
-    year_pattern = re.compile(r'(\d{2,4})(?:-(\d{2,4}|ON))')
-    return re.sub(year_pattern, '', car_model).strip()
+        end_year = format_year(match.group(2))
+        year_range = f"{start_year}-{end_year}"
+    else:
+        year_range = None
+
+    cleaned_car_model = re.sub(year_pattern, '', car_model).strip()
+
+    return start_year, end_year, cleaned_car_model
+
 
 def process_part_full_name_carline(part_full_name, car_model, car_mark):
     part_full_name_1 = re.sub(car_model, '', part_full_name, flags=re.IGNORECASE).strip()

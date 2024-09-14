@@ -8,9 +8,9 @@ class AutopiaSpider(scrapy.Spider):
 
     custom_settings = {
         'ITEM_PIPELINES': {
-            "nawilebi.pipelines.NawilebiPipeline": 100,
+            #"nawilebi.pipelines.NawilebiPipeline": 100,
             "nawilebi.pipelines.AutopiaPipeline": 200,
-            "nawilebi.pipelines.YearProcessPipeline": 300,
+            #"nawilebi.pipelines.YearProcessPipeline": 300,
             "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
         'DOWNLOAD_DELAY': 0.5,
@@ -72,11 +72,15 @@ class AutopiaSpider(scrapy.Spider):
         
         item["website"] = response.meta["start_url"]
         item["part_url"] = response.url
+        item["car_mark"] = response.css("#wrapper > div > ul > li:nth-child(2) > a::text").get()
+        item["car_model"] = response.css("#wrapper > div > ul > li:nth-child(3) > a::text").get()
         item["car_mark"] = response.css(".price-tax::text").get()
         item["part_full_name"] = response.css("div.content-product-right > div:nth-of-type(1) h1::text").get()
         item["year"] = response.css("div.inner-box-desc div:nth-of-type(3)::text").get()
         #item["oem"] = product_description.css("div.reward:nth-of-type(2) span::text").get()
         item["price"] = response.css("div.content-product-right > div:nth-of-type(3) span::text").get()
+        item["start_year"] = None
+        item["end_year"] = None
         
         '''if response.css("div.content-product-right > div:nth-of-type(3) div:nth-of-type(2)::attr(class)").get() == "modal-wrapper":
             item["in_stock"] = "in_stock"

@@ -7,7 +7,7 @@ import re
 from utilities.additional_functions import *
 
 
-class NawilebiPipeline:
+'''class NawilebiPipeline:
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
 
@@ -38,7 +38,14 @@ class NawilebiPipeline:
                     adapter[field_name] = parse_price(value)
 
         return item
-
+'''
+class NawilebiPipeline:
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        
+        adapter['start_year'] = int(adapter.get("start_year"))
+        adapter['end_year'] = int(adapter.get("end_year"))
+        
 
 class YearProcessPipeline:
     def process_item(self, item, spider):
@@ -143,30 +150,32 @@ class AutopiaPipeline:
 
         for field_name in field_names:
             value = adapter.get(field_name)
+            
+            if isinstance(value, str):
+                adapter[field_name] = value.strip()
 
-            if field_name == "in_stock":
+            if field_name == "car_mark":
+                adapter[field_name] = value.upper().strip()
+                
+            elif field_name == "car_model":
+                car_model_adjusted, car_model_unchanged = process_car_model_autopia(value, adapter.get("car_mark"))
+                adapter[field_name] = car_model_adjusted
+                
+            elif field_name == "in_stock":
                 if value == "modal-wrapper":
                     adapter[field_name] = True
                 else:
                     adapter[field_name] = False
-
-            if field_name == "part_full_name" and "year" in field_names:
-                part_full_name = value
-                year = adapter.get("year")
-                car_mark = adapter.get("car_mark")
-
-                if part_full_name and year:
-                    georgian_string, car_model = process_part_full_name_autopia(part_full_name, year, car_mark)
-
-                    if georgian_string is None or car_model is None:
-                        spider.logger.info(f"Dropping item as part_full_name contains 'სატესტო': {part_full_name}")
-                        return None
-
-                    adapter["part_full_name"] = georgian_string
-                    adapter["car_model"] = car_model
-                else:
-                    spider.logger.warning(f"Missing part_full_name or year for item: {item}")
-
+                
+            elif field_name == "part_full_name":
+                car_model_unchanged = adapter.get("car_model") if 'car_model' in adapter else ""
+                adapter[field_name] = process_part_full_name_autopia(value, adapter.get("car_model"), adapter.get("car_mark"))
+                
+            elif field_name == "price":
+                adapter[field_name] = parse_price(value)
+            elif field_name == "year":
+                adapter["start_year"], adapter["end_year"] = process_year_autopia(value)
+                
         return item
 
 
@@ -233,14 +242,16 @@ class AutotransPipeline:
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
         field_names = adapter.field_names()
+        
         for field_name in field_names:
             value = adapter.get(field_name)
             if field_name == "car_model":
-                adapter["year"] = process_car_model_autotrans(value)
-                adapter["car_model"] = clean_car_model_autotrans(value)
+                start_year, end_year, cleaned_car_model = process_and_clean_car_model_autotrans(value)
+                adapter["start_year"] = start_year
+                adapter["end_year"] = end_year
+                adapter["car_model"] = cleaned_car_model
 
         return item
-
 
 class CarlinePipeline:
     def process_item(self, item, spider):
