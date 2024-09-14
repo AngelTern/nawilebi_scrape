@@ -7,12 +7,13 @@ class CarlineSpider(scrapy.Spider):
     start_urls = ["https://carline.ge/"]
     custom_settings = {
             'ITEM_PIPELINES': {
-                "nawilebi.pipelines.NawilebiPipeline": 100,
-                "nawilebi.pipelines.CarlinePipeline": 200,
-                "nawilebi.pipelines.SaveToMySQLPipeline": 900
-            },
-            'DOWNLOAD_DELAY': 0.5,
-            }
+            "nawilebi.pipelines.NawilebiPipeline": 100,
+            "nawilebi.pipelines.AutopiaPipeline": 200,
+            "nawilebi.pipelines.YearProcessPipeline": 300,
+            "nawilebi.pipelines.SaveToMySQLPipeline": 900
+        },
+        'DOWNLOAD_DELAY': 0.5,
+    }
     avoid_urls = [
         "https://carline.ge/catalog/product/shekvethith/"
     ]

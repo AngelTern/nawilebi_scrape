@@ -157,10 +157,28 @@ def format_year(year):
 def unicode_to_georgian(unicode_str):
     return unicode_str.encode('utf-8').decode('unicode-escape')
 
-def parse_price(string):
-    if not string:
-        return None
+import re
+
+def parse_price(value):
+    """
+    Parse price value, removing non-numeric characters and handling empty or invalid values.
+    """
+    if isinstance(value, int) or isinstance(value, float):
+        return value  # If it's already a number, return it as is
     
-    cleaned_string = re.sub(r'[^\d.,]', '', string)
-    cleaned_string = cleaned_string.replace(',', '.')
-    return float(cleaned_string) if cleaned_string else None
+    if not isinstance(value, str):
+        return 0.0  # Return 0.0 for non-string values
+    
+    # Clean the price string by removing all non-numeric characters except commas and dots
+    cleaned_string = re.sub(r'[^\d.,]', '', value)
+    
+    # Handle cases where cleaned string is empty or invalid
+    if not cleaned_string:
+        return 0.0  # Return 0.0 if the cleaned string is empty
+    
+    # Convert cleaned string to float (handle commas as decimal points)
+    try:
+        return float(cleaned_string.replace(',', '.'))
+    except ValueError:
+        return 0.0  # Return 0.0 if conversion to float fails
+

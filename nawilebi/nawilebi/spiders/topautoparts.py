@@ -12,7 +12,8 @@ class TopautopartsSpider(scrapy.Spider):
     custom_settings = {
         'ITEM_PIPELINES': {
             "nawilebi.pipelines.NawilebiPipeline": 100,
-            "nawilebi.pipelines.TopaoutopartsPopelines": 200,
+            "nawilebi.pipelines.AutopiaPipeline": 200,
+            "nawilebi.pipelines.YearProcessPipeline": 300,
             "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
         'DOWNLOAD_DELAY': 0.5,
