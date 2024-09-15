@@ -8,9 +8,9 @@ class CarpartsSpider(scrapy.Spider):
     start_urls = ["https://car-parts.ge"]
     custom_settings = {
         'ITEM_PIPELINES': {
-            "nawilebi.pipelines.NawilebiPipeline": 100,
-            "nawilebi.pipelines.AutopiaPipeline": 200,
-            "nawilebi.pipelines.YearProcessPipeline": 300,
+            #"nawilebi.pipelines.NawilebiPipeline": 100,
+            "nawilebi.pipelines.CarpartsPipeline": 200,
+            #"nawilebi.pipelines.YearProcessPipeline": 300,
             "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
         'DOWNLOAD_DELAY': 0.5,
@@ -80,6 +80,8 @@ class CarpartsSpider(scrapy.Spider):
         item["car_model"] = response.meta["car_model"]
         item["year"] = response.css("#riva-site-wrapper > div.container > div > div.col-xs-12.col-sm-8.col-lg-9 > section > div.row > div.col-xs-12.col-sm-8.col-lg-7 > div.field.field-name-field-year.field-type-text.field-label-inline.clearfix > div.field-items > div::text").get()
         item["price"] = response.css("#price_id::text").get()
+        item["start_year"] = None
+        item["end_year"] = None
         
         yield item
         

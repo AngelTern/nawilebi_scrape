@@ -11,9 +11,9 @@ class TopautopartsSpider(scrapy.Spider):
     
     custom_settings = {
         'ITEM_PIPELINES': {
-            "nawilebi.pipelines.NawilebiPipeline": 100,
-            "nawilebi.pipelines.AutopiaPipeline": 200,
-            "nawilebi.pipelines.YearProcessPipeline": 300,
+            #"nawilebi.pipelines.NawilebiPipeline": 100,
+            "nawilebi.pipelines.TopautopartsPipeline": 200,
+            #"nawilebi.pipelines.YearProcessPipeline": 300,
             "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
         'DOWNLOAD_DELAY': 0.5,
@@ -75,10 +75,13 @@ class TopautopartsSpider(scrapy.Spider):
             item['car_model'] = car_model
             item['year'] = None
             item['price'] = price
-
+            item["start_year"] = None
+            item["end_year"] = None
+            
             if span_text in ["ბათუმი", "თბილისი"]:
                 item['city'] = span_text
                 item['in_stock'] = 'color:green' in style
-                yield item
+                
+            yield item
 
-        self.logger.info(f"Processed part: {part_name} for model: {car_model}")
+        #self.logger.info(f"Processed part: {part_name} for model: {car_model}")

@@ -190,39 +190,56 @@ class VgpartsPipeline:
                 year, car_model = process_car_model_vgparts(value)
                 adapter["year"] = year
                 adapter["car_model"] = car_model
+            elif field_name == "year":
+                adapter["start_year"], adapter["end_year"] = process_year_vgparts(value)
 
         return item
 
 
-class TopaoutopartsPipelines:
+class TopautopartsPipeline:
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
         field_names = adapter.field_names()
+        
+        year_range, car_model, start_year, end_year = None, None, None, None
+        
         for field_name in field_names:
             value = adapter.get(field_name)
+
             if field_name == "car_model":
-                year_range, car_model = process_car_model_topautoparts(value)
+                year_range, car_model, start_year, end_year = process_car_model_topautoparts(value)
+                adapter["start_year"] = int(start_year) if start_year else None
+                adapter["end_year"] = int(end_year) if end_year else None
                 adapter["year"] = year_range
                 adapter["car_model"] = car_model
+
             if field_name == "part_full_name":
-                adapter[field_name] = process_car_part_full_topautoparts(value, adapter.get("year"), adapter.get("car_model"))
+                adapter[field_name] = process_car_part_full_topautoparts(value, car_model)
+
+            if field_name == "price":
+                adapter[field_name] = parse_price(value)
 
         return item
-
 
 class CarpartsPipeline:
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
         field_names = adapter.field_names()
+        
         for field_name in field_names:
             value = adapter.get(field_name)
             if field_name == "car_model":
                 adapter[field_name] = process_car_model_carparts(value)
-            if field_name == "part_full_name":
-                adapter[field_name] = process_part_full_name(value, adapter.get("car_model"))
+            elif field_name == "part_full_name":
+                adapter[field_name] = process_part_full_name_carparts(value, adapter.get("car_model"), adapter.get("car_mark"))
+            elif field_name == "year":
+                adapter["year"], start_year, end_year = process_year_carparts(value)
+                adapter["start_year"] = int(start_year) if start_year else None
+                adapter["end_year"] = int(end_year) if end_year else None
+            elif field_name == "price":
+                adapter[field_name] = parse_price(value)
 
         return item
-
 
 class VsautoPipeline:
     def process_item(self, item, spider):
@@ -234,7 +251,10 @@ class VsautoPipeline:
                 year, car_model = process_car_model_vsauto(value)
                 adapter["year"] = year
                 adapter["car_model"] = car_model
-
+            elif field_name == "price":
+                adapter[field_name] = float(value) if float(value) else None
+            elif field_name == "year":
+                adapter["start_year"], adapter["end_year"] = process_year_vsauto(value)
         return item
 
 

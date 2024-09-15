@@ -72,21 +72,44 @@ def process_car_model_vgparts(car_model):
         return year, car_model_cleaned
     else:
         return None, car_model
-        
-def process_car_model_topautoparts(car_model):
-    match = re.search(r'(\d{2,4}-\d{2,4})', car_model)
-    if match:
-        year_range = match.group(0)
-        car_model = car_model.replace(year_range, '').strip()
-        return year_range, car_model
-    else:
-        return None, car_model
 
-def process_car_part_full_topautoparts(car_part_full, year, car_model):
-    car_part_full = car_part_full.replace(year, '').strip()
-    car_part_full = car_part_full.replace(car_model, '').strip()
-    return car_part_full
+def process_year_vgparts(year):
+    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4}|\s*)')
+    match = re.search(year_pattern, year)
+    if match:
+        start_year = match.group(1)
+        end_year = match.group(2)
+        if end_year:
+            return int(start_year), int(end_year)
+        else:
+            return start_year, None
+    else:
+        return None, None
+    
+def process_car_model_topautoparts(car_model):
+
+    match = re.search(r'(\d{2,4})-(\d{2,4}|ON)', car_model)
+    
+    if match:
+        start_year = format_year(match.group(1))
+        end_year = match.group(2)
+        if end_year == 'ON':
+            end_year = datetime.now().year
+        else:
+            end_year = format_year(end_year)
         
+        year_range = f"{start_year}-{end_year}"
+        car_model_cleaned = car_model.replace(match.group(0), '').strip()
+        return year_range, car_model_cleaned, start_year, end_year
+    else:
+        return None, car_model, None, None
+def process_car_part_full_topautoparts(car_part_full, car_model):
+    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4}|\s*)')
+    car_part_full = re.sub(year_pattern, '', car_part_full)
+    if car_model:
+        car_part_full = car_part_full.replace(car_model, '').strip()
+    
+    return car_part_full
 def adjust_car_model_name_carparts(car_model):
     car_model_lowered = car_model.lower()
     car_model_adjusted = car_model_lowered.replace(" ", "-")
@@ -95,11 +118,28 @@ def adjust_car_model_name_carparts(car_model):
 def process_car_model_carparts(car_model):
     return re.sub(r'(\b\d{2,4}(?:-\d{2,4})?\b)', '', car_model).strip()
 
-def process_part_full_name(part_full_name, car_model):
+def process_part_full_name_carparts(part_full_name, car_model, car_mark):
     part_full_name_adjusted = re.sub(re.escape(car_model), '', part_full_name, flags=re.IGNORECASE).strip()
+    part_full_name_adjusted = re.sub(re.escape(car_mark), '', part_full_name_adjusted, flags=re.IGNORECASE).strip()
     part_full_name_final = re.sub(r'(\b\d{2,4}(?:-\d{2,4})?\b)', '', part_full_name_adjusted).strip()
     return part_full_name_final
 
+def process_year_carparts(year):
+    year = year.strip()
+    
+    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4}|\s*)')
+    match = year_pattern.search(year)
+    
+    if match:
+        start_year = format_year(match.group(1))  
+        end_year = match.group(2).strip() if match.group(2).strip() else None
+        if end_year:
+            end_year = format_year(end_year)  
+    else:
+        start_year = format_year(year)
+        end_year = None
+
+    return year, start_year, end_year
 
 def process_car_model_vsauto(car_model):
     match = re.search(r'(\d{2,4}-\d{2,4})', car_model)
@@ -109,6 +149,16 @@ def process_car_model_vsauto(car_model):
         return year_range, car_model
     else:
         return None, car_model
+    
+def process_year_vsauto(year):
+    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4}|\s*)')
+    match = re.search(year_pattern, year)
+    if match:
+        start_year = match.group(1)
+        end_year = match.group(2)
+        return start_year, end_year
+    else: return None, None
+    
 def adjust_for_next_url_autotrans(car_mark, car_model):
     car_mark_adjusted = car_mark.lower()
     car_model_adjusted = re.sub(r"\s+", "-", car_model.lower())
@@ -185,28 +235,24 @@ def format_year(year):
 def unicode_to_georgian(unicode_str):
     return unicode_str.encode('utf-8').decode('unicode-escape')
 
-import re
 
 def parse_price(value):
-    """
-    Parse price value, removing non-numeric characters and handling empty or invalid values.
-    """
+
     if isinstance(value, int) or isinstance(value, float):
-        return value  # If it's already a number, return it as is
+        return value  
     
     if not isinstance(value, str):
-        return 0.0  # Return 0.0 for non-string values
+        return 0.0 
     
-    # Clean the price string by removing all non-numeric characters except commas and dots
     cleaned_string = re.sub(r'[^\d.,]', '', value)
     
-    # Handle cases where cleaned string is empty or invalid
     if not cleaned_string:
-        return 0.0  # Return 0.0 if the cleaned string is empty
+        return 0.0 
     
-    # Convert cleaned string to float (handle commas as decimal points)
+    cleaned_string = cleaned_string.replace(',', '.')
+
     try:
-        return float(cleaned_string.replace(',', '.'))
+        return float(cleaned_string)
     except ValueError:
-        return 0.0  # Return 0.0 if conversion to float fails
+        return 0.0 
 
