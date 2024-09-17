@@ -293,3 +293,41 @@ class CarlinePipeline:
                 adapter["part_full_name"] = process_part_full_name_carline(value, adapter.get("car_model"), adapter.get("car_mark"))
 
         return item
+
+class PartscornerPipeline:
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        field_names = adapter.field_names()
+        for field_name in field_names:
+            value = adapter.get(field_name)
+            if field_name == "year":
+                adapter["start_year"], adapter["end_year"] = process_year_partscorner(value)
+            elif field_name == "price":
+                adapter["price"] = parse_price(value)
+                
+        return item
+    
+class GopartsPipeline:
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        field_names = adapter.field_names()
+        for field_name in field_names:
+            value = adapter.get(field_name)
+            
+            if isinstance(value, str):
+                adapter[field_name] = value.strip()
+                
+            if field_name == "car_mark":
+                if value == "B.M.W":
+                    adapter[field_name] = re.sub(r'[^a-zA-Z]', '', value)
+                elif value == "MERCEDES-BENZ":
+                    adapter[field_name] = "MERCEDES"
+            elif field_name == "car_model":
+                adapter[field_name], adapter["start_year"], adapter["end_year"], adapter["year"] = process_year_goparts(value)
+            elif field_name == "part_full_name":
+                if value == "0- საქარე მინის გერმეტიკი 310მლ":
+                    adapter[field_name] = "საქარე მინის გერმეტიკი 310მლ"
+                else:
+                    adapter[field_name] = process_part_full_name_goparts(value)
+            
+        return item

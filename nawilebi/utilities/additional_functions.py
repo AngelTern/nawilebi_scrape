@@ -219,8 +219,45 @@ def process_kia_carline(part_full_name):
     
     return None, part_full_name
 
-        
+def process_year_partscorner(year):
+    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4})')
+    match = year_pattern.search(year)
+    
+    start_year = None
+    end_year = None
+    
+    if match:
+        start_year = format_year(match.group(1))
+        end_year = format_year(match.group(2))
 
+    return start_year, end_year
+
+
+def process_year_goparts(car_model):
+    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4})')
+    match = year_pattern.search(car_model)
+    
+    start_year = None
+    end_year = None
+    year_range = None
+    
+    if match:
+        start_year = format_year(match.group(1))
+        end_year = format_year(match.group(2))
+        year_range = f"{start_year}-{end_year}"
+        
+        # Remove the matched year from car_model string
+        car_model = re.sub(match.group(0), '', car_model).strip()
+    
+    return car_model, start_year, end_year, year_range
+    
+def process_part_full_name_goparts(part_full_name):
+    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4})')
+    match = year_pattern.search(part_full_name)
+    
+    if match:
+        return re.sub(match.group(0), '', part_full_name)
+    
 '''---------------------------------------------------------'''
 
 def format_year(year):
