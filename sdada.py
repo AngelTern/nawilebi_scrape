@@ -1,12 +1,5 @@
-import MySQLdb
+b = "#content > div > div > div > section.elementor-section.elementor-top-section.elementor-element.elementor-element-be4c857.elementor-section-stretched.elementor-section-boxed.elementor-section-height-default.elementor-section-height-default > div > div > div > div > div > div > ul > li:nth-child(1) > a"
+a = "#content > div > div > div > section.elementor-section.elementor-top-section.elementor-element.elementor-element-3b9fab1f.elementor-section-stretched.elementor-section-boxed.elementor-section-height-default.elementor-section-height-default > div > div > div > div > div > div > ul > li:nth-child(1) > a"
 
-try:
-    connection = MySQLdb.connect(
-        host="localhost",
-        user="root",
-        passwd="12XklsD!?NmG1509",
-        db="nawilebi"
-    )
-    print("Connection successful!")
-except MySQLdb.Error as e:
-    print(f"Error connecting to MySQL: {e}")
+
+print(a == b)

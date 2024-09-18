@@ -331,3 +331,15 @@ class GopartsPipeline:
                     adapter[field_name] = process_part_full_name_goparts(value)
             
         return item
+    
+class GeoparsPipeline:
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        field_names = adapter.field_names()
+        for field_name in field_names:
+            value = adapter.get(field_name)
+            
+            if field_name == "car_model":
+                adapter[field_name], adapter["start_year"], adapter["end_year"], adapter["year"] = process_car_model_geoparts(value, adapter.get("car_mark"))
+        
+        return item

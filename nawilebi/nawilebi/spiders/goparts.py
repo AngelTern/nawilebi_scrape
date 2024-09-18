@@ -59,7 +59,6 @@ class GopartsSpider(scrapy.Spider):
             in_stock_block = car_part.css("div div.block2-txt div.in_stock p")
             if in_stock_block:
                 for stock in in_stock_block:
-                    # Create a new item for each stock entry
                     item = NawilebiItem()
                     item["website"] = website
                     item["part_url"] = part_url
@@ -80,7 +79,6 @@ class GopartsSpider(scrapy.Spider):
 
                     yield item
             else:
-                # If there is no in_stock_block, yield item without stock info
                 item = NawilebiItem()
                 item["website"] = website
                 item["part_url"] = part_url
