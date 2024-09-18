@@ -317,9 +317,44 @@ def process_car_model_newparts(car_model):
     
     return cleaned_model if cleaned_model != car_model else car_model
 
+def process_car_model_bgauto(car_model, car_mark):
+    car_model = re.sub(car_mark, '', car_model).strip()
+
+    current_year = datetime.now().year
+
+    year_pattern = re.compile(r'(\d{4})\s*-\s*(\d{4})?')
+    match = year_pattern.search(car_model)
+    
+    start_year = None
+    end_year = None
+    year = None
+
+    if match:
+        start_year = format_year(match.group(1))
+
+        end_year = format_year(match.group(2)) if match.group(2) else current_year
+
+        year = f"{start_year}-{end_year}"
+
+        car_model = re.sub(year_pattern, '', car_model).strip()
+
+    return car_model, start_year, end_year, year
+    
+def process_part_full_name_bgauto(part_full_name):
+    year_pattern = re.compile(r'\d{4}\s*-\s*(\d{4})?')
+    
+    if year_pattern.search(part_full_name):
+        cleaned_name = re.sub(year_pattern, '', part_full_name).strip()
+    else:
+        cleaned_name = part_full_name
+
+    return cleaned_name
+    
 '''---------------------------------------------------------'''
 
 def format_year(year):
+    if year is None:
+        return None
     year = int(year)
     if year < 100:
         if year >= 50:
@@ -327,9 +362,6 @@ def format_year(year):
         else:
             return 2000 + year
     return year
-
-def unicode_to_georgian(unicode_str):
-    return unicode_str.encode('utf-8').decode('unicode-escape')
 
 
 def parse_price(value):

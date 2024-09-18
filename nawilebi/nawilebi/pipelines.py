@@ -378,3 +378,21 @@ class NewpartsPipeline:
         if car_model:
             adapter["car_model"] = process_car_model_newparts(car_model)
         return item
+    
+class BgautoPipeline:
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        
+        price = adapter.get("price")
+        if price:
+            adapter["price"] = parse_price(price)
+            
+        car_model = adapter.get("car_model")
+        if car_model:
+            adapter["car_model"], adapter["start_year"], adapter["end_year"], adapter["year"] = process_car_model_bgauto(car_model, adapter.get("car_mark"))
+        
+        part_full_name = adapter.get("part_full_name")
+        if part_full_name:
+            adapter["part_full_name"] = process_part_full_name_bgauto(part_full_name)
+        
+        return item
