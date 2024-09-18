@@ -349,13 +349,13 @@ class GeoparsPipeline:
 class ZupartsPipeline:
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
-        
+
         car_model = adapter.get('car_model')
-        if car_model and car_model == "GRANDVITARA 19980-05":
-            adapter["car_model"] = "GRANDVITARA 1998-05"
+        if car_model:
+            if "19980-05" in car_model:
+                car_model = car_model.replace("19980-05", "1998-05")
             adapter['car_model'], adapter['start_year'], adapter['end_year'], adapter['year'] = process_car_model_zuparts(car_model)
-        elif car_model:
-            adapter['car_model'], adapter['start_year'], adapter['end_year'], adapter['year'] = process_car_model_zuparts(car_model)
+
         price = adapter.get('price')
         if price:
             adapter['price'] = parse_price(price)
