@@ -294,6 +294,29 @@ def process_car_model_zuparts(car_model):
         car_model = re.sub(match.group(0), '', car_model).strip()
     
     return car_model, start_year, end_year, year_range
+
+def process_year_newparts(year):
+    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4})')
+    match = year_pattern.search(year)
+    
+    start_year = None
+    end_year = None
+    
+    if match:
+        start_year = format_year(match.group(1))
+        end_year = format_year(match.group(2))
+        year_range = f"{start_year}-{end_year}"
+        
+    return year_range, start_year, end_year
+
+import re
+
+def process_car_model_newparts(car_model):
+    engine_size_pattern = r'\d+(\.\d+)?L'
+    cleaned_model = re.sub(engine_size_pattern, '', car_model).strip()
+    
+    return cleaned_model if cleaned_model != car_model else car_model
+
 '''---------------------------------------------------------'''
 
 def format_year(year):

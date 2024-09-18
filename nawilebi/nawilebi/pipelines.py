@@ -361,3 +361,20 @@ class ZupartsPipeline:
             adapter['price'] = parse_price(price)
         
         return item
+
+class NewpartsPipeline:
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        
+        price = adapter.get("price")
+        if price:
+            adapter["price"] = parse_price(price)
+        
+        year = adapter.get("year")
+        if year:
+            adapter["year"], adapter["start_year"], adapter["end_year"] = process_year_newparts(year)
+        
+        car_model = adapter.get("car_model")
+        if car_model:
+            adapter["car_model"] = process_car_model_newparts(car_model)
+        return item
