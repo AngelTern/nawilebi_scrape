@@ -278,6 +278,22 @@ def process_car_model_geoparts(car_model, car_mark):
     
     return car_model, start_year, end_year, year_range
     
+def process_car_model_zuparts(car_model):
+    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4})')
+    match = year_pattern.search(car_model)
+    
+    start_year = None
+    end_year = None
+    year_range = None
+    
+    if match:
+        start_year = format_year(match.group(1))
+        end_year = format_year(match.group(2))
+        year_range = f"{start_year}-{end_year}"
+        
+        car_model = re.sub(match.group(0), '', car_model).strip()
+    
+    return car_model, start_year, end_year, year_range
 '''---------------------------------------------------------'''
 
 def format_year(year):
