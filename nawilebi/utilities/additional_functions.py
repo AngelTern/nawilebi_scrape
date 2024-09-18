@@ -256,7 +256,10 @@ def process_part_full_name_goparts(part_full_name):
     match = year_pattern.search(part_full_name)
     
     if match:
-        return re.sub(match.group(0), '', part_full_name)
+        return re.sub(match.group(0), '', part_full_name).strip()
+    else:
+        return part_full_name.strip()
+
     
 '''---------------------------------------------------------'''
 

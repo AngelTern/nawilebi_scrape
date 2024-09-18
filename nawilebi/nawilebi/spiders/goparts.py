@@ -39,34 +39,63 @@ class GopartsSpider(scrapy.Spider):
         car_part_list = response.css("#items > div")
 
         for car_part in car_part_list:
-            item = NawilebiItem()
-            item["website"] = "https://goparts.ge/ge"
-            item["part_url"] = car_part.css("div div.block2-txt a::attr(href)").get()
-            item["car_mark"] = response.meta["car_mark"]
-            item["car_model"] = response.meta["car_model"]
-            item["part_full_name"] = car_part.css("div div.block2-txt a::text").get()
+            # Extract common fields outside the stock loop
+            website = "https://goparts.ge/ge"
+            part_url = car_part.css("div div.block2-txt a::attr(href)").get()
+            car_mark = response.meta["car_mark"]
+            car_model = response.meta["car_model"]
+            part_full_name = car_part.css("div div.block2-txt a::text").get()
 
             price_raw = car_part.css("div div.block2-txt .block2-price::text").get()
             if price_raw:
-                item["price"] = price_raw.replace("₾", "").strip()
+                price = price_raw.replace("₾", "").strip()
             else:
-                item["price"] = None
+                price = None
 
-            item["year"] = None
-            item["start_year"] = None
-            item["end_year"] = None
+            year = None
+            start_year = None
+            end_year = None
 
             in_stock_block = car_part.css("div div.block2-txt div.in_stock p")
             if in_stock_block:
-                
                 for stock in in_stock_block:
+                    # Create a new item for each stock entry
+                    item = NawilebiItem()
+                    item["website"] = website
+                    item["part_url"] = part_url
+                    item["car_mark"] = car_mark
+                    item["car_model"] = car_model
+                    item["part_full_name"] = part_full_name
+                    item["price"] = price
+                    item["year"] = year
+                    item["start_year"] = start_year
+                    item["end_year"] = end_year
+
+                    # Extract stock-specific information
                     stock_class = stock.css("span::attr(class)").get()
-                    
                     city = stock.css("span::text").get()
-                    
+
                     item["in_stock"] = stock_class
                     item["city"] = city
 
                     yield item
+            else:
+                # If there is no in_stock_block, yield item without stock info
+                item = NawilebiItem()
+                item["website"] = website
+                item["part_url"] = part_url
+                item["car_mark"] = car_mark
+                item["car_model"] = car_model
+                item["part_full_name"] = part_full_name
+                item["price"] = price
+                item["year"] = year
+                item["start_year"] = start_year
+                item["end_year"] = end_year
+
+                item["in_stock"] = None
+                item["city"] = None
+
+                yield item
+
 
             
