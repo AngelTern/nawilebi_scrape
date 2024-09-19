@@ -450,14 +450,63 @@ def process_part_full_name_autogama(part_full_name):
     name = part_full_name
     
     if match:
-        # Extract the price
-        price = int(match.group(1))  # convert price to an integer
+        price = int(match.group(1))
         
-        # Remove the price from the part_string to get the name
         name = re.sub(price_pattern, '', part_full_name).strip()
     
     return name, price
 
+import re
+from datetime import datetime
+
+def process_part_full_name_apgparts(part_full_name, car_model):
+    # List of car marks
+    car_mark_list = ["TOYOTA", "HYUNDAI", "MAZDA"]
+    
+    # Clean and format car_model
+    car_model = car_model.strip().upper()
+    
+    # Define the year pattern to detect year ranges
+    year_pattern = re.compile(r'(\d{4})\s*-\s*(\d{4})?')
+    
+    # Remove the year range from the car_model
+    car_model_cleaned = re.sub(year_pattern, '', car_model).strip()
+
+    car_mark = None
+
+    # Find the car mark in the part_full_name
+    for mark in car_mark_list:
+        if mark in part_full_name.upper():
+            car_mark = mark
+            # Remove car mark from part_full_name
+            part_full_name = re.sub(mark, '', part_full_name, flags=re.IGNORECASE).strip()
+            break
+
+    # Remove the car model from part_full_name
+    part_full_name_cleaned = re.sub(re.escape(car_model_cleaned), '', part_full_name, flags=re.IGNORECASE).strip()
+    
+    # Remove any dashes or multiple spaces
+    part_full_name_cleaned = re.sub(r'[-–]', '', part_full_name_cleaned).strip()
+    part_full_name_cleaned = re.sub(r'\s+', ' ', part_full_name_cleaned).strip()
+
+    # Remove the year from part_full_name
+    part_full_name_cleaned = re.sub(r'\d{4}', '', part_full_name_cleaned).strip()
+
+    # Handle the years in the car_model
+    match = year_pattern.search(car_model)
+    start_year = end_year = year = None
+    current_year = datetime.now().year
+
+    if match:
+        start_year = int(match.group(1))
+        end_year = int(match.group(2)) if match.group(2) else current_year
+        year = f"{start_year}-{end_year}"
+
+    return part_full_name_cleaned, car_mark, car_model_cleaned, start_year, end_year, year
+
+
+
+    
 
 '''---------------------------------------------------------'''
 

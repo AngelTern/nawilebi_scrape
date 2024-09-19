@@ -5,7 +5,7 @@ from itemadapter import ItemAdapter
 import logging
 import re
 from utilities.additional_functions import *
-
+from scrapy.exceptions import DropItem
 
 '''class NawilebiPipeline:
     def process_item(self, item, spider):
@@ -457,3 +457,27 @@ class AutogamaPipeline:
             adapter["car_mark"], adapter["car_model"], adapter["start_year"], adapter["end_year"], adapter["year"] = process_car_model_autogama(car_model)
             
         return item
+    
+class ApgpartsPipeline:
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        
+        part_full_name = adapter.get("part_full_name")
+        
+        if 'აქსესუარი 1' in part_full_name:
+            raise DropItem(f"Dropping item with part_full_name: {part_full_name}")
+        
+        if part_full_name:
+            adapter["part_full_name"], adapter["car_mark"], adapter["car_model"], adapter["start_year"], adapter["end_year"], adapter["year"] = process_part_full_name_apgparts(part_full_name, adapter.get("car_model"))
+        
+        car_model = adapter.get("car_model")
+        if car_model:
+            adapter["car_model"] = car_model.strip().upper()
+        
+        price = adapter.get("price")
+        if price:
+            adapter["price"] = parse_price(price)
+        
+        return item
+
+        
