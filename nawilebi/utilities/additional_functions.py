@@ -350,6 +350,26 @@ def process_part_full_name_bgauto(part_full_name):
 
     return cleaned_name
     
+def process_year_proauto(year):
+    year_pattern = re.compile(r'(\d{4})(?:\s*-\s*(\d{4}))?')
+    match = year_pattern.search(year)
+    
+    start_year = None
+    end_year = None
+    year_result = year
+    
+    if match:
+        start_year = format_year(match.group(1))
+
+        end_year = format_year(match.group(2)) if match.group(2) else datetime.now().year
+
+        year_result = f"{start_year}-{end_year}"
+        
+        year = re.sub(year_pattern, '', year).strip()
+
+    return start_year, end_year, year_result
+        
+    
 '''---------------------------------------------------------'''
 
 def format_year(year):

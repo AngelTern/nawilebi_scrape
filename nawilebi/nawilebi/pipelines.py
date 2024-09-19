@@ -396,3 +396,22 @@ class BgautoPipeline:
             adapter["part_full_name"] = process_part_full_name_bgauto(part_full_name)
         
         return item
+    
+class ProautoPipeline:
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        
+        year = adapter.get("year")
+        if year:
+            adapter["start_year"], adapter["end_year"], adapter["year"] = process_year_proauto(year)
+            
+        price = adapter.get("price")
+        if price:
+            adapter["price"] = parse_price(price)
+        
+        original_price = adapter.get("original_price")
+        if original_price:
+            adapter["original_price"] = parse_price(original_price)
+            
+        
+        return item
