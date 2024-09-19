@@ -392,6 +392,27 @@ def process_car_model_proauto(car_model, car_mark):
 
     return car_model, start_year, end_year, year    
     
+def process_car_model_crossmotors(car_model):
+    current_year = datetime.now().year
+
+    year_pattern = re.compile(r'(\d{4})\s*-\s*(\d{4})?')
+    match = year_pattern.search(car_model)
+    
+    start_year = None
+    end_year = None
+    year = None
+
+    if match:
+        start_year = format_year(match.group(1))
+
+        end_year = format_year(match.group(2)) if match.group(2) else current_year
+
+        year = f"{start_year}-{end_year}"
+
+        car_model = re.sub(year_pattern, '', car_model).strip()
+
+    return car_model, start_year, end_year, year
+
 '''---------------------------------------------------------'''
 
 def format_year(year):
