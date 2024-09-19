@@ -413,6 +413,52 @@ def process_car_model_crossmotors(car_model):
 
     return car_model, start_year, end_year, year
 
+def process_car_model_autogama(car_model):
+    car_mark_list = ["SUBARU", "HYUNDAI", "KIA", "NISSAN", "TOYOTA", "BMW"]
+    car_mark = None
+    
+    for mark in car_mark_list:
+        if mark in car_model.upper():
+            car_mark = mark
+            car_model = car_model.replace(mark, '').strip()
+            break
+    
+    current_year = datetime.now().year
+
+    year_pattern = re.compile(r'(\d{4})\s*-\s*(\d{4})?')
+    match = year_pattern.search(car_model)
+    
+    start_year = None
+    end_year = None
+    year = None
+
+    if match:
+        start_year = format_year(match.group(1))
+        end_year = format_year(match.group(2)) if match.group(2) else current_year
+        year = f"{start_year}-{end_year}"
+
+        car_model = re.sub(year_pattern, '', car_model).strip()
+
+    return car_mark, car_model, start_year, end_year, year
+
+def process_part_full_name_autogama(part_full_name):
+    price_pattern = re.compile(r'(\d+)\s*₾')
+    
+    match = price_pattern.search(part_full_name)
+    
+    price = None
+    name = part_full_name
+    
+    if match:
+        # Extract the price
+        price = int(match.group(1))  # convert price to an integer
+        
+        # Remove the price from the part_string to get the name
+        name = re.sub(price_pattern, '', part_full_name).strip()
+    
+    return name, price
+
+
 '''---------------------------------------------------------'''
 
 def format_year(year):

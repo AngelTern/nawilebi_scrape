@@ -443,3 +443,17 @@ class CrossmotorsPipeline:
             adapter["price"] = parse_price(price)
             
         return item
+    
+class AutogamaPipeline:
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        
+        part_full_name = adapter.get("part_full_name")
+        if part_full_name:
+            adapter["part_full_name"], adapter["price"] = process_part_full_name_autogama(part_full_name)
+            
+        car_model = adapter.get("car_model")
+        if car_model:
+            adapter["car_mark"], adapter["car_model"], adapter["start_year"], adapter["end_year"], adapter["year"] = process_car_model_autogama(car_model)
+            
+        return item
