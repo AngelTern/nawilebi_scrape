@@ -480,4 +480,7 @@ class ApgpartsPipeline:
         
         return item
 
+class PpPipeline:
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
         

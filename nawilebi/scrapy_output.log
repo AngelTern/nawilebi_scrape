@@ -1,0 +1,998 @@
+2024-09-20 02:46:19 [scrapy.utils.log] INFO: Scrapy 2.11.2 started (bot: nawilebi)
+2024-09-20 02:46:19 [scrapy.utils.log] INFO: Versions: lxml 5.3.0.0, libxml2 2.11.7, cssselect 1.2.0, parsel 1.9.1, w3lib 2.2.1, Twisted 24.7.0, Python 3.11.9 | packaged by Anaconda, Inc. | (main, Apr 19 2024, 16:40:41) [MSC v.1916 64 bit (AMD64)], pyOpenSSL 24.2.1 (OpenSSL 3.0.15 3 Sep 2024), cryptography 43.0.0, Platform Windows-10-10.0.22631-SP0
+2024-09-20 02:46:19 [scrapy.addons] INFO: Enabled addons:
+[]
+2024-09-20 02:46:19 [asyncio] DEBUG: Using selector: SelectSelector
+2024-09-20 02:46:19 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.asyncioreactor.AsyncioSelectorReactor
+2024-09-20 02:46:19 [scrapy.utils.log] DEBUG: Using asyncio event loop: asyncio.windows_events._WindowsSelectorEventLoop
+2024-09-20 02:46:19 [scrapy.extensions.telnet] INFO: Telnet Password: 71123a061b5c7196
+2024-09-20 02:46:19 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2024-09-20 02:46:19 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'nawilebi',
+ 'DOWNLOAD_DELAY': 0.5,
+ 'FEED_EXPORT_ENCODING': 'utf-8',
+ 'LOG_FILE': 'scrapy_output.log',
+ 'NEWSPIDER_MODULE': 'nawilebi.spiders',
+ 'REQUEST_FINGERPRINTER_IMPLEMENTATION': '2.7',
+ 'SPIDER_MODULES': ['nawilebi.spiders'],
+ 'TWISTED_REACTOR': 'twisted.internet.asyncioreactor.AsyncioSelectorReactor'}
+2024-09-20 02:46:19 [urllib3.connectionpool] DEBUG: Starting new HTTP connection (1): headers.scrapeops.io:80
+2024-09-20 02:46:20 [urllib3.connectionpool] DEBUG: http://headers.scrapeops.io:80 "GET /v1/browser-headers?api_key=020f7e20-d5df-490d-a0b5-0fc569d5262a&num_results=50 HTTP/11" 301 178
+2024-09-20 02:46:20 [urllib3.connectionpool] DEBUG: Starting new HTTPS connection (1): headers.scrapeops.io:443
+2024-09-20 02:46:20 [urllib3.connectionpool] DEBUG: https://headers.scrapeops.io:443 "GET /v1/browser-headers?api_key=020f7e20-d5df-490d-a0b5-0fc569d5262a&num_results=50 HTTP/11" 200 None
+2024-09-20 02:46:20 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'nawilebi.middlewares.FakeBrowserHeaderAgentMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2024-09-20 02:46:20 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2024-09-20 02:46:20 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2024-09-20 02:46:20 [scrapy.core.engine] INFO: Spider opened
+2024-09-20 02:46:20 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2024-09-20 02:46:20 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2024-09-20 02:46:21 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/> (referer: None)
+2024-09-20 02:46:22 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/search?brand_id=57> (referer: https://pp.ge/)
+2024-09-20 02:46:24 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/search?brand_id=80> (referer: https://pp.ge/)
+2024-09-20 02:46:24 [scrapy.core.scraper] ERROR: Spider error processing <GET https://pp.ge/search?brand_id=80> (referer: https://pp.ge/)
+Traceback (most recent call last):
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\utils\defer.py", line 279, in iter_errback
+    yield next(it)
+          ^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\utils\python.py", line 350, in __next__
+    return next(self.data)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\utils\python.py", line 350, in __next__
+    return next(self.data)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\core\spidermw.py", line 106, in process_sync
+    for r in iterable:
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\spidermiddlewares\referer.py", line 352, in <genexpr>
+    return (self._set_referer(r, response) for r in result or ())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\core\spidermw.py", line 106, in process_sync
+    for r in iterable:
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\spidermiddlewares\urllength.py", line 27, in <genexpr>
+    return (r for r in result or () if self._filter(r, spider))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\core\spidermw.py", line 106, in process_sync
+    for r in iterable:
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\spidermiddlewares\depth.py", line 31, in <genexpr>
+    return (r for r in result or () if self._filter(r, response, spider))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\core\spidermw.py", line 106, in process_sync
+    for r in iterable:
+  File "D:\Projects\nawilebi_scrape\nawilebi\nawilebi\spiders\pp.py", line 45, in parse_mark_page
+    card_view_url = response.url + {}
+                    ~~~~~~~~~~~~~^~~~
+TypeError: can only concatenate str (not "dict") to str
+2024-09-20 02:46:26 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/search?brand_id=41> (referer: https://pp.ge/)
+2024-09-20 02:46:26 [scrapy.core.scraper] ERROR: Spider error processing <GET https://pp.ge/search?brand_id=41> (referer: https://pp.ge/)
+Traceback (most recent call last):
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\utils\defer.py", line 279, in iter_errback
+    yield next(it)
+          ^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\utils\python.py", line 350, in __next__
+    return next(self.data)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\utils\python.py", line 350, in __next__
+    return next(self.data)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\core\spidermw.py", line 106, in process_sync
+    for r in iterable:
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\spidermiddlewares\referer.py", line 352, in <genexpr>
+    return (self._set_referer(r, response) for r in result or ())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\core\spidermw.py", line 106, in process_sync
+    for r in iterable:
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\spidermiddlewares\urllength.py", line 27, in <genexpr>
+    return (r for r in result or () if self._filter(r, spider))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\core\spidermw.py", line 106, in process_sync
+    for r in iterable:
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\spidermiddlewares\depth.py", line 31, in <genexpr>
+    return (r for r in result or () if self._filter(r, response, spider))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\core\spidermw.py", line 106, in process_sync
+    for r in iterable:
+  File "D:\Projects\nawilebi_scrape\nawilebi\nawilebi\spiders\pp.py", line 45, in parse_mark_page
+    card_view_url = response.url + {}
+                    ~~~~~~~~~~~~~^~~~
+TypeError: can only concatenate str (not "dict") to str
+2024-09-20 02:46:26 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/search?brand_id=34> (referer: https://pp.ge/)
+2024-09-20 02:46:27 [scrapy.core.scraper] ERROR: Spider error processing <GET https://pp.ge/search?brand_id=34> (referer: https://pp.ge/)
+Traceback (most recent call last):
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\utils\defer.py", line 279, in iter_errback
+    yield next(it)
+          ^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\utils\python.py", line 350, in __next__
+    return next(self.data)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\utils\python.py", line 350, in __next__
+    return next(self.data)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\core\spidermw.py", line 106, in process_sync
+    for r in iterable:
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\spidermiddlewares\referer.py", line 352, in <genexpr>
+    return (self._set_referer(r, response) for r in result or ())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\core\spidermw.py", line 106, in process_sync
+    for r in iterable:
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\spidermiddlewares\urllength.py", line 27, in <genexpr>
+    return (r for r in result or () if self._filter(r, spider))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\core\spidermw.py", line 106, in process_sync
+    for r in iterable:
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\spidermiddlewares\depth.py", line 31, in <genexpr>
+    return (r for r in result or () if self._filter(r, response, spider))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\core\spidermw.py", line 106, in process_sync
+    for r in iterable:
+  File "D:\Projects\nawilebi_scrape\nawilebi\nawilebi\spiders\pp.py", line 45, in parse_mark_page
+    card_view_url = response.url + {}
+                    ~~~~~~~~~~~~~^~~~
+TypeError: can only concatenate str (not "dict") to str
+2024-09-20 02:46:27 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/search?brand_id=73> (referer: https://pp.ge/)
+2024-09-20 02:46:27 [scrapy.core.scraper] ERROR: Spider error processing <GET https://pp.ge/search?brand_id=73> (referer: https://pp.ge/)
+Traceback (most recent call last):
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\utils\defer.py", line 279, in iter_errback
+    yield next(it)
+          ^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\utils\python.py", line 350, in __next__
+    return next(self.data)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\utils\python.py", line 350, in __next__
+    return next(self.data)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\core\spidermw.py", line 106, in process_sync
+    for r in iterable:
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\spidermiddlewares\referer.py", line 352, in <genexpr>
+    return (self._set_referer(r, response) for r in result or ())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\core\spidermw.py", line 106, in process_sync
+    for r in iterable:
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\spidermiddlewares\urllength.py", line 27, in <genexpr>
+    return (r for r in result or () if self._filter(r, spider))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\core\spidermw.py", line 106, in process_sync
+    for r in iterable:
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\spidermiddlewares\depth.py", line 31, in <genexpr>
+    return (r for r in result or () if self._filter(r, response, spider))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\georg\anaconda3\envs\nawilebi_scrape\Lib\site-packages\scrapy\core\spidermw.py", line 106, in process_sync
+    for r in iterable:
+  File "D:\Projects\nawilebi_scrape\nawilebi\nawilebi\spiders\pp.py", line 45, in parse_mark_page
+    card_view_url = response.url + {}
+                    ~~~~~~~~~~~~~^~~~
+TypeError: can only concatenate str (not "dict") to str
+2024-09-20 02:46:27 [scrapy.core.engine] INFO: Closing spider (finished)
+2024-09-20 02:46:27 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 5634,
+ 'downloader/request_count': 6,
+ 'downloader/request_method_count/GET': 6,
+ 'downloader/response_bytes': 194082,
+ 'downloader/response_count': 6,
+ 'downloader/response_status_count/200': 6,
+ 'elapsed_time_seconds': 6.571819,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2024, 9, 19, 22, 46, 27, 196810, tzinfo=datetime.timezone.utc),
+ 'httpcompression/response_bytes': 1582234,
+ 'httpcompression/response_count': 6,
+ 'log_count/DEBUG': 13,
+ 'log_count/ERROR': 4,
+ 'log_count/INFO': 10,
+ 'request_depth_max': 1,
+ 'response_received_count': 6,
+ 'scheduler/dequeued': 6,
+ 'scheduler/dequeued/memory': 6,
+ 'scheduler/enqueued': 6,
+ 'scheduler/enqueued/memory': 6,
+ 'spider_exceptions/TypeError': 4,
+ 'start_time': datetime.datetime(2024, 9, 19, 22, 46, 20, 624991, tzinfo=datetime.timezone.utc)}
+2024-09-20 02:46:27 [scrapy.core.engine] INFO: Spider closed (finished)
+2024-09-20 02:46:45 [scrapy.utils.log] INFO: Scrapy 2.11.2 started (bot: nawilebi)
+2024-09-20 02:46:45 [scrapy.utils.log] INFO: Versions: lxml 5.3.0.0, libxml2 2.11.7, cssselect 1.2.0, parsel 1.9.1, w3lib 2.2.1, Twisted 24.7.0, Python 3.11.9 | packaged by Anaconda, Inc. | (main, Apr 19 2024, 16:40:41) [MSC v.1916 64 bit (AMD64)], pyOpenSSL 24.2.1 (OpenSSL 3.0.15 3 Sep 2024), cryptography 43.0.0, Platform Windows-10-10.0.22631-SP0
+2024-09-20 02:46:45 [scrapy.addons] INFO: Enabled addons:
+[]
+2024-09-20 02:46:45 [asyncio] DEBUG: Using selector: SelectSelector
+2024-09-20 02:46:45 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.asyncioreactor.AsyncioSelectorReactor
+2024-09-20 02:46:45 [scrapy.utils.log] DEBUG: Using asyncio event loop: asyncio.windows_events._WindowsSelectorEventLoop
+2024-09-20 02:46:45 [scrapy.extensions.telnet] INFO: Telnet Password: 8c624db942d2ad4c
+2024-09-20 02:46:45 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2024-09-20 02:46:45 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'nawilebi',
+ 'DOWNLOAD_DELAY': 0.5,
+ 'FEED_EXPORT_ENCODING': 'utf-8',
+ 'LOG_FILE': 'scrapy_output.log',
+ 'NEWSPIDER_MODULE': 'nawilebi.spiders',
+ 'REQUEST_FINGERPRINTER_IMPLEMENTATION': '2.7',
+ 'SPIDER_MODULES': ['nawilebi.spiders'],
+ 'TWISTED_REACTOR': 'twisted.internet.asyncioreactor.AsyncioSelectorReactor'}
+2024-09-20 02:46:45 [urllib3.connectionpool] DEBUG: Starting new HTTP connection (1): headers.scrapeops.io:80
+2024-09-20 02:46:46 [urllib3.connectionpool] DEBUG: http://headers.scrapeops.io:80 "GET /v1/browser-headers?api_key=020f7e20-d5df-490d-a0b5-0fc569d5262a&num_results=50 HTTP/11" 301 178
+2024-09-20 02:46:46 [urllib3.connectionpool] DEBUG: Starting new HTTPS connection (1): headers.scrapeops.io:443
+2024-09-20 02:46:46 [urllib3.connectionpool] DEBUG: https://headers.scrapeops.io:443 "GET /v1/browser-headers?api_key=020f7e20-d5df-490d-a0b5-0fc569d5262a&num_results=50 HTTP/11" 200 None
+2024-09-20 02:46:46 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'nawilebi.middlewares.FakeBrowserHeaderAgentMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2024-09-20 02:46:46 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2024-09-20 02:46:46 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2024-09-20 02:46:46 [scrapy.core.engine] INFO: Spider opened
+2024-09-20 02:46:46 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2024-09-20 02:46:46 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2024-09-20 02:46:47 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/> (referer: None)
+2024-09-20 02:46:47 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/search?brand_id=57> (referer: https://pp.ge/)
+2024-09-20 02:46:50 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/search?brand_id=80> (referer: https://pp.ge/)
+2024-09-20 02:46:51 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/TOYOTA/CAMRY/XV50-2014---2017/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A1%E1%83%90%E1%83%9C%E1%83%98%E1%83%A1%E1%83%9A%E1%83%94-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000510> (referer: https://pp.ge/search?brand_id=80)
+2024-09-20 02:46:51 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/search?brand_id=41> (referer: https://pp.ge/)
+2024-09-20 02:46:51 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/TOYOTA/CAMRY/XV50-2014---2017/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A1%E1%83%90%E1%83%9C%E1%83%98%E1%83%A1%E1%83%9A%E1%83%94-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000510>
+{'car_mark': 'TOYOTA',
+ 'car_model': 'TOYOTA CAMRY',
+ 'city': 'თბილისი',
+ 'in_stock': '2',
+ 'original_price': '0',
+ 'part_full_name': 'სანისლე ფარი, მარჯვენა',
+ 'part_url': 'https://pp.ge/TOYOTA/CAMRY/XV50-2014---2017/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A1%E1%83%90%E1%83%9C%E1%83%98%E1%83%A1%E1%83%9A%E1%83%94-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000510',
+ 'price': '25',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'XV50 2014 - 2017\n'
+          '                                                                                    ']}
+2024-09-20 02:46:52 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/TOYOTA/HILUX/VIII-GEN-2015---2020/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%99%E1%83%90%E1%83%9E%E1%83%9D%E1%83%A2%E1%83%98/10000696> (referer: https://pp.ge/search?brand_id=80)
+2024-09-20 02:46:52 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/TOYOTA/HILUX/VIII-GEN-2015---2020/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%99%E1%83%90%E1%83%9E%E1%83%9D%E1%83%A2%E1%83%98/10000696>
+{'car_mark': 'TOYOTA',
+ 'car_model': 'TOYOTA HILUX',
+ 'city': 'თბილისი',
+ 'in_stock': '1',
+ 'original_price': '0',
+ 'part_full_name': 'კაპოტი, კაპოტი',
+ 'part_url': 'https://pp.ge/TOYOTA/HILUX/VIII-GEN-2015---2020/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%99%E1%83%90%E1%83%9E%E1%83%9D%E1%83%A2%E1%83%98/10000696',
+ 'price': '450',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'VIII GEN 2015 - 2020\n'
+          '                                                                                    ']}
+2024-09-20 02:46:52 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/TOYOTA/CAMRY/XV70-2017---2020/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A1%E1%83%90%E1%83%9C%E1%83%98%E1%83%A1%E1%83%9A%E1%83%94-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000507> (referer: https://pp.ge/search?brand_id=80)
+2024-09-20 02:46:53 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/TOYOTA/CAMRY/XV70-2017---2020/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A1%E1%83%90%E1%83%9C%E1%83%98%E1%83%A1%E1%83%9A%E1%83%94-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000507>
+{'car_mark': 'TOYOTA',
+ 'car_model': 'TOYOTA CAMRY',
+ 'city': 'თბილისი',
+ 'in_stock': '4',
+ 'original_price': '0',
+ 'part_full_name': 'სანისლე ფარი, მარცხენა',
+ 'part_url': 'https://pp.ge/TOYOTA/CAMRY/XV70-2017---2020/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A1%E1%83%90%E1%83%9C%E1%83%98%E1%83%A1%E1%83%9A%E1%83%94-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000507',
+ 'price': '40',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'XV70 2017 - 2020\n'
+          '                                                                                    ']}
+2024-09-20 02:46:53 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/search?brand_id=34> (referer: https://pp.ge/)
+2024-09-20 02:46:53 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/TOYOTA/LC-PRADO/J150-2017---PRSS/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000778> (referer: https://pp.ge/search?brand_id=80)
+2024-09-20 02:46:53 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/TOYOTA/LC-PRADO/J150-2017---PRSS/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000778>
+{'car_mark': 'TOYOTA',
+ 'car_model': 'TOYOTA LC PRADO',
+ 'city': 'თბილისი',
+ 'in_stock': '2',
+ 'original_price': '0',
+ 'part_full_name': 'ბამპერი წინა, ბამპერი',
+ 'part_url': 'https://pp.ge/TOYOTA/LC-PRADO/J150-2017---PRSS/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000778',
+ 'price': '130',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'J150 2017 - PRSS\n'
+          '                                                                                    ']}
+2024-09-20 02:46:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/TOYOTA/RAV4/XA50-2018---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A4%E1%83%A0%E1%83%97%E1%83%98%E1%83%A1-%E1%83%90%E1%83%9B%E1%83%9D%E1%83%A1%E1%83%90%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%94%E1%83%9A%E1%83%98/10001179> (referer: https://pp.ge/search?brand_id=80)
+2024-09-20 02:46:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/search?brand_id=73> (referer: https://pp.ge/)
+2024-09-20 02:46:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/TOYOTA/RAV4/XA50-2018---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A4%E1%83%A0%E1%83%97%E1%83%98%E1%83%A1-%E1%83%90%E1%83%9B%E1%83%9D%E1%83%A1%E1%83%90%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%94%E1%83%9A%E1%83%98/10001179>
+{'car_mark': 'TOYOTA',
+ 'car_model': 'TOYOTA RAV4',
+ 'city': 'თბილისი',
+ 'in_stock': '4',
+ 'original_price': '0',
+ 'part_full_name': 'ფრთის ამოსაფარებელი, წინა მარცხენა',
+ 'part_url': 'https://pp.ge/TOYOTA/RAV4/XA50-2018---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A4%E1%83%A0%E1%83%97%E1%83%98%E1%83%A1-%E1%83%90%E1%83%9B%E1%83%9D%E1%83%A1%E1%83%90%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%94%E1%83%9A%E1%83%98/10001179',
+ 'price': '35',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'XA50 2018 - 2021\n'
+          '                                                                                    ']}
+2024-09-20 02:46:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/TOYOTA/RAV4/XA50-2018---2021/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A1%E1%83%90%E1%83%9C%E1%83%98%E1%83%A1%E1%83%9A%E1%83%94-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000457> (referer: https://pp.ge/search?brand_id=80)
+2024-09-20 02:46:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/TOYOTA/RAV4/XA50-2018---2021/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A1%E1%83%90%E1%83%9C%E1%83%98%E1%83%A1%E1%83%9A%E1%83%94-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000457>
+{'car_mark': 'TOYOTA',
+ 'car_model': 'TOYOTA RAV4',
+ 'city': 'თბილისი',
+ 'in_stock': '9',
+ 'original_price': '0',
+ 'part_full_name': 'სანისლე ფარი, მარცხენა',
+ 'part_url': 'https://pp.ge/TOYOTA/RAV4/XA50-2018---2021/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A1%E1%83%90%E1%83%9C%E1%83%98%E1%83%A1%E1%83%9A%E1%83%94-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000457',
+ 'price': '30',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'XA50 2018 - 2021\n'
+          '                                                                                    ']}
+2024-09-20 02:46:55 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/TOYOTA/RAV4/XA50-2018---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000458> (referer: https://pp.ge/search?brand_id=80)
+2024-09-20 02:46:55 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/TOYOTA/RAV4/XA50-2018---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000458>
+{'car_mark': 'TOYOTA',
+ 'car_model': 'TOYOTA RAV4',
+ 'city': 'თბილისი',
+ 'in_stock': '8',
+ 'original_price': '0',
+ 'part_full_name': 'ბამპერი წინა, სანისლეს ჩარჩო მარცხენა',
+ 'part_url': 'https://pp.ge/TOYOTA/RAV4/XA50-2018---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000458',
+ 'price': '20',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'XA50 2018 - 2021\n'
+          '                                                                                    ']}
+2024-09-20 02:46:55 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/TOYOTA/CAMRY/XV70-2017---2020/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10000620> (referer: https://pp.ge/search?brand_id=80)
+2024-09-20 02:46:55 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/TOYOTA/CAMRY/XV70-2017---2020/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10000620>
+{'car_mark': 'TOYOTA',
+ 'car_model': 'TOYOTA CAMRY',
+ 'city': 'თბილისი',
+ 'in_stock': '0',
+ 'original_price': '0',
+ 'part_full_name': 'ცხაურა (აბლიცოვკა), ცხაურა',
+ 'part_url': 'https://pp.ge/TOYOTA/CAMRY/XV70-2017---2020/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10000620',
+ 'price': '70',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'XV70 2017 - 2020\n'
+          '                                                                                    ']}
+2024-09-20 02:46:56 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/TOYOTA/LC-PRADO/J150-2017---PRSS/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%A4%E1%83%A0%E1%83%97%E1%83%90--%E1%83%99%E1%83%A0%E1%83%98%E1%83%9A%E1%83%9D/10000860> (referer: https://pp.ge/search?brand_id=80)
+2024-09-20 02:46:56 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/TOYOTA/LC-PRADO/J150-2017---PRSS/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%A4%E1%83%A0%E1%83%97%E1%83%90--%E1%83%99%E1%83%A0%E1%83%98%E1%83%9A%E1%83%9D/10000860>
+{'car_mark': 'TOYOTA',
+ 'car_model': 'TOYOTA LC PRADO',
+ 'city': 'თბილისი',
+ 'in_stock': '1',
+ 'original_price': '0',
+ 'part_full_name': 'ფრთა (კრილო), წინა მარჯვენა',
+ 'part_url': 'https://pp.ge/TOYOTA/LC-PRADO/J150-2017---PRSS/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%A4%E1%83%A0%E1%83%97%E1%83%90--%E1%83%99%E1%83%A0%E1%83%98%E1%83%9A%E1%83%9D/10000860',
+ 'price': '150',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'J150 2017 - PRSS\n'
+          '                                                                                    ']}
+2024-09-20 02:46:56 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/TOYOTA/RAV4/XA50-2018---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000566> (referer: https://pp.ge/search?brand_id=80)
+2024-09-20 02:46:57 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/TOYOTA/RAV4/XA50-2018---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000566>
+{'car_mark': 'TOYOTA',
+ 'car_model': 'TOYOTA RAV4',
+ 'city': 'თბილისი',
+ 'in_stock': '4',
+ 'original_price': '0',
+ 'part_full_name': 'ბამპერი წინა, მოლდინგი',
+ 'part_url': 'https://pp.ge/TOYOTA/RAV4/XA50-2018---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000566',
+ 'price': '45',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'XA50 2018 - 2021\n'
+          '                                                                                    ']}
+2024-09-20 02:46:57 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/TOYOTA/RAV4/XA50-2018---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000618> (referer: https://pp.ge/search?brand_id=80)
+2024-09-20 02:46:57 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/TOYOTA/RAV4/XA50-2018---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000618>
+{'car_mark': 'TOYOTA',
+ 'car_model': 'TOYOTA RAV4',
+ 'city': 'თბილისი',
+ 'in_stock': '7',
+ 'original_price': '0',
+ 'part_full_name': 'ბამპერი წინა, ბადე',
+ 'part_url': 'https://pp.ge/TOYOTA/RAV4/XA50-2018---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000618',
+ 'price': '45',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'XA50 2018 - 2021\n'
+          '                                                                                    ']}
+2024-09-20 02:46:58 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/TOYOTA/RAV4/XA50-2018---2021-XA50-2021---PRSS/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000808> (referer: https://pp.ge/search?brand_id=80)
+2024-09-20 02:46:58 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/TOYOTA/RAV4/XA50-2018---2021-XA50-2021---PRSS/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000808>
+{'car_mark': 'TOYOTA',
+ 'car_model': 'TOYOTA RAV4',
+ 'city': 'თბილისი',
+ 'in_stock': '2',
+ 'original_price': '0',
+ 'part_full_name': 'ბამპერი წინა, ბამპერი',
+ 'part_url': 'https://pp.ge/TOYOTA/RAV4/XA50-2018---2021-XA50-2021---PRSS/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000808',
+ 'price': '95',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                    ',
+          '\n                            ',
+          '\n                                                        ']}
+2024-09-20 02:46:59 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/TOYOTA/HIGHLANDER/XU50-2016---2019/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%A4%E1%83%A0%E1%83%97%E1%83%90--%E1%83%99%E1%83%A0%E1%83%98%E1%83%9A%E1%83%9D/10000870> (referer: https://pp.ge/search?brand_id=80)
+2024-09-20 02:46:59 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/TOYOTA/HIGHLANDER/XU50-2016---2019/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%A4%E1%83%A0%E1%83%97%E1%83%90--%E1%83%99%E1%83%A0%E1%83%98%E1%83%9A%E1%83%9D/10000870>
+{'car_mark': 'TOYOTA',
+ 'car_model': 'TOYOTA HIGHLANDER',
+ 'city': 'თბილისი',
+ 'in_stock': '3',
+ 'original_price': '0',
+ 'part_full_name': 'ფრთა (კრილო), წინა მარცხენა',
+ 'part_url': 'https://pp.ge/TOYOTA/HIGHLANDER/XU50-2016---2019/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%A4%E1%83%A0%E1%83%97%E1%83%90--%E1%83%99%E1%83%A0%E1%83%98%E1%83%9A%E1%83%9D/10000870',
+ 'price': '130',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'XU50 2016 - 2019\n'
+          '                                                                                    ']}
+2024-09-20 02:46:59 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/TOYOTA/COROLLA/E210-2018---PRSS/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A1%E1%83%90%E1%83%9C%E1%83%98%E1%83%A1%E1%83%9A%E1%83%94-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000517> (referer: https://pp.ge/search?brand_id=80)
+2024-09-20 02:46:59 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/TOYOTA/COROLLA/E210-2018---PRSS/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A1%E1%83%90%E1%83%9C%E1%83%98%E1%83%A1%E1%83%9A%E1%83%94-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000517>
+{'car_mark': 'TOYOTA',
+ 'car_model': 'TOYOTA COROLLA',
+ 'city': 'თბილისი',
+ 'in_stock': '3',
+ 'original_price': '0',
+ 'part_full_name': 'სანისლე ფარი, მარცხენა',
+ 'part_url': 'https://pp.ge/TOYOTA/COROLLA/E210-2018---PRSS/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A1%E1%83%90%E1%83%9C%E1%83%98%E1%83%A1%E1%83%9A%E1%83%94-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000517',
+ 'price': '50',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'E210 2018 - PRSS\n'
+          '                                                                                    ']}
+2024-09-20 02:47:00 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/TOYOTA/COROLLA/E210-2018---PRSS/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000515> (referer: https://pp.ge/search?brand_id=80)
+2024-09-20 02:47:00 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/TOYOTA/COROLLA/E210-2018---PRSS/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000515>
+{'car_mark': 'TOYOTA',
+ 'car_model': 'TOYOTA COROLLA',
+ 'city': 'თბილისი',
+ 'in_stock': '5',
+ 'original_price': '0',
+ 'part_full_name': 'ბამპერი წინა, სანისლეს ჩარჩო მარცხენა',
+ 'part_url': 'https://pp.ge/TOYOTA/COROLLA/E210-2018---PRSS/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000515',
+ 'price': '30',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'E210 2018 - PRSS\n'
+          '                                                                                    ']}
+2024-09-20 02:47:00 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/KIA/SPORTAGE/QL-2015-%E2%80%93-2018-QL-2018-%E2%80%93-2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A1%E1%83%90%E1%83%9A%E1%83%90%E1%83%A1%E1%83%99%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1/10000361> (referer: https://pp.ge/search?brand_id=41)
+2024-09-20 02:47:01 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/KIA/SPORTAGE/QL-2015-%E2%80%93-2018-QL-2018-%E2%80%93-2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A1%E1%83%90%E1%83%9A%E1%83%90%E1%83%A1%E1%83%99%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1/10000361>
+{'car_mark': 'KIA',
+ 'car_model': 'KIA SPORTAGE',
+ 'city': 'თბილისი',
+ 'in_stock': '3',
+ 'original_price': '0',
+ 'part_full_name': 'სალასკა ფარის, წინა მარჯვენა',
+ 'part_url': 'https://pp.ge/KIA/SPORTAGE/QL-2015-%E2%80%93-2018-QL-2018-%E2%80%93-2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A1%E1%83%90%E1%83%9A%E1%83%90%E1%83%A1%E1%83%99%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1/10000361',
+ 'price': '18',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                    ',
+          '\n                            ',
+          '\n                                                        ']}
+2024-09-20 02:47:01 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/KIA/SPORTAGE/QL-2015-%E2%80%93-2018-QL-2018-%E2%80%93-2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A1%E1%83%90%E1%83%9A%E1%83%90%E1%83%A1%E1%83%99%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1/10000362> (referer: https://pp.ge/search?brand_id=41)
+2024-09-20 02:47:01 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/KIA/SPORTAGE/QL-2015-%E2%80%93-2018-QL-2018-%E2%80%93-2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A1%E1%83%90%E1%83%9A%E1%83%90%E1%83%A1%E1%83%99%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1/10000362>
+{'car_mark': 'KIA',
+ 'car_model': 'KIA SPORTAGE',
+ 'city': 'თბილისი',
+ 'in_stock': '4',
+ 'original_price': '0',
+ 'part_full_name': 'სალასკა ფარის, წინა მარცხენა',
+ 'part_url': 'https://pp.ge/KIA/SPORTAGE/QL-2015-%E2%80%93-2018-QL-2018-%E2%80%93-2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A1%E1%83%90%E1%83%9A%E1%83%90%E1%83%A1%E1%83%99%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1/10000362',
+ 'price': '18',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                    ',
+          '\n                            ',
+          '\n                                                        ']}
+2024-09-20 02:47:02 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/KIA/RIO/UB-2011-%E2%80%93-2014-UB-2014-%E2%80%93-2017/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A3%E1%83%99%E1%83%90%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000485> (referer: https://pp.ge/search?brand_id=41)
+2024-09-20 02:47:02 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/KIA/RIO/UB-2011-%E2%80%93-2014-UB-2014-%E2%80%93-2017/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A3%E1%83%99%E1%83%90%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000485>
+{'car_mark': 'KIA',
+ 'car_model': 'KIA RIO',
+ 'city': 'თბილისი',
+ 'in_stock': '1',
+ 'original_price': '0',
+ 'part_full_name': 'უკანა ფარი, მარცხენა',
+ 'part_url': 'https://pp.ge/KIA/RIO/UB-2011-%E2%80%93-2014-UB-2014-%E2%80%93-2017/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A3%E1%83%99%E1%83%90%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000485',
+ 'price': '105',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                    ',
+          '\n                            ',
+          '\n                                                        ']}
+2024-09-20 02:47:02 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/HYUNDAI/ELANTRA/AD-2015---2018/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000312> (referer: https://pp.ge/search?brand_id=34)
+2024-09-20 02:47:02 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/HYUNDAI/ELANTRA/AD-2015---2018/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000312>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'HYUNDAI ELANTRA',
+ 'city': 'თბილისი',
+ 'in_stock': '1',
+ 'original_price': '0',
+ 'part_full_name': 'წინა ფარი, მარჯვენა',
+ 'part_url': 'https://pp.ge/HYUNDAI/ELANTRA/AD-2015---2018/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000312',
+ 'price': '300',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'AD 2015 - 2018\n'
+          '                                                                                    ']}
+2024-09-20 02:47:03 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/HYUNDAI/ELANTRA/AD-2015---2018/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000222> (referer: https://pp.ge/search?brand_id=34)
+2024-09-20 02:47:03 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/HYUNDAI/ELANTRA/AD-2015---2018/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000222>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'HYUNDAI ELANTRA',
+ 'city': 'თბილისი',
+ 'in_stock': '1',
+ 'original_price': '0',
+ 'part_full_name': 'წინა ფარი, მარცხენა',
+ 'part_url': 'https://pp.ge/HYUNDAI/ELANTRA/AD-2015---2018/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000222',
+ 'price': '235',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'AD 2015 - 2018\n'
+          '                                                                                    ']}
+2024-09-20 02:47:03 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/HYUNDAI/ELANTRA/AD-2015---2018/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000304> (referer: https://pp.ge/search?brand_id=34)
+2024-09-20 02:47:04 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/HYUNDAI/ELANTRA/AD-2015---2018/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000304>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'HYUNDAI ELANTRA',
+ 'city': 'თბილისი',
+ 'in_stock': '1',
+ 'original_price': '0',
+ 'part_full_name': 'წინა ფარი, მარცხენა',
+ 'part_url': 'https://pp.ge/HYUNDAI/ELANTRA/AD-2015---2018/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000304',
+ 'price': '235',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'AD 2015 - 2018\n'
+          '                                                                                    ']}
+2024-09-20 02:47:04 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000927> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:04 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000927>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA OCTAVIA',
+ 'city': 'თბილისი',
+ 'in_stock': '5',
+ 'original_price': '0',
+ 'part_full_name': 'ბამპერი წინა, ქვედა ამოსაფარებელი',
+ 'part_url': 'https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000927',
+ 'price': '90',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          '5E 2012 – 2017\n'
+          '                                                                                    ']}
+2024-09-20 02:47:05 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/RAPID/NH-2016---2019/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%91%E1%83%90%E1%83%9A%E1%83%99%E1%83%90/10000073> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:05 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/RAPID/NH-2016---2019/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%91%E1%83%90%E1%83%9A%E1%83%99%E1%83%90/10000073>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA RAPID',
+ 'city': 'თბილისი',
+ 'in_stock': '1',
+ 'original_price': '0',
+ 'part_full_name': 'ბალკა, წინა',
+ 'part_url': 'https://pp.ge/SKODA/RAPID/NH-2016---2019/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%91%E1%83%90%E1%83%9A%E1%83%99%E1%83%90/10000073',
+ 'price': '120',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'NH 2016 - 2019\n'
+          '                                                                                    ']}
+2024-09-20 02:47:05 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/RAPID/NH-2016---2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000996> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:05 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/RAPID/NH-2016---2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000996>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA RAPID',
+ 'city': 'თბილისი',
+ 'in_stock': '4',
+ 'original_price': '0',
+ 'part_full_name': 'ბამპერი წინა, ბადე',
+ 'part_url': 'https://pp.ge/SKODA/RAPID/NH-2016---2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000996',
+ 'price': '90',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'NH 2016 - 2019\n'
+          '                                                                                    ']}
+2024-09-20 02:47:06 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/OCTAVIA/1Z-2008-%E2%80%93-2013/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10001013> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:06 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/OCTAVIA/1Z-2008-%E2%80%93-2013/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10001013>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA OCTAVIA',
+ 'city': 'თბილისი',
+ 'in_stock': '3',
+ 'original_price': '0',
+ 'part_full_name': 'ცხაურა (აბლიცოვკა), ცხაურა',
+ 'part_url': 'https://pp.ge/SKODA/OCTAVIA/1Z-2008-%E2%80%93-2013/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10001013',
+ 'price': '90',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          '1Z 2008 – 2013\n'
+          '                                                                                    ']}
+2024-09-20 02:47:06 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/FABIA/NJ-2014---2018/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A1%E1%83%90%E1%83%9A%E1%83%90%E1%83%A1%E1%83%99%E1%83%90-%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98%E1%83%A1/10000196> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:06 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/FABIA/NJ-2014---2018/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A1%E1%83%90%E1%83%9A%E1%83%90%E1%83%A1%E1%83%99%E1%83%90-%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98%E1%83%A1/10000196>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA FABIA',
+ 'city': 'თბილისი',
+ 'in_stock': '5',
+ 'original_price': '0',
+ 'part_full_name': 'სალასკა ბამპერის, წინა მარჯვენა',
+ 'part_url': 'https://pp.ge/SKODA/FABIA/NJ-2014---2018/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A1%E1%83%90%E1%83%9A%E1%83%90%E1%83%A1%E1%83%99%E1%83%90-%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98%E1%83%A1/10000196',
+ 'price': '25',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'NJ 2014 - 2018\n'
+          '                                                                                    ']}
+2024-09-20 02:47:06 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/RAPID/NH-2016---2019/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A3%E1%83%99%E1%83%90%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000069> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:07 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/RAPID/NH-2016---2019/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A3%E1%83%99%E1%83%90%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000069>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA RAPID',
+ 'city': 'თბილისი',
+ 'in_stock': '2',
+ 'original_price': '0',
+ 'part_full_name': 'უკანა ფარი, მარცხენა',
+ 'part_url': 'https://pp.ge/SKODA/RAPID/NH-2016---2019/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A3%E1%83%99%E1%83%90%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000069',
+ 'price': '150',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'NH 2016 - 2019\n'
+          '                                                                                    ']}
+2024-09-20 02:47:07 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/OCTAVIA/NX-2019---PRSS/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000235> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:07 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/OCTAVIA/NX-2019---PRSS/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000235>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA OCTAVIA',
+ 'city': 'თბილისი',
+ 'in_stock': '3',
+ 'original_price': '0',
+ 'part_full_name': 'ბამპერი წინა, საბუქსირის ხუფი',
+ 'part_url': 'https://pp.ge/SKODA/OCTAVIA/NX-2019---PRSS/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000235',
+ 'price': '30',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'NX 2019 - PRSS\n'
+          '                                                                                    ']}
+2024-09-20 02:47:08 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10001236> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:08 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10001236>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA OCTAVIA',
+ 'city': 'თბილისი',
+ 'in_stock': '2',
+ 'original_price': '0',
+ 'part_full_name': 'ცხაურა (აბლიცოვკა), ცხაურა',
+ 'part_url': 'https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10001236',
+ 'price': '170',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          '5E 2012 – 2017\n'
+          '                                                                                    ']}
+2024-09-20 02:47:08 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/OCTAVIA/5E-2017-%E2%80%93-2019/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%94%E1%83%99%E1%83%A0%E1%83%90%E1%83%9C%E1%83%98/10000277> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:08 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/OCTAVIA/5E-2017-%E2%80%93-2019/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%94%E1%83%99%E1%83%A0%E1%83%90%E1%83%9C%E1%83%98/10000277>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA OCTAVIA',
+ 'city': 'თბილისი',
+ 'in_stock': '1',
+ 'original_price': '0',
+ 'part_full_name': 'ეკრანი',
+ 'part_url': 'https://pp.ge/SKODA/OCTAVIA/5E-2017-%E2%80%93-2019/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%94%E1%83%99%E1%83%A0%E1%83%90%E1%83%9C%E1%83%98/10000277',
+ 'price': '265',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          '5E 2017 – 2019\n'
+          '                                                                                    ']}
+2024-09-20 02:47:09 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/OCTAVIA/1Z-2008-%E2%80%93-2013/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%91%E1%83%90%E1%83%9A%E1%83%99%E1%83%90/10000275> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:09 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/OCTAVIA/1Z-2008-%E2%80%93-2013/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%91%E1%83%90%E1%83%9A%E1%83%99%E1%83%90/10000275>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA OCTAVIA',
+ 'city': 'თბილისი',
+ 'in_stock': '0',
+ 'original_price': '0',
+ 'part_full_name': 'ბალკა, წინა',
+ 'part_url': 'https://pp.ge/SKODA/OCTAVIA/1Z-2008-%E2%80%93-2013/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%91%E1%83%90%E1%83%9A%E1%83%99%E1%83%90/10000275',
+ 'price': '170',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          '1Z 2008 – 2013\n'
+          '                                                                                    ']}
+2024-09-20 02:47:10 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/OCTAVIA/1Z-2004-%E2%80%93-2008-1Z-2008-%E2%80%93-2013/%E1%83%A1%E1%83%90%E1%83%AC%E1%83%95%E1%83%90%E1%83%95%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9B%E1%83%9D%E1%83%9C%E1%83%90%E1%83%91%E1%83%9D%E1%83%9A%E1%83%A5%E1%83%95%E1%83%98/%E1%83%B0%E1%83%90%E1%83%94%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9B%E1%83%98%E1%83%AC%E1%83%9D%E1%83%93%E1%83%94%E1%83%91%E1%83%90/10001079> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:10 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/OCTAVIA/1Z-2004-%E2%80%93-2008-1Z-2008-%E2%80%93-2013/%E1%83%A1%E1%83%90%E1%83%AC%E1%83%95%E1%83%90%E1%83%95%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9B%E1%83%9D%E1%83%9C%E1%83%90%E1%83%91%E1%83%9D%E1%83%9A%E1%83%A5%E1%83%95%E1%83%98/%E1%83%B0%E1%83%90%E1%83%94%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9B%E1%83%98%E1%83%AC%E1%83%9D%E1%83%93%E1%83%94%E1%83%91%E1%83%90/10001079>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA OCTAVIA',
+ 'city': 'თბილისი',
+ 'in_stock': '4',
+ 'original_price': '0',
+ 'part_full_name': 'ჰაერის მიწოდება, შემკრები პლასტმასი',
+ 'part_url': 'https://pp.ge/SKODA/OCTAVIA/1Z-2004-%E2%80%93-2008-1Z-2008-%E2%80%93-2013/%E1%83%A1%E1%83%90%E1%83%AC%E1%83%95%E1%83%90%E1%83%95%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9B%E1%83%9D%E1%83%9C%E1%83%90%E1%83%91%E1%83%9D%E1%83%9A%E1%83%A5%E1%83%95%E1%83%98/%E1%83%B0%E1%83%90%E1%83%94%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9B%E1%83%98%E1%83%AC%E1%83%9D%E1%83%93%E1%83%94%E1%83%91%E1%83%90/10001079',
+ 'price': '85',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                    ',
+          '\n                            ',
+          '\n                                                        ']}
+2024-09-20 02:47:10 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017-5E-2017-%E2%80%93-2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A4%E1%83%A0%E1%83%97%E1%83%98%E1%83%A1-%E1%83%90%E1%83%9B%E1%83%9D%E1%83%A1%E1%83%90%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%94%E1%83%9A%E1%83%98/10001192> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:10 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017-5E-2017-%E2%80%93-2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A4%E1%83%A0%E1%83%97%E1%83%98%E1%83%A1-%E1%83%90%E1%83%9B%E1%83%9D%E1%83%A1%E1%83%90%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%94%E1%83%9A%E1%83%98/10001192>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA OCTAVIA',
+ 'city': 'თბილისი',
+ 'in_stock': '3',
+ 'original_price': '0',
+ 'part_full_name': 'ფრთის ამოსაფარებელი, უკანა მარჯვენა',
+ 'part_url': 'https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017-5E-2017-%E2%80%93-2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A4%E1%83%A0%E1%83%97%E1%83%98%E1%83%A1-%E1%83%90%E1%83%9B%E1%83%9D%E1%83%A1%E1%83%90%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%94%E1%83%9A%E1%83%98/10001192',
+ 'price': '85',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                    ',
+          '\n                            ',
+          '\n                                                        ']}
+2024-09-20 02:47:11 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017-5E-2017-%E2%80%93-2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A4%E1%83%A0%E1%83%97%E1%83%98%E1%83%A1-%E1%83%90%E1%83%9B%E1%83%9D%E1%83%A1%E1%83%90%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%94%E1%83%9A%E1%83%98/10001194> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:11 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017-5E-2017-%E2%80%93-2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A4%E1%83%A0%E1%83%97%E1%83%98%E1%83%A1-%E1%83%90%E1%83%9B%E1%83%9D%E1%83%A1%E1%83%90%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%94%E1%83%9A%E1%83%98/10001194>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA OCTAVIA',
+ 'city': 'თბილისი',
+ 'in_stock': '3',
+ 'original_price': '0',
+ 'part_full_name': 'ფრთის ამოსაფარებელი, უკანა მარცხენა',
+ 'part_url': 'https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017-5E-2017-%E2%80%93-2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A4%E1%83%A0%E1%83%97%E1%83%98%E1%83%A1-%E1%83%90%E1%83%9B%E1%83%9D%E1%83%A1%E1%83%90%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%94%E1%83%9A%E1%83%98/10001194',
+ 'price': '85',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                    ',
+          '\n                            ',
+          '\n                                                        ']}
+2024-09-20 02:47:11 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017-5E-2017-%E2%80%93-2019/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%94%E1%83%99%E1%83%A0%E1%83%90%E1%83%9C%E1%83%98/10000973> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:12 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017-5E-2017-%E2%80%93-2019/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%94%E1%83%99%E1%83%A0%E1%83%90%E1%83%9C%E1%83%98/10000973>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA OCTAVIA',
+ 'city': 'თბილისი',
+ 'in_stock': '1',
+ 'original_price': '0',
+ 'part_full_name': 'ეკრანი',
+ 'part_url': 'https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017-5E-2017-%E2%80%93-2019/%E1%83%AB%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1-%E1%83%9C%E1%83%90%E1%83%AC%E1%83%98%E1%83%9A%E1%83%94%E1%83%91%E1%83%98/%E1%83%94%E1%83%99%E1%83%A0%E1%83%90%E1%83%9C%E1%83%98/10000973',
+ 'price': '290',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                    ',
+          '\n                            ',
+          '\n                                                        ']}
+2024-09-20 02:47:12 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/SUPERB/B8-2015---2019-B8-2019---PRSS/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A1%E1%83%90%E1%83%9A%E1%83%90%E1%83%A1%E1%83%99%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1/10000193> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:12 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/SUPERB/B8-2015---2019-B8-2019---PRSS/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A1%E1%83%90%E1%83%9A%E1%83%90%E1%83%A1%E1%83%99%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1/10000193>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA SUPERB',
+ 'city': 'თბილისი',
+ 'in_stock': '6',
+ 'original_price': '0',
+ 'part_full_name': 'სალასკა ფარის, წინა მარცხენა',
+ 'part_url': 'https://pp.ge/SKODA/SUPERB/B8-2015---2019-B8-2019---PRSS/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%A1%E1%83%90%E1%83%9A%E1%83%90%E1%83%A1%E1%83%99%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98%E1%83%A1/10000193',
+ 'price': '45',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                    ',
+          '\n                            ',
+          '\n                                                        ']}
+2024-09-20 02:47:13 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/SUPERB/B8-2015---2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10001062> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:13 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/SUPERB/B8-2015---2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10001062>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA SUPERB',
+ 'city': 'თბილისი',
+ 'in_stock': '3',
+ 'original_price': '0',
+ 'part_full_name': 'ბამპერი წინა, მოლდინგი',
+ 'part_url': 'https://pp.ge/SKODA/SUPERB/B8-2015---2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10001062',
+ 'price': '40',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'B8 2015 - 2019\n'
+          '                                                                                    ']}
+2024-09-20 02:47:13 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/SUPERB/B8-2015---2019/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A3%E1%83%99%E1%83%90%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000052> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:13 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/SUPERB/B8-2015---2019/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A3%E1%83%99%E1%83%90%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000052>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA SUPERB',
+ 'city': 'თბილისი',
+ 'in_stock': '3',
+ 'original_price': '450',
+ 'part_full_name': 'უკანა ფარი, მარჯვენა',
+ 'part_url': 'https://pp.ge/SKODA/SUPERB/B8-2015---2019/%E1%83%A4%E1%83%90%E1%83%A0%E1%83%94%E1%83%91%E1%83%98-%E1%83%93%E1%83%90-%E1%83%92%E1%83%90%E1%83%9C%E1%83%90%E1%83%97%E1%83%94%E1%83%91%E1%83%90/%E1%83%A3%E1%83%99%E1%83%90%E1%83%9C%E1%83%90-%E1%83%A4%E1%83%90%E1%83%A0%E1%83%98/10000052',
+ 'price': '370',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'B8 2015 - 2019\n'
+          '                                                                                    ']}
+2024-09-20 02:47:14 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/SUPERB/B8-2015---2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10000607> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:14 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/SUPERB/B8-2015---2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10000607>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA SUPERB',
+ 'city': 'თბილისი',
+ 'in_stock': '1',
+ 'original_price': '340',
+ 'part_full_name': 'ცხაურა (აბლიცოვკა), ცხაურა',
+ 'part_url': 'https://pp.ge/SKODA/SUPERB/B8-2015---2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10000607',
+ 'price': '290',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'B8 2015 - 2019\n'
+          '                                                                                    ']}
+2024-09-20 02:47:15 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/KODIAQ/I-GEN-2016---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10001043> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:15 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/KODIAQ/I-GEN-2016---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10001043>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA KODIAQ',
+ 'city': 'თბილისი',
+ 'in_stock': '3',
+ 'original_price': '0',
+ 'part_full_name': 'ბამპერი წინა, ბადე',
+ 'part_url': 'https://pp.ge/SKODA/KODIAQ/I-GEN-2016---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10001043',
+ 'price': '150',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'I GEN 2016 - 2021\n'
+          '                                                                                    ']}
+2024-09-20 02:47:15 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/KODIAQ/I-GEN-2016---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10000573> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:15 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/KODIAQ/I-GEN-2016---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10000573>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA KODIAQ',
+ 'city': 'თბილისი',
+ 'in_stock': '3',
+ 'original_price': '0',
+ 'part_full_name': 'ცხაურა (აბლიცოვკა), ცხაურა',
+ 'part_url': 'https://pp.ge/SKODA/KODIAQ/I-GEN-2016---2021/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10000573',
+ 'price': '480',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'I GEN 2016 - 2021\n'
+          '                                                                                    ']}
+2024-09-20 02:47:16 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/SUPERB/B8-2015---2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10000569> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:16 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/SUPERB/B8-2015---2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10000569>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA SUPERB',
+ 'city': 'თბილისი',
+ 'in_stock': '3',
+ 'original_price': '0',
+ 'part_full_name': 'ცხაურა (აბლიცოვკა), ცხაურა',
+ 'part_url': 'https://pp.ge/SKODA/SUPERB/B8-2015---2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%AA%E1%83%AE%E1%83%90%E1%83%A3%E1%83%A0%E1%83%90--%E1%83%90%E1%83%91%E1%83%9A%E1%83%98%E1%83%AA%E1%83%9D%E1%83%95%E1%83%99%E1%83%90/10000569',
+ 'price': '270',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          'B8 2015 - 2019\n'
+          '                                                                                    ']}
+2024-09-20 02:47:16 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%A3%E1%83%99%E1%83%90%E1%83%9C%E1%83%90/10000800> (referer: https://pp.ge/search?brand_id=73)
+2024-09-20 02:47:16 [scrapy.core.scraper] DEBUG: Scraped from <200 https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%A3%E1%83%99%E1%83%90%E1%83%9C%E1%83%90/10000800>
+{'car_mark': 'SKODA',
+ 'car_model': 'SKODA OCTAVIA',
+ 'city': 'თბილისი',
+ 'in_stock': '3',
+ 'original_price': '0',
+ 'part_full_name': 'ბამპერი უკანა, ბამპერი',
+ 'part_url': 'https://pp.ge/SKODA/OCTAVIA/5E-2012-%E2%80%93-2017/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%A3%E1%83%99%E1%83%90%E1%83%9C%E1%83%90/10000800',
+ 'price': '255',
+ 'website': 'https://pp.ge/',
+ 'year': ['\n               ',
+          '\n'
+          '                                        \n'
+          '                                                                                    '
+          '5E 2012 – 2017\n'
+          '                                                                                    ']}
+2024-09-20 02:47:17 [scrapy.crawler] INFO: Received SIGINT, shutting down gracefully. Send again to force 
+2024-09-20 02:47:17 [scrapy.core.engine] INFO: Closing spider (shutdown)
+2024-09-20 02:47:17 [scrapy.crawler] INFO: Received SIGINT twice, forcing unclean shutdown
+2024-09-20 02:47:17 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://pp.ge/SKODA/RAPID/NH-2016---2019/%E1%83%95%E1%83%98%E1%83%96%E1%83%A3%E1%83%90%E1%83%9A%E1%83%98/%E1%83%91%E1%83%90%E1%83%9B%E1%83%9E%E1%83%94%E1%83%A0%E1%83%98-%E1%83%AC%E1%83%98%E1%83%9C%E1%83%90/10000998> (referer: https://pp.ge/search?brand_id=73)
