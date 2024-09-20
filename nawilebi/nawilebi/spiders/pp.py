@@ -8,7 +8,7 @@ class PpSpider(scrapy.Spider):
     custom_settings = {
         'ITEM_PIPELINES': {
             #"nawilebi.pipelines.NawilebiPipeline": 100,
-            #"nawilebi.pipelines.PpPipeline": 200,
+            "nawilebi.pipelines.PpPipeline": 200,
             #"nawilebi.pipelines.YearProcessPipeline": 300,
             #"nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
@@ -28,71 +28,53 @@ class PpSpider(scrapy.Spider):
             
     def parse_mark_page(self, response):
         part_list = response.css("#car-par > div > div > div > div.card-wrapper-view > div")
-        
-        for part in part_list:
-            item = NawilebiItem()
-            car_mark = response.meta["car_mark"]
-            part_url = part.css("div a::attr(href)").get()
-            
-            part_full_name = part.css("div > a img::attr(alt)").get()
-            car_model = part.css("div div.card_bottom div.card-brand-model::text").get()
-            price = part.css("div div.card_bottom div.card_price div.card_price_amount::attr(data-price)").get()
-            original_price = part.css("div div.card_bottom div.card_price div.card_price_amount::attr(data-old-price)").get()
-            in_stock = part.css("div div.card_bottom div.card_price span p::text").get()
-            '''in_stock_int = int(in_stock)
-            item["in_stock"] =True if in_stock_int != 0 else False'''
-
-            yield response.follow(part_url, callback = self.parse_part_page,
-                                  meta =  {"car_mark": car_mark, "part_url": part_url, "part_full_name": part_full_name,
-                                           "car_model": car_model, "price": price, "original_price": original_price, "in_stock": in_stock})
-            
-            
-        navigation_list =response.css("#car-par > div > div > div > div.row.clearfix > div > nav > nav > ul li")
-        
-        if navigation_list:
-            for nav in navigation_list:
+        if part_list:
+            for part in part_list:
+                item = NawilebiItem()
+                car_mark = response.meta["car_mark"]
+                part_url = part.css("div a::attr(href)").get()
                 
-                next_page_url = nav.css("span::attr(href)").get()
-                if next_page_url and nav.css("a::attr(rel)").get() != "next":
-                    yield response.follow(next_page_url, callback = self.parse_next_page,
-                                          meta = {"car_mark": response.meta["car_mark"]})
-                    
-                    
+                yield response.follow(part_url, callback = self.parse_part_page
+                                    )
+            
+        nav_list = response.css("ul.pagination li")
+        if nav_list:
+            for nav in nav_list:
+                classes = nav.css("::attr(class)").get(default="")
+                if "active" not in classes and "disabled" not in classes:
+                    rel = nav.css("a::attr(rel)").get()
+                    if rel is not None and "next" not in rel:
+                        href = nav.css("a::attr(href)").get()
+                        if href:
+                            yield response.follow(href, callback=self.parse_next_page)
+
     def parse_next_page(self, response):
         part_list = response.css("#car-par > div > div > div > div.card-wrapper-view > div")
-        
-        for part in part_list:
-            item = NawilebiItem()
-            car_mark = response.meta["car_mark"]
-            part_url = part.css("div > a img::attr(href)").get()
-            
-            part_full_name = part.css("div a img::attr(alt)").get()
-            car_model = part.css("div div.card_bottom div.card-brand-model::text").get()
-            price = part.css("div div.card_bottom div.card_price div.card_price_amount::attr(data-price)").get()
-            original_price = part.css("div div.card_bottom div.card_price div.card_price_amount::attr(data-old-price)").get()
-            in_stock = part.css("div div.card_bottom div.card_price span p::text").get()
-            '''in_stock_int = int(in_stock)
-            item["in_stock"] =True if in_stock_int != 0 else False'''
-
-            yield response.follow(part_url, callback = self.parse_part_page,
-                                  meta =  {"car_mark": car_mark, "part_url": part_url, "part_full_name": part_full_name,
-                                           "car_model": car_model, "price": price, "original_price": original_price, "in_stock": in_stock})
-            
+        if part_list:
+            for part in part_list:
+                item = NawilebiItem()
+                car_mark = response.meta["car_mark"]
+                part_url = part.css("div a::attr(href)").get()
+                
+                yield response.follow(part_url, callback = self.parse_part_page
+                                    )
+                
     def parse_part_page(self, response):
         item = NawilebiItem()
         
-        item["year"] = response.css("#car-parts-wrapper-view > div > div.product_right > div.prod_main_info > div:nth-child(5) span:nth-of-type(1)::text").getall()
-        item["city"] = response.css("#car-parts-wrapper-view > div > div.product_right > div.prod_main_info > div:nth-child(5) > span.prod_main_info_different > h4::text").get()
-        item["car_mark"] = response.meta["car_mark"]
-        item["part_url"] = response.meta["part_url"]
-        item["part_full_name"] = response.meta["part_full_name"]
-        item["car_model"] = response.meta["car_model"]
-        item["price"] = response.meta["price"]
-        item["original_price"] = response.meta["original_price"]
-        item["in_stock"] = response.meta["in_stock"]
+        item["part_url"] = response.url
         item["website"] = "https://pp.ge/"
+        item["part_full_name"] = response.css("#car-parts-wrapper-view > div > div.product_right > div.prod_price > a > h2 ::text").get()
+        item["car_mark"] = response.css("#car-parts-wrapper-view > div > div.product_right > div.prod_main_info > div:nth-child(1) > span:nth-child(1) > p ::text").get()
+        item["car_model"] = response.css("#car-parts-wrapper-view > div > div.product_right > div.prod_main_info > div.prod_main_info_list.secc > span:nth-child(1) ::text").getall()
+        item["year"] = response.css("#car-parts-wrapper-view > div > div.product_right > div.prod_main_info > div:nth-child(5) > span:nth-child(1) ::text").getall()
+        item["in_stock"] = response.css("#car-parts-wrapper-view > div > div.product_right > div.prod_details_tab > span > div.wrapper_product_amo > p ::text").get()
+        item["start_year"] = None
+        item["end_year"] = None
         
-        
-        
+        item["price"] = response.css("#car-parts-wrapper-view > div > div.product_right > div.prod_price > div > div ::text").getall()
+        original_price = response.css("#car-parts-wrapper-view > div > div.product_right > div.prod_price > div > h3 ::text").getall()
+        if original_price:
+            item["original_price"] = original_price
+            
         yield item
-                    

@@ -504,9 +504,53 @@ def process_part_full_name_apgparts(part_full_name, car_model):
 
     return part_full_name_cleaned, car_mark, car_model_cleaned, start_year, end_year, year
 
+def process_in_stock_pp(in_stock):
+    if in_stock:
+        in_stock_int = int(in_stock)
+        if in_stock_int !=0:
+            in_stock = True
+        else: in_stock = False
+    return in_stock
 
-
+def process_year_pp(year_string_list):
+    year_string_list = [year.strip() for year in year_string_list if year.strip()]
     
+    current_year = datetime.now().year
+    year_pattern = re.compile(r'(\d{4})\s*[-–]\s*(\d{4}|PRSS)?')
+
+    for year_string in year_string_list:
+        if year_string:
+            match = year_pattern.search(year_string)
+            
+            if match:
+                start_year = int(match.group(1))
+                end_year_str = match.group(2)
+                
+                if end_year_str == "PRSS" or end_year_str is None:
+                    end_year = current_year
+                else:
+                    end_year = int(end_year_str)
+                
+                year = f"{start_year}-{end_year}"
+                return year, start_year, end_year
+    
+    return None, None, None
+
+
+def process_car_model_pp(car_model, car_mark):
+    if isinstance(car_model, list):
+        car_model = ' '.join(car_model).strip()
+    
+    if car_mark in car_model:
+        car_model = re.sub(car_mark, '', car_model).strip().upper()
+    
+    return car_model
+            
+def procees_price_pp(price):
+    if isinstance(price, list):
+        price = ' '.join(price).strip
+        
+    return parse_price(price)
 
 '''---------------------------------------------------------'''
 
@@ -522,23 +566,24 @@ def format_year(year):
     return year
 
 
-def parse_price(value):
+import re
 
-    if isinstance(value, int) or isinstance(value, float):
+def parse_price(value):
+    if isinstance(value, (int, float)):
         return value  
     
     if not isinstance(value, str):
-        return 0.0 
+        return None
     
     cleaned_string = re.sub(r'[^\d.,]', '', value)
     
     if not cleaned_string:
-        return 0.0 
+        return None
     
     cleaned_string = cleaned_string.replace(',', '.')
-
+    
     try:
         return float(cleaned_string)
     except ValueError:
-        return 0.0 
+        return None
 

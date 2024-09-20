@@ -484,3 +484,28 @@ class PpPipeline:
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
         
+        car_model = adapter.get('car_model')
+        car_mark = adapter.get("car_mark")
+        
+        if car_model and car_mark:
+            adapter["car_model"] = process_car_model_pp(car_model, car_mark)
+            
+        in_stock = adapter.get("in_stock")
+        if in_stock:
+            adapter["in_stock"] = process_in_stock_pp(in_stock)
+            
+        price = adapter.get("price")
+        original_price = adapter.get("original_price")
+        if price:
+            adapter["price"] = procees_price_pp(price)
+        if original_price:
+            original_price_parsed = procees_price_pp(original_price)
+            adapter["original_price"] = original_price_parsed if original_price_parsed and original_price_parsed != 0 else None
+            
+        year_list = adapter.get("year")
+        if year_list:
+            adapter["year"], adapter["start_year"], adapter["end_year"] = process_year_pp(year_list)
+            
+            
+        return item
+            

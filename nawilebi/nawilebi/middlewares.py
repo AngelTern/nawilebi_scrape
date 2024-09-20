@@ -10,8 +10,9 @@ import time
 from scrapy import signals
 from scrapy.exceptions import CloseSpider
 import requests
-# useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
+import random
+import logging
 
 
 class NawilebiSpiderMiddleware:
@@ -157,55 +158,87 @@ class FakeUserAgentMiddleware:
 
 
 class FakeBrowserHeaderAgentMiddleware:
+    REFRESH_INTERVAL = 3600  # Refresh every hour
 
     @classmethod
     def from_crawler(cls, crawler):
-        return cls(crawler.settings)
+        middleware = cls(crawler.settings)
+        crawler.signals.connect(middleware.spider_opened, signal=signals.spider_opened)
+        crawler.signals.connect(middleware.spider_closed, signal=signals.spider_closed)
+        return middleware
 
     def __init__(self, settings):
+        self.logger = logging.getLogger(self.__class__.__name__)
         self.scrapeops_api_key = settings.get('SCRAPEOPS_API_KEY')
-        self.scrapeops_endpoint = settings.get('SCRAPEOPS_FAKE_BROWSER_HEADER_ENDPOINT', 'http://headers.scrapeops.io/v1/browser-headers') 
+        self.scrapeops_endpoint = settings.get(
+            'SCRAPEOPS_FAKE_BROWSER_HEADER_ENDPOINT',
+            'https://headers.scrapeops.io/v1/browser-headers'
+        )
         self.scrapeops_fake_browser_headers_active = settings.get('SCRAPEOPS_FAKE_BROWSER_HEADER_ENABLED', True)
         self.scrapeops_num_results = settings.get('SCRAPEOPS_NUM_RESULTS')
         self.headers_list = []
-        self._get_headers_list()
-        self._scrapeops_fake_browser_headers_enabled()
+        self.last_refresh_time = 0
+        self._initialize_fake_browser_headers_status()
+
+    def _initialize_fake_browser_headers_status(self):
+        if not self.scrapeops_api_key or not self.scrapeops_fake_browser_headers_active:
+            self.scrapeops_fake_browser_headers_active = False
+            self.logger.info("Fake browser headers are disabled.")
+        else:
+            self.scrapeops_fake_browser_headers_active = True
+            self.logger.info("Fake browser headers are enabled.")
+
+    def spider_opened(self, spider):
+        if self.scrapeops_fake_browser_headers_active:
+            self._get_headers_list()
+
+    def spider_closed(self, spider):
+        # Implement any cleanup if necessary
+        pass
 
     def _get_headers_list(self):
         payload = {'api_key': self.scrapeops_api_key}
         if self.scrapeops_num_results is not None:
             payload['num_results'] = self.scrapeops_num_results
-        response = requests.get(self.scrapeops_endpoint, params=urlencode(payload))
-        json_response = response.json()
-        self.headers_list = json_response.get('result', [])
+        try:
+            response = requests.get(self.scrapeops_endpoint, params=payload, timeout=10)
+            response.raise_for_status()
+            json_response = response.json()
+            self.headers_list = json_response.get('result', [])
+            if not self.headers_list:
+                self.logger.warning("No headers received from ScrapeOps API.")
+            else:
+                self.logger.info(f"Fetched {len(self.headers_list)} headers from ScrapeOps API.")
+            self.last_refresh_time = time.time()
+        except requests.RequestException as e:
+            self.logger.error(f"Failed to fetch headers from ScrapeOps API: {e}")
+            self.headers_list = []
 
     def _get_random_browser_header(self):
-        random_index = randint(0, len(self.headers_list) - 1)
-        return self.headers_list[random_index]
+        if not self.headers_list:
+            self.logger.warning("Headers list is empty. Using default headers.")
+            return {}
+        return random.choice(self.headers_list)
 
-    def _scrapeops_fake_browser_headers_enabled(self):
-        if self.scrapeops_api_key is None or self.scrapeops_api_key == '' or self.scrapeops_fake_browser_headers_active == False:
-            self.scrapeops_fake_browser_headers_active = False
-        else:
-            self.scrapeops_fake_browser_headers_active = True
-    
-    def process_request(self, request, spider):        
+    def _should_refresh(self):
+        return (time.time() - self.last_refresh_time) > self.REFRESH_INTERVAL
+
+    def process_request(self, request, spider):
+        if not self.scrapeops_fake_browser_headers_active:
+            return
+
+        if self._should_refresh():
+            self._get_headers_list()
+
         random_browser_header = self._get_random_browser_header()
+        if not random_browser_header:
+            return  # Optionally, set default headers or log a warning
 
-        request.headers['accept-language'] = random_browser_header['accept-language']
-        request.headers['sec-fetch-user'] = random_browser_header['sec-fetch-user'] 
-        request.headers['sec-fetch-mod'] = random_browser_header['sec-fetch-mod'] 
-        request.headers['sec-fetch-site'] = random_browser_header['sec-fetch-site'] 
-        request.headers['sec-ch-ua-platform'] = random_browser_header['sec-ch-ua-platform'] 
-        request.headers['sec-ch-ua-mobile'] = random_browser_header['sec-ch-ua-mobile'] 
-        request.headers['sec-ch-ua'] = random_browser_header['sec-ch-ua'] 
-        request.headers['accept'] = random_browser_header['accept'] 
-        request.headers['user-agent'] = random_browser_header['user-agent'] 
-        request.headers['upgrade-insecure-requests'] = random_browser_header.get('upgrade-insecure-requests')
-    
+        for header, value in random_browser_header.items():
+            if value is not None:
+                request.headers[header] = value
 
-        '''print("************ NEW HEADER ATTACHED *******")
-        print(request.headers)'''
+        #self.logger.debug(f"Applied fake headers: {request.headers}")
         
 class PauseMiddleware:
     def __init__(self):
