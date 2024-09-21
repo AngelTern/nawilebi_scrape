@@ -541,6 +541,8 @@ def process_car_model_pp(car_model, car_mark):
     if isinstance(car_model, list):
         car_model = ' '.join(car_model).strip()
     
+    car_model = re.sub(r'\s+', ' ', car_model).strip()
+
     if car_mark in car_model:
         car_model = re.sub(car_mark, '', car_model).strip().upper()
     
@@ -548,7 +550,7 @@ def process_car_model_pp(car_model, car_mark):
             
 def procees_price_pp(price):
     if isinstance(price, list):
-        price = ' '.join(price).strip
+        price = ' '.join(price).strip()
         
     return parse_price(price)
 
