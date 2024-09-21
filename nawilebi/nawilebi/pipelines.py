@@ -509,3 +509,25 @@ class PpPipeline:
             
         return item
             
+            
+class MmautoPipeline:
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        
+        car_model = adapter.get("car_model")
+        if car_model:
+            adapter["car_model"], adapter["year"], adapter["start_year"], adapter["end_year"] = process_car_model_mmauto(car_model)
+            
+        in_stock = adapter.get("in_stock")
+        if in_stock:
+            adapter["in_stock"] = process_in_stock(in_stock)
+            
+        part_full_name = adapter.get("part_full_name")
+        if part_full_name:
+            adapter["part_full_name"] = part_full_name.strip()
+            
+        price = adapter.get("price")
+        if price:
+            adapter["price"] = parse_price(price)
+            
+        return item

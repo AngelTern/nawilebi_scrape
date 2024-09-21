@@ -554,6 +554,52 @@ def procees_price_pp(price):
         
     return parse_price(price)
 
+def extract_id_mmauto(url):
+    match = re.search(r'/vehicle/(\d+)/', url)
+    if match:
+        vehicle_id = match.group(1)
+        return vehicle_id
+    else: return None
+
+def process_car_model_mmauto(car_model):
+    
+    current_year = datetime.now().year
+    year_pattern = re.compile(r'(\d{4})\s*[-–]\s*(\d{4}|PRSS)?')
+
+
+    match = year_pattern.search(car_model)
+    
+    if match:
+        car_model = re.sub(year_pattern, '', car_model).strip()
+        car_model = re.sub('-', '', car_model).strip()
+        start_year = int(match.group(1))
+        end_year_str = match.group(2)
+        
+        if end_year_str == "PRSS" or end_year_str is None:
+            end_year = current_year
+        else:
+            end_year = int(end_year_str)
+        
+        year = f"{start_year}-{end_year}"
+        return car_model, year, start_year, end_year
+    
+    return car_model, None, None, None
+
+def process_in_stock(in_stock_list):
+    in_stock_list = [in_stock.strip() for in_stock in in_stock_list if in_stock.strip()]
+    
+    in_stock_string = ' '.join(in_stock_list).strip()
+    
+    if "მარაგშია" in in_stock_list:
+        in_stock = True
+    elif "არ არის მარაგში" in in_stock_list:
+        in_stock = False
+        
+    if in_stock == True or in_stock == False:
+        return in_stock
+    else: return None
+    
+
 '''---------------------------------------------------------'''
 
 def format_year(year):
