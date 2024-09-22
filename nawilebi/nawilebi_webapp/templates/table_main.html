@@ -2,8 +2,24 @@
 
 {% block content %}
 
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Car Parts</a>
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('manage_users') }}">Add Users</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
 <!-- Filter Bar Section -->
 <div class="filter-bar mb-3">
+  <!-- (Your existing filter bar code) -->
   <div class="row">
     <div class="col-md-4">
       <label for="car_mark_filter">Car Mark:</label>
@@ -83,7 +99,7 @@
       serverSide: true,
       columns: [
         {data: 'part_url', render: function(data, type, row) {
-            return '<a href="'+data+'" target="_blank">'+data+'</a>';
+            return '<a href="'+data+'" target="_blank" class="btn btn-primary btn-sm">View Part</a>';
         }},
         {data: 'car_mark'},
         {data: 'car_model'},

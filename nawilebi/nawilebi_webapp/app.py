@@ -1,16 +1,19 @@
-from flask import Flask, render_template, url_for, redirect, request, jsonify
+from flask import Flask, render_template, url_for, redirect, request, jsonify, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import InputRequired, Length
 from flask_bcrypt import Bcrypt
 from sqlalchemy import or_, func, Integer, case, and_
+from datetime import timedelta
 
 app = Flask(__name__)
 application = app
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqldb://root:12XklsD!?NmG1509@localhost/nawilebi'
-app.config["SECRET_KEY"] = 'am_chem_fexebs'
+app.config['SQLALCHEMY_DATABASE_URI'] = ''  
+app.config["SECRET_KEY"] = ''  
+app.config['REMEMBER_COOKIE_DURATION'] = timedelta(days=30)  
+app.config['SESSION_COOKIE_SECURE'] = True  # For development, set to True in production with HTTPS
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
@@ -42,6 +45,12 @@ class CarPart(db.Model):
     website = db.Column(db.String(255))
 
     def to_dict(self):
+        # Incorporate the logic for in_stock
+        in_stock = self.in_stock
+        if self.price is not None and in_stock is None:
+            in_stock = True
+        elif in_stock is None:
+            in_stock = False
         return {
             'id': self.id,
             'part_url': self.part_url,
@@ -51,14 +60,24 @@ class CarPart(db.Model):
             'start_year': self.start_year,
             'end_year': self.end_year,
             'price': self.price,
-            'in_stock': self.in_stock,
+            'in_stock': in_stock,
             'website': self.website
         }
 
 class LoginForm(FlaskForm):
-    username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username", "class": "form-control"})
-    password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Password", "class": "form-control"})
+    username = StringField(validators=[InputRequired(), Length(min=4, max=20)],
+                           render_kw={"placeholder": "Username", "class": "form-control"})
+    password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)],
+                             render_kw={"placeholder": "Password", "class": "form-control"})
+    remember = BooleanField('Remember Me', render_kw={"class": "form-check-input"})
     submit = SubmitField("Login", render_kw={"class": "btn btn-primary"})
+
+class AddUserForm(FlaskForm):
+    username = StringField(validators=[InputRequired(), Length(min=4, max=20)],
+                           render_kw={"placeholder": "Username", "class": "form-control"})
+    password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)],
+                             render_kw={"placeholder": "Password", "class": "form-control"})
+    submit = SubmitField("Add User", render_kw={"class": "btn btn-primary"})
 
 @app.route('/')
 def home():
@@ -70,8 +89,10 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
-            login_user(user)
+            login_user(user, remember=form.remember.data)
             return redirect(url_for("dashboard"))
+        else:
+            flash('Invalid username or password', 'danger')
     return render_template("login.html", form=form)
 
 @app.route('/data', methods=["GET", "POST"])
@@ -97,7 +118,7 @@ def data():
     if car_model:
         query = query.filter(CarPart.car_model == car_model)
     if part_full_name:
-        query = query.filter(CarPart.part_full_name == part_full_name)
+        query = query.filter(CarPart.part_full_name.ilike(f'%{part_full_name}%'))  # Adjusted to use 'ilike'
     if year:
         try:
             search_year = int(year)
@@ -184,9 +205,40 @@ def filter_part_full_name():
     if car_model:
         query = query.filter(CarPart.car_model == car_model)
     if search:
-        query = query.filter(CarPart.part_full_name.like(f'%{search}%'))
+        query = query.filter(CarPart.part_full_name.ilike(f'%{search}%'))  # Adjusted to use 'ilike'
     part_names = query.all()
     return jsonify([part_name[0] for part_name in part_names])
+
+@app.route('/manage_users', methods=["GET", "POST"])
+@login_required
+def manage_users():
+    users = User.query.all()
+    form = AddUserForm()
+    if form.validate_on_submit():
+        # Check if username already exists
+        existing_user = User.query.filter_by(username=form.username.data).first()
+        if existing_user:
+            flash('Username already exists', 'danger')
+        else:
+            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            new_user = User(username=form.username.data, password=hashed_password)
+            db.session.add(new_user)
+            db.session.commit()
+            flash('User added successfully', 'success')
+        return redirect(url_for('manage_users'))
+    return render_template('manage_users.html', users=users, form=form)
+
+@app.route('/delete_user/<int:user_id>', methods=["POST"])
+@login_required
+def delete_user(user_id):
+    user = User.query.get_or_404(user_id)
+    if user.id == current_user.id:
+        flash("You cannot delete your own account", 'danger')
+    else:
+        db.session.delete(user)
+        db.session.commit()
+        flash('User deleted successfully', 'success')
+    return redirect(url_for('manage_users'))
 
 @app.route('/logout', methods=["GET", "POST"])
 @login_required

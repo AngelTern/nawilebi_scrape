@@ -94,3 +94,23 @@ input[type="search"] {
     padding: 6px 10px;
     border: 1px solid #ddd;
 }
+
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Optional: Add background and border styling */
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+}
+
+.table .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.table .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
