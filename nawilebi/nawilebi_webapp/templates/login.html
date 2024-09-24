@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>შესვლა</title>
     <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Login</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ url_for('static', filename='login_style.css') }}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login_style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Login</h1>
+        <h1>შესვლა</h1>
         <form method="POST">
             {{ form.hidden_tag() }}
             <div class="form-group">
-                {{ form.username.label }}<br>
+                <label for="{{ form.username.id }}">მომხმარებლის სახელი:</label><br>
                 {{ form.username }}
             </div>
             <div class="form-group">
-                {{ form.password.label }}<br>
+                <label for="{{ form.password.id }}">პაროლი:</label><br>
                 {{ form.password }}
             </div>
             <div class="form-group form-check">
-                {{ form.remember }} {{ form.remember.label }}
+                {{ form.remember }} <label for="{{ form.remember.id }}">დაიმახსოვრე</label>
             </div>
             <div class="form-group">
-                {{ form.submit }}
+                {{ form.submit(class="btn btn-primary", value="შესვლა") }}
             </div>
         </form>
     </div>

@@ -7,11 +7,11 @@ from wtforms.validators import InputRequired, Length
 from flask_bcrypt import Bcrypt
 from sqlalchemy import or_, func, Integer, case, and_
 from datetime import timedelta
-
+import os
 app = Flask(__name__)
 application = app
-app.config['SQLALCHEMY_DATABASE_URI'] = ''  
-app.config["SECRET_KEY"] = ''  
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12XklsD!?NmG1509@localhost:3306/nawilebi'  
+app.config["SECRET_KEY"] = os.urandom(24) 
 app.config['REMEMBER_COOKIE_DURATION'] = timedelta(days=30)  
 app.config['SESSION_COOKIE_SECURE'] = True  # For development, set to True in production with HTTPS
 db = SQLAlchemy(app)
@@ -66,17 +66,17 @@ class CarPart(db.Model):
 
 class LoginForm(FlaskForm):
     username = StringField(validators=[InputRequired(), Length(min=4, max=20)],
-                           render_kw={"placeholder": "Username", "class": "form-control"})
+                           render_kw={"placeholder": "მომხმარებელი", "class": "form-control"})
     password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)],
-                             render_kw={"placeholder": "Password", "class": "form-control"})
+                             render_kw={"placeholder": "პაროლი", "class": "form-control"})
     remember = BooleanField('Remember Me', render_kw={"class": "form-check-input"})
     submit = SubmitField("Login", render_kw={"class": "btn btn-primary"})
 
 class AddUserForm(FlaskForm):
     username = StringField(validators=[InputRequired(), Length(min=4, max=20)],
-                           render_kw={"placeholder": "Username", "class": "form-control"})
+                           render_kw={"placeholder": "მომხმარებელი", "class": "form-control"})
     password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)],
-                             render_kw={"placeholder": "Password", "class": "form-control"})
+                             render_kw={"placeholder": "პაროლი", "class": "form-control"})
     submit = SubmitField("Add User", render_kw={"class": "btn btn-primary"})
 
 @app.route('/')

@@ -5096,3 +5096,101 @@ UnboundLocalError: cannot access local variable 'in_stock' where it is not assoc
  'website': 'https://mmauto.ge/',
  'year': '2019-2022'}
 2024-09-21 20:46:03 [scrapy.crawler] INFO: Received SIGINT twice, forcing unclean shutdown
+2024-09-25 02:09:26 [scrapy.utils.log] INFO: Scrapy 2.11.2 started (bot: nawilebi)
+2024-09-25 02:09:26 [scrapy.utils.log] INFO: Versions: lxml 5.3.0.0, libxml2 2.11.7, cssselect 1.2.0, parsel 1.9.1, w3lib 2.2.1, Twisted 24.7.0, Python 3.11.9 | packaged by Anaconda, Inc. | (main, Apr 19 2024, 16:40:41) [MSC v.1916 64 bit (AMD64)], pyOpenSSL 24.2.1 (OpenSSL 3.0.15 3 Sep 2024), cryptography 43.0.0, Platform Windows-10-10.0.22631-SP0
+2024-09-25 02:09:26 [scrapy.addons] INFO: Enabled addons:
+[]
+2024-09-25 02:09:26 [asyncio] DEBUG: Using selector: SelectSelector
+2024-09-25 02:09:26 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.asyncioreactor.AsyncioSelectorReactor
+2024-09-25 02:09:26 [scrapy.utils.log] DEBUG: Using asyncio event loop: asyncio.windows_events._WindowsSelectorEventLoop
+2024-09-25 02:09:26 [scrapy.extensions.telnet] INFO: Telnet Password: 3ab4ac68928ccae7
+2024-09-25 02:09:26 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole']
+2024-09-25 02:09:26 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'nawilebi',
+ 'DUPEFILTER_CLASS': 'scrapy.dupefilters.BaseDupeFilter',
+ 'FEED_EXPORT_ENCODING': 'utf-8',
+ 'LOGSTATS_INTERVAL': 0,
+ 'LOG_FILE': 'scrapy_output.log',
+ 'NEWSPIDER_MODULE': 'nawilebi.spiders',
+ 'REQUEST_FINGERPRINTER_IMPLEMENTATION': '2.7',
+ 'SPIDER_MODULES': ['nawilebi.spiders'],
+ 'TWISTED_REACTOR': 'twisted.internet.asyncioreactor.AsyncioSelectorReactor'}
+2024-09-25 02:09:27 [FakeBrowserHeaderAgentMiddleware] INFO: Fake browser headers are enabled.
+2024-09-25 02:09:27 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'nawilebi.middlewares.FakeBrowserHeaderAgentMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2024-09-25 02:09:27 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2024-09-25 02:09:27 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2024-09-25 02:09:27 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6023
+2024-09-25 02:10:19 [scrapy.core.engine] INFO: Spider opened
+2024-09-25 02:10:19 [urllib3.connectionpool] DEBUG: Starting new HTTPS connection (1): headers.scrapeops.io:443
+2024-09-25 02:10:20 [urllib3.connectionpool] DEBUG: https://headers.scrapeops.io:443 "GET /v1/browser-headers?api_key=020f7e20-d5df-490d-a0b5-0fc569d5262a&num_results=50 HTTP/11" 200 29281
+2024-09-25 02:10:20 [FakeBrowserHeaderAgentMiddleware] INFO: Fetched 50 headers from ScrapeOps API.
+2024-09-25 02:10:26 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://localhost:8050/render.html?url=https://otoparts.ge/dzaris-natsilebi/> (referer: None)
+2024-09-25 02:12:29 [scrapy.utils.log] INFO: Scrapy 2.11.2 started (bot: nawilebi)
+2024-09-25 02:12:29 [scrapy.utils.log] INFO: Versions: lxml 5.3.0.0, libxml2 2.11.7, cssselect 1.2.0, parsel 1.9.1, w3lib 2.2.1, Twisted 24.7.0, Python 3.11.9 | packaged by Anaconda, Inc. | (main, Apr 19 2024, 16:40:41) [MSC v.1916 64 bit (AMD64)], pyOpenSSL 24.2.1 (OpenSSL 3.0.15 3 Sep 2024), cryptography 43.0.0, Platform Windows-10-10.0.22631-SP0
+2024-09-25 02:12:29 [scrapy.addons] INFO: Enabled addons:
+[]
+2024-09-25 02:12:29 [asyncio] DEBUG: Using selector: SelectSelector
+2024-09-25 02:12:29 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.asyncioreactor.AsyncioSelectorReactor
+2024-09-25 02:12:29 [scrapy.utils.log] DEBUG: Using asyncio event loop: asyncio.windows_events._WindowsSelectorEventLoop
+2024-09-25 02:12:29 [scrapy.extensions.telnet] INFO: Telnet Password: 3490127c45bb9438
+2024-09-25 02:12:29 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole']
+2024-09-25 02:12:29 [scrapy.crawler] INFO: Overridden settings:
+{'BOT_NAME': 'nawilebi',
+ 'DUPEFILTER_CLASS': 'scrapy.dupefilters.BaseDupeFilter',
+ 'FEED_EXPORT_ENCODING': 'utf-8',
+ 'LOGSTATS_INTERVAL': 0,
+ 'LOG_FILE': 'scrapy_output.log',
+ 'NEWSPIDER_MODULE': 'nawilebi.spiders',
+ 'REQUEST_FINGERPRINTER_IMPLEMENTATION': '2.7',
+ 'SPIDER_MODULES': ['nawilebi.spiders'],
+ 'TWISTED_REACTOR': 'twisted.internet.asyncioreactor.AsyncioSelectorReactor'}
+2024-09-25 02:12:29 [FakeBrowserHeaderAgentMiddleware] INFO: Fake browser headers are enabled.
+2024-09-25 02:12:29 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
+ 'nawilebi.middlewares.FakeBrowserHeaderAgentMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2024-09-25 02:12:29 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2024-09-25 02:12:29 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2024-09-25 02:12:29 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6024
+2024-09-25 02:12:41 [scrapy.core.engine] INFO: Spider opened
+2024-09-25 02:12:41 [urllib3.connectionpool] DEBUG: Starting new HTTPS connection (1): headers.scrapeops.io:443
+2024-09-25 02:12:42 [urllib3.connectionpool] DEBUG: https://headers.scrapeops.io:443 "GET /v1/browser-headers?api_key=020f7e20-d5df-490d-a0b5-0fc569d5262a&num_results=50 HTTP/11" 200 29266
+2024-09-25 02:12:42 [FakeBrowserHeaderAgentMiddleware] INFO: Fetched 50 headers from ScrapeOps API.
+2024-09-25 02:12:45 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/> (referer: None)
