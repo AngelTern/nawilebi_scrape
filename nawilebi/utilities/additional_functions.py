@@ -416,18 +416,20 @@ def process_car_model_crossmotors(car_model):
 def process_car_model_autogama(car_model):
     car_mark_list = ["SUBARU", "HYUNDAI", "KIA", "NISSAN", "TOYOTA", "BMW"]
     car_mark = None
-    
+
+    car_model_upper = car_model.upper()
+
     for mark in car_mark_list:
-        if mark in car_model.upper():
+        if mark in car_model_upper:
             car_mark = mark
-            car_model = car_model.replace(mark, '').strip()
+            car_model = car_model_upper.replace(mark, '').strip()
             break
-    
+
     current_year = datetime.now().year
 
     year_pattern = re.compile(r'(\d{4})\s*-\s*(\d{4})?')
     match = year_pattern.search(car_model)
-    
+
     start_year = None
     end_year = None
     year = None
@@ -437,24 +439,25 @@ def process_car_model_autogama(car_model):
         end_year = format_year(match.group(2)) if match.group(2) else current_year
         year = f"{start_year}-{end_year}"
 
-        car_model = re.sub(year_pattern, '', car_model).strip()
+        car_model = year_pattern.sub('', car_model).strip()
 
     return car_mark, car_model, start_year, end_year, year
 
+
 def process_part_full_name_autogama(part_full_name):
     price_pattern = re.compile(r'(\d+)\s*₾')
-    
+
     match = price_pattern.search(part_full_name)
-    
+
     price = None
     name = part_full_name
-    
+
     if match:
         price = int(match.group(1))
-        
-        name = re.sub(price_pattern, '', part_full_name).strip()
-    
+        name = price_pattern.sub('', part_full_name).strip()
+
     return name, price
+
 
 import re
 from datetime import datetime

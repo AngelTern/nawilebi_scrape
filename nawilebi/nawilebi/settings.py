@@ -12,6 +12,20 @@ BOT_NAME = "nawilebi"
 SPIDER_MODULES = ["nawilebi.spiders"]
 NEWSPIDER_MODULE = "nawilebi.spiders"
 
+##SPLASH
+
+'''SPLASH_URL = 'http://localhost:8050'
+DOWNLOADER_MIDDLEWARES = {
+    "nawilebi.middlewares.FakeBrowserHeaderAgentMiddleware": 100,
+    'scrapy_splash.SplashCookiesMiddleware': 723,
+    'scrapy_splash.SplashMiddleware': 725,
+    'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
+}
+DUPEFILTER_CLASS = 'scrapy_splash.SplashAwareDupeFilter'
+HTTPCACHE_STORAGE = 'scrapy_splash.SplashAwareFSCacheStorage'
+SPIDER_MIDDLEWARES = {
+    'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
+}'''
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "nawilebi (+http://www.yourdomain.com)"
@@ -65,12 +79,12 @@ SCRAPEOPS_NUM_RESULTS = 50
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
+'''DOWNLOADER_MIDDLEWARES = {
     #"nawilebi.middlewares.NawilebiDownloaderMiddleware": 543,
-    "nawilebi.middlewares.FakeBrowserHeaderAgentMiddleware": 100,
+    
     #"nawilebi.middleware.FakeUserAgentMiddleware": 101
 }
-
+'''
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
 #EXTENSIONS = {

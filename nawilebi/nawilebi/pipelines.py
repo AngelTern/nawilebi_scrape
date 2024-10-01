@@ -41,10 +41,46 @@ from scrapy.exceptions import DropItem
 '''
 class NawilebiPipeline:
     def process_item(self, item, spider):
-        adapter = ItemAdapter(item)
         
-        adapter['start_year'] = int(adapter.get("start_year"))
-        adapter['end_year'] = int(adapter.get("end_year"))
+        name_combinations = [
+            ["ფრთა", "კრილო"],
+            ["ფარი", "მაშუქი", "სტოპი"],
+            ["სამაგრი", "ბრეკეტი", "სალასკა"],
+            ["ფრთის საფენი", "პატკრილნიკი"],
+            ["ძელი", "ბალკა"],
+            ["ავზი", "ბაჩოკი"],
+            ["ეკრანი", "რადიატორების დამჭერი"],
+            ["ცხაურა", "აბლიცოვკა", "ბადე"],
+            ["პეტლი", "ანჯამი"],
+            ["ლოგო", "ემბლემა"],
+            ["დამცავი", "საფარი"],
+            ["ფილტრი", "ჰაერი"]
+        ]
+        
+        adapter = ItemAdapter(item)
+        part_full_name = adapter.get("part_full_name")
+        
+        alternative_names = []
+        found_primary = False
+
+        for name_list in name_combinations:
+            for name in name_list:
+                if name.lower() in part_full_name:
+                    primary_name = name
+                    alternative_names = [alt_name for alt_name in name_list if alt_name.lower() != primary_name.lower()]
+                    found_primary = True
+                    break
+            if found_primary:
+                break
+
+        item["alternative_name_1"] = alternative_names[0] if len(alternative_names) >= 1 else None
+        item["alternative_name_2"] = alternative_names[1] if len(alternative_names) >= 2 else None
+        
+        return item
+
+
+
+                    
         
 
 class YearProcessPipeline:
@@ -103,6 +139,8 @@ class SaveToMySQLPipeline:
                 car_mark VARCHAR(70),
                 car_model VARCHAR(150),
                 part_full_name VARCHAR(150),
+                alternative_name_1 VARCHAR(150),
+                alternative_name_2 VARCHAR(150),
                 start_year INT,
                 end_year INT,
                 price NUMERIC,
@@ -110,6 +148,7 @@ class SaveToMySQLPipeline:
                 in_stock BOOLEAN,
                 website VARCHAR(255),
                 city VARCHAR(50),
+                phone VARCHAR(50),
                 PRIMARY KEY (id)
             )
         ''')
@@ -117,22 +156,25 @@ class SaveToMySQLPipeline:
     def process_item(self, item, spider):
         self.cur.execute('''
             INSERT INTO nawilebi(
-                part_url, car_mark, car_model, part_full_name,
-                start_year, end_year, price, original_price,
-                in_stock, city, website
-            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                part_url, car_mark, car_model, part_full_name, alternative_name_1,
+                alternative_name_2, start_year, end_year, price, original_price,
+                in_stock, city, website, phone
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         ''', (
             item.get('part_url'),
             item.get('car_mark'),
             item.get('car_model'),
             item.get('part_full_name'),
+            item.get('alternative_name_1'),
+            item.get('alternative_name_2'),
             item.get('start_year'),
             item.get('end_year'),
             item.get('price'),
             item.get('original_price'),
             item.get('in_stock'),
             item.get('city'),
-            item.get('website')
+            item.get('website'),
+            item.get('phone')
         ))
 
         self.conn.commit()
@@ -447,16 +489,17 @@ class CrossmotorsPipeline:
 class AutogamaPipeline:
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
-        
+
         part_full_name = adapter.get("part_full_name")
         if part_full_name:
             adapter["part_full_name"], adapter["price"] = process_part_full_name_autogama(part_full_name)
-            
+
         car_model = adapter.get("car_model")
         if car_model:
             adapter["car_mark"], adapter["car_model"], adapter["start_year"], adapter["end_year"], adapter["year"] = process_car_model_autogama(car_model)
-            
+
         return item
+
     
 class ApgpartsPipeline:
     def process_item(self, item, spider):

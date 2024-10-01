@@ -1,69 +1,71 @@
 import scrapy
 from nawilebi.items import NawilebiItem
-
+from scrapy_splash import SplashRequest
 
 class OtopartsSpider(scrapy.Spider):
     name = "otoparts"
     allowed_domains = ["otoparts.ge"]
-    start_urls = ["https://otoparts.ge/dzaris-natsilebi/"]
+
     custom_settings = {
-        'ITEM_PIPELINES': {
-            "nawilebi.pipelines.NawilebiPipeline": 100,
-            "nawilebi.pipelines.CarpartsPipeline": 200,
-            "nawilebi.pipelines.SaveToMySQLPipeline": 900
-        },
-        'DOWNLOAD_DELAY': 0.5,
+    'ITEM_PIPELINES': {
+        # Uncomment and configure your pipelines as needed
+        # "nawilebi.pipelines.NawilebiPipeline": 100,
+        # "nawilebi.pipelines.CarpartsPipeline": 200,
+        # "nawilebi.pipelines.SaveToMySQLPipeline": 900
+    },
+    'DOWNLOAD_DELAY': 0.5,
+    'SPLASH_URL': 'http://localhost:8050',
+    'DOWNLOADER_MIDDLEWARES': {
+        "nawilebi.middlewares.FakeBrowserHeaderAgentMiddleware": 100,
+        'scrapy_splash.SplashCookiesMiddleware': 723,
+        'scrapy_splash.SplashMiddleware': 725,
+        'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware': 810,
+    },
+    'DUPEFILTER_CLASS': 'scrapy_splash.SplashAwareDupeFilter',
+    'HTTPCACHE_STORAGE': 'scrapy_splash.SplashAwareFSCacheStorage',
+    'SPIDER_MIDDLEWARES': {
+        'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
     }
+}
+
     
-    
+    def start_requests(self):
+        url = "https://otoparts.ge/dzaris-natsilebi/"
+        yield SplashRequest(url, callback=self.parse)
 
     def parse(self, response):
-        sections_list = response.css("div.elementor-177 > section")
+        car_mark_urls_list = response.css("div.elementor-177 section > div div div div div a::attr(href)").getall()
         
-        for section in sections_list:
-            car_marks_list = section.css("div.elementor-container > div")
-            
-            for car_mark in car_marks_list:
-                car_model_url = car_mark.css("div div div a::attr(href)").get()
-                car_mark_name = car_mark.css("div div div a img::attr(title)").get()
-                
-                yield response.follow(car_model_url, callback = self.parse_car_model,
-                                      meta = {"car_mark": car_mark_name})
-                
-    def parse_car_model(self, response):
-        car_models_sections = response.css("body > div.elementor.elementor-1130 > section.elementor-section.elementor-top-section.elementor-element.elementor-element-031c4e8.elementor-section-boxed.elementor-section-height-default.elementor-section-height-default > div > div section")
+        for car_mark_url in car_mark_urls_list:
+            yield SplashRequest(car_mark_url, callback=self.parse_mark_page)
+
+    def parse_mark_page(self, response):
+        car_model_urls = response.css(".elementor-image-box-title a::attr(href)").getall()
         
-        for section in car_models_sections:
-            car_models_list = section.css("div > div")
-            
-            for car_model in car_models_list:
-                car_model_url = car_model.css("div > div > div > div > div h1 a::attr(href)").get()
-                yield response.follow(car_model_url, callback = self.parse_parts_list,
-                                      meta = {"car_mark": response.meta["car_mark"]})
-                
-    def parse_parts_list(self, response):
+        for car_model_url in car_model_urls:
+            yield SplashRequest(car_model_url, callback=self.parse_model_page)
+
+    def parse_model_page(self, response):
+        part_urls = response.css("ul li.product div .premium-woo-products-details-wrap a.premium-woo-product__link::attr(href)").getall()
+        
+        for part_url in part_urls:
+            yield SplashRequest(part_url, callback=self.parse_part_page, meta={'part_url': part_url})
+
+    def parse_part_page(self, response):
         item = NawilebiItem()
-        car_parts_list = response.css("body > div.elementor.elementor-19962.elementor-location-archive.product > section.elementor-section.elementor-top-section.elementor-element.elementor-element-664c33e8.elementor-section-boxed.elementor-section-height-default.elementor-section-height-default > div > div > div > div > div > div > div > ul > li")
         
-        for car_part in car_parts_list:
-            item["website"] = "https://otoparts.ge/dzaris-natsilebi/"
-            item["part_url"] = car_part.css("div .premium-woo-products-details-wrap a::attr(href)").get()
-            item["part_full_name"] = car_part.css("div .premium-woo-products-details-wrap a h2::text").get()
-            item["car_model"] = car_part.css("div .premium-woo-products-details-wrap span::text").get()
-            item["price"] = car_part.css("div .premium-woo-products-details-wrap .premium-woo-product-info span span bdi::text").get()
-            item["car_mark"] = response.meta["car_mark"]
-            if car_part.css("div premium-woo-product-thumbnail span").get():
-                item["in_stock"] = False
-            else:
-                item["in_stock"] = True
-                
-
-            
-
-            
-
+        item["car_mark"] = response.css("nav.woocommerce-breadcrumb a:nth-of-type(2)::text").get()
+        item["car_model"] = response.css("nav.woocommerce-breadcrumb a:nth-of-type(3)::text").get()
+        item["part_url"] = response.meta["part_url"]
+        item["part_full_name"] = response.css("h1.product_title::text").get()
+        item["price"] = response.css("div.elementor-widget-container p.price span.woocommerce-Price-amount bdi::text").get()
         
+        in_stock = response.css("div.elementor-add-to-cart p.stock::text").get()
+        item["in_stock"] = True if in_stock == "მარაგში" else False
         
+        item["website"] = "https://otoparts.ge/"
+        item["year"] = None
+        item["start_year"] = None
+        item["end_year"] = None
         
-        
-        
+        yield item

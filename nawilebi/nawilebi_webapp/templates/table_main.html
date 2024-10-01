@@ -11,9 +11,11 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
+      {% if current_user.is_admin %}
       <li class="nav-item">
         <a class="nav-link" href="{{ url_for('manage_users') }}">მომხმარებლების დამატება</a>
       </li>
+      {% endif %}
       <li class="nav-item">
         <a class="nav-link" href="{{ url_for('logout') }}">გასვლა</a>
       </li>
@@ -44,21 +46,11 @@
         <input type="number" id="year_filter" class="form-control" placeholder="შეიყვანეთ წელი">
       </div>
       <div class="col-md-4">
-        <label for="price_filter">ფასი:</label>
-        <input type="number" id="price_filter" class="form-control" placeholder="შეიყვანეთ ფასი">
+        <!-- Empty Space -->
       </div>
       <div class="col-md-4">
-        <label for="in_stock_filter">დაფასება:</label>
-        <select id="in_stock_filter" class="form-control">
-          <option value="">ყველა</option>
-          <option value="1">კი</option>
-          <option value="0">არა</option>
-        </select>
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col-md-3 align-self-end">
-        <button id="reset_filters" class="btn btn-secondary">ფილტრების გაუქმება</button>
+        <button id="search_button" class="btn btn-primary mt-4">ძებნა</button>
+        <button id="reset_filters" class="btn btn-secondary mt-4">ფილტრების გაუქმება</button>
       </div>
     </div>
   </div>
@@ -71,10 +63,13 @@
         <th>ავტო მარკა</th>
         <th>ავტო მოდელი</th>
         <th>ნაწილის სახელი</th>
+        <th>ალტერნატიული სახელი 1</th> <!-- New Column -->
+        <th>ალტერნატიული სახელი 2</th> <!-- New Column -->
         <th>საწყისი წელი</th>
         <th>დასასრული წელი</th>
         <th>ფასი</th>
-        <th>დაფასება</th>
+        <th>საიტი</th>
+        <th>ტელეფონი</th>
       </tr>
     </thead>
     <tbody>
@@ -103,6 +98,7 @@
     // Initialize DataTable with server-side processing
     var table = $('#data').DataTable({
       scrollY: '400px',  // Fixed height to prevent size changes
+      scrollX: true,     // Enable horizontal scrolling
       scrollCollapse: true,
       paging: true,
       ajax: {
@@ -112,8 +108,6 @@
           d.car_model = $('#car_model_filter').val();
           d.part_full_name = $('#part_full_name_filter').val();
           d.year = $('#year_filter').val();
-          d.price = $('#price_filter').val();
-          d.in_stock = $('#in_stock_filter').val();
         }
       },
       serverSide: true,
@@ -125,12 +119,13 @@
         {data: 'car_mark'},
         {data: 'car_model'},
         {data: 'part_full_name'},
+        {data: 'alternative_name_1'},
+        {data: 'alternative_name_2'},
         {data: 'start_year'},
         {data: 'end_year'},
         {data: 'price'},
-        {data: 'in_stock', render: function(data, type, row) {
-            return data ? 'კი' : 'არა';
-        }}
+        {data: 'website'},
+        {data: 'phone'}
       ],
       order: [],  // Disable default sorting
       language: {
@@ -138,23 +133,7 @@
       }
     });
 
-    // Debounce function to limit the rate of function execution
-    function debounce(func, wait, immediate) {
-      var timeout;
-      return function() {
-        var context = this, args = arguments;
-        var later = function() {
-          timeout = null;
-          if (!immediate) func.apply(context, args);
-        };
-        var callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
-      };
-    };
-
-    // Function to initialize autocomplete with preloaded options
+    // Initialize autocomplete for each filter
     function initializeAutocomplete(selector, url, extraData) {
       $(selector).autocomplete({
         source: function(request, response) {
@@ -172,7 +151,7 @@
         },
         minLength: 0,  // Show all options when the input is focused
         select: function () {
-          table.draw(false);
+          // Do nothing on select
         }
       }).focus(function(){
         // Show the complete list when input is focused
@@ -180,7 +159,7 @@
       });
     }
 
-    // Initialize autocomplete for each filter
+    // Initialize autocomplete for filters
     initializeAutocomplete('#car_mark_filter', '/api/filters/car_mark');
     initializeAutocomplete('#car_model_filter', '/api/filters/car_model', function () {
       return {car_mark: $('#car_mark_filter').val()};
@@ -192,20 +171,15 @@
       };
     });
 
-    // Debounced redraw function to optimize performance
-    var debouncedDraw = debounce(function() {
+    // Search button click event
+    $('#search_button').click(function () {
       table.draw(false);
-    }, 300);  // 300 milliseconds delay
-
-    // Redraw the table when any filter is changed (keyup and change events)
-    $('#car_mark_filter, #car_model_filter, #part_full_name_filter, #year_filter, #price_filter, #in_stock_filter').on('keyup change', function () {
-      debouncedDraw();
     });
 
     // Reset filters
     $('#reset_filters').click(function () {
       // Reset all filter values
-      $('#car_mark_filter, #car_model_filter, #part_full_name_filter, #year_filter, #price_filter, #in_stock_filter').val('');
+      $('#car_mark_filter, #car_model_filter, #part_full_name_filter, #year_filter').val('');
       table.draw(false);
     });
   });

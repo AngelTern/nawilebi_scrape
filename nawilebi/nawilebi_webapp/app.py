@@ -5,15 +5,16 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import InputRequired, Length
 from flask_bcrypt import Bcrypt
-from sqlalchemy import or_, func, Integer, case, and_
+from sqlalchemy import or_
 from datetime import timedelta
 import os
+
 app = Flask(__name__)
 application = app
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:12XklsD!?NmG1509@localhost:3306/nawilebi'  
 app.config["SECRET_KEY"] = os.urandom(24) 
 app.config['REMEMBER_COOKIE_DURATION'] = timedelta(days=30)  
-app.config['SESSION_COOKIE_SECURE'] = True  # For development, set to True in production with HTTPS
+app.config['SESSION_COOKIE_SECURE'] = True  # Set to True in production with HTTPS
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 
@@ -30,6 +31,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.String(80), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)  # Added admin field
 
 class CarPart(db.Model):
     __tablename__ = 'nawilebi'
@@ -38,30 +40,29 @@ class CarPart(db.Model):
     car_mark = db.Column(db.String(70))
     car_model = db.Column(db.String(150))
     part_full_name = db.Column(db.String(150))
+    alternative_name_1 = db.Column(db.String(255), default=None)  # Added field
+    alternative_name_2 = db.Column(db.String(255), default=None)  # Added field
     start_year = db.Column(db.Integer)
     end_year = db.Column(db.Integer)
     price = db.Column(db.Integer)
     in_stock = db.Column(db.Boolean)
     website = db.Column(db.String(255))
+    phone = db.Column(db.String(20))  # Added phone field
 
     def to_dict(self):
-        # Incorporate the logic for in_stock
-        in_stock = self.in_stock
-        if self.price is not None and in_stock is None:
-            in_stock = True
-        elif in_stock is None:
-            in_stock = False
         return {
             'id': self.id,
             'part_url': self.part_url,
             'car_mark': self.car_mark,
             'car_model': self.car_model,
             'part_full_name': self.part_full_name,
+            'alternative_name_1': self.alternative_name_1,
+            'alternative_name_2': self.alternative_name_2,
             'start_year': self.start_year,
             'end_year': self.end_year,
             'price': self.price,
-            'in_stock': in_stock,
-            'website': self.website
+            'website': self.website,
+            'phone': self.phone
         }
 
 class LoginForm(FlaskForm):
@@ -69,15 +70,16 @@ class LoginForm(FlaskForm):
                            render_kw={"placeholder": "მომხმარებელი", "class": "form-control"})
     password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)],
                              render_kw={"placeholder": "პაროლი", "class": "form-control"})
-    remember = BooleanField('Remember Me', render_kw={"class": "form-check-input"})
-    submit = SubmitField("Login", render_kw={"class": "btn btn-primary"})
+    remember = BooleanField('დაიმახსოვრე', render_kw={"class": "form-check-input"})
+    submit = SubmitField("შესვლა", render_kw={"class": "btn btn-primary"})
 
 class AddUserForm(FlaskForm):
     username = StringField(validators=[InputRequired(), Length(min=4, max=20)],
                            render_kw={"placeholder": "მომხმარებელი", "class": "form-control"})
     password = PasswordField(validators=[InputRequired(), Length(min=4, max=20)],
                              render_kw={"placeholder": "პაროლი", "class": "form-control"})
-    submit = SubmitField("Add User", render_kw={"class": "btn btn-primary"})
+    is_admin = BooleanField('ადმინისტრატორი', render_kw={"class": "form-check-input"})
+    submit = SubmitField("დამატება", render_kw={"class": "btn btn-primary"})
 
 @app.route('/')
 def home():
@@ -92,7 +94,7 @@ def login():
             login_user(user, remember=form.remember.data)
             return redirect(url_for("dashboard"))
         else:
-            flash('Invalid username or password', 'danger')
+            flash('არასწორი მომხმარებლის სახელი ან პაროლი', 'danger')
     return render_template("login.html", form=form)
 
 @app.route('/data', methods=["GET", "POST"])
@@ -105,20 +107,24 @@ def dashboard():
 def data():
     query = CarPart.query
 
-    # Apply filters from request
+    # Filters
     car_mark = request.args.get('car_mark')
     car_model = request.args.get('car_model')
     part_full_name = request.args.get('part_full_name')
     year = request.args.get('year')
-    in_stock = request.args.get('in_stock')
-    price = request.args.get('price')
 
     if car_mark:
         query = query.filter(CarPart.car_mark == car_mark)
     if car_model:
         query = query.filter(CarPart.car_model == car_model)
     if part_full_name:
-        query = query.filter(CarPart.part_full_name.ilike(f'%{part_full_name}%'))  # Adjusted to use 'ilike'
+        query = query.filter(
+            or_(
+                CarPart.part_full_name.ilike(f'%{part_full_name}%'),
+                CarPart.alternative_name_1.ilike(f'%{part_full_name}%'),
+                CarPart.alternative_name_2.ilike(f'%{part_full_name}%')
+            )
+        )
     if year:
         try:
             search_year = int(year)
@@ -128,13 +134,6 @@ def data():
             )
         except ValueError:
             pass  # Handle invalid input if necessary
-    if in_stock is not None and in_stock != "":
-        query = query.filter(CarPart.in_stock == (in_stock == "1"))
-    if price:
-        try:
-            query = query.filter(CarPart.price == int(price))
-        except ValueError:
-            pass  # Handle invalid price input
 
     total_filtered = query.count()
 
@@ -146,7 +145,7 @@ def data():
         if col_index is None:
             break
         col_name = request.args.get(f'columns[{col_index}][data]')
-        if col_name not in ['part_url', 'car_mark', 'car_model', 'part_full_name', 'start_year', 'end_year', 'price', 'in_stock']:
+        if col_name not in ['part_url', 'car_mark', 'car_model', 'part_full_name', 'alternative_name_1', 'alternative_name_2', 'start_year', 'end_year', 'price', 'website', 'phone']:
             col_name = 'part_full_name'
         descending = request.args.get(f'order[{i}][dir]') == 'desc'
         col = getattr(CarPart, col_name)
@@ -205,39 +204,44 @@ def filter_part_full_name():
     if car_model:
         query = query.filter(CarPart.car_model == car_model)
     if search:
-        query = query.filter(CarPart.part_full_name.ilike(f'%{search}%'))  # Adjusted to use 'ilike'
+        query = query.filter(CarPart.part_full_name.ilike(f'%{search}%'))
     part_names = query.all()
     return jsonify([part_name[0] for part_name in part_names])
 
 @app.route('/manage_users', methods=["GET", "POST"])
 @login_required
 def manage_users():
+    if not current_user.is_admin:
+        flash('წვდომა აკრძალულია. მხოლოდ ადმინისტრატორებს შეუძლიათ მომხმარებლების მართვა.', 'danger')
+        return redirect(url_for('dashboard'))
     users = User.query.all()
     form = AddUserForm()
     if form.validate_on_submit():
-        # Check if username already exists
         existing_user = User.query.filter_by(username=form.username.data).first()
         if existing_user:
-            flash('Username already exists', 'danger')
+            flash('მომხმარებლის სახელი უკვე არსებობს', 'danger')
         else:
             hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            new_user = User(username=form.username.data, password=hashed_password)
+            new_user = User(username=form.username.data, password=hashed_password, is_admin=form.is_admin.data)
             db.session.add(new_user)
             db.session.commit()
-            flash('User added successfully', 'success')
+            flash('მომხმარებელი წარმატებით დაემატა', 'success')
         return redirect(url_for('manage_users'))
     return render_template('manage_users.html', users=users, form=form)
 
 @app.route('/delete_user/<int:user_id>', methods=["POST"])
 @login_required
 def delete_user(user_id):
+    if not current_user.is_admin:
+        flash('წვდომა აკრძალულია. მხოლოდ ადმინისტრატორებს შეუძლიათ მომხმარებლების წაშლა.', 'danger')
+        return redirect(url_for('manage_users'))
     user = User.query.get_or_404(user_id)
     if user.id == current_user.id:
-        flash("You cannot delete your own account", 'danger')
+        flash("საკუთარი ანგარიშის წაშლა შეუძლებელია.", 'danger')
     else:
         db.session.delete(user)
         db.session.commit()
-        flash('User deleted successfully', 'success')
+        flash('მომხმარებელი წარმატებით წაიშალა', 'success')
     return redirect(url_for('manage_users'))
 
 @app.route('/logout', methods=["GET", "POST"])
