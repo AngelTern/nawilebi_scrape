@@ -39,12 +39,12 @@ def process_year_autopia(year):
     end_year = None
 
     if match:
-        start_year = match.group(1)
-        end_year = match.group(2) if match.group(2) else current_year
+        start_year = int(match.group(1))
+        end_year = int(match.group(2)) if match.group(2) else current_year
     else:
         try:
             start_year = int(year_stripped)
-            end_year = start_year
+            end_year = current_year
         except ValueError:
             pass
 

@@ -132,7 +132,7 @@
     function initializeAutocomplete(selector, url, extraData) {
       $(selector).autocomplete({
         source: function(request, response) {
-          var data = {search: request.term};
+          var data = { search: request.term || '' };
           if (extraData) {
             data = Object.assign(data, extraData());
           }
@@ -140,19 +140,23 @@
             url: url,
             data: data,
             success: function(data) {
+              // Pass the data to the autocomplete widget
               response(data);
             }
           });
         },
-        minLength: 0,  // Show all options when the input is focused
-        select: function () {
-          // Do nothing on select
+        minLength: 0,
+        select: function (event, ui) {
+          // Do something on select, e.g., set value
+          $(selector).val(ui.item.value);
+          return false;
         }
       }).focus(function(){
-        // Show the complete list when input is focused
+        // Trigger search to show all options when focused
         $(this).autocomplete('search', '');
       });
     }
+    
 
     // Initialize autocomplete for filters
     initializeAutocomplete('#car_mark_filter', '/api/filters/car_mark');

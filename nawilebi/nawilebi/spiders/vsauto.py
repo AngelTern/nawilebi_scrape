@@ -47,7 +47,7 @@ class VsautoSpider(scrapy.Spider):
         car_parts_list = response.css("body > div.website-wrapper > div > div.container > div > div > div.products.elements-grid.align-items-start.woodmart-products-holder.woodmart-spacing-30.pagination-pagination.row.grid-columns-3 > div")
         
         for car_part in car_parts_list:
-            item["website"] = "https://dob.ge"
+            item["website"] = "https://vsauto.ge/"
             item["car_mark"] = response.meta["car_mark"]
             item["car_model"] = response.css("body > div.website-wrapper > div > div.page-title.page-title-default.title-size-default.title-design-centered.color-scheme-dark.with-back-btn.title-shop > div > div > div.shop-title-wrapper > h1::text").get()
             item["part_url"] = car_part.css("div div.product-element-top a::attr(href)").get()

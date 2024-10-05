@@ -176,8 +176,8 @@ def filter_car_mark():
     car_marks_query = db.session.query(CarPart.car_mark).distinct()
     if search:
         car_marks_query = car_marks_query.filter(CarPart.car_mark.like(f'%{search}%'))
-    car_marks = car_marks_query.all()
-    return jsonify([mark[0] for mark in car_marks])
+    car_marks = car_marks_query.order_by(CarPart.car_mark.asc()).all()
+    return jsonify([{"label": mark[0], "value": mark[0]} for mark in car_marks])
 
 @app.route('/api/filters/car_model')
 @login_required
