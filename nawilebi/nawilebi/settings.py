@@ -31,14 +31,13 @@ SPIDER_MIDDLEWARES = {
 #USER_AGENT = "nawilebi (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = False
+LOG_ENABLED = True  # Enable logging (this is True by default)
+LOG_LEVEL = 'DEBUG'  # Available levels: CRITICAL, ERROR, WARNING, INFO, DEBUG
+LOG_FILE = 'nawilebi\nawilebi\scrapy_log.log'  # Optionally, log to a file
+LOG_STDOUT = True  # Capture standard output (print statements) into the log
 
-LOG_ENABLED = True
-LOG_LEVEL = 'DEBUG'
-
-LOG_FILE = 'scrapy_output.log'
-LOG_FORMAT = '%(asctime)s [%(name)s] %(levelname)s: %(message)s'
-LOG_DATEFORMAT = '%Y-%m-%d %H:%M:%S'
+# Optional: Set the logging format if needed
+LOG_FORMAT = '%(levelname)s: %(message)s'
 
 #AUTOTHROTTLE_ENABLED = True
 
@@ -54,9 +53,9 @@ SCRAPEOPS_NUM_RESULTS = 50
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 10
 # The download delay setting will honor only one of:
-#CONCURRENT_REQUESTS_PER_DOMAIN = 16
+CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)

@@ -8,12 +8,12 @@ class NewpartsSpider(scrapy.Spider):
     start_urls = ["https://newparts.ge/"]
     custom_settings = {
         'ITEM_PIPELINES': {
-            #"nawilebi.pipelines.NawilebiPipeline": 100,
+            "nawilebi.pipelines.NawilebiPipeline": 300,
             "nawilebi.pipelines.NewpartsPipeline": 200,
             #"nawilebi.pipelines.YearProcessPipeline": 300,
             "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
-        'DOWNLOAD_DELAY': 0.5,
+        #'DOWNLOAD_DELAY': 0.5,
     }
     
     def parse(self, response):
@@ -78,7 +78,14 @@ class NewpartsSpider(scrapy.Spider):
                 item["start_year"] = None
                 item["end_year"] = None
                 item["part_url"] = self.start_urls[0] + part.css("div a::attr(href)").get()
-                item["part_full_name"] = part.css("div a div:nth-of-type(2) h6 span.me-1::text").get() + part.css("div a div:nth-of-type(2) h6 span.badge::text").get() if part.css("div a div:nth-of-type(2) h6 span.badge::text").get() else part.css("div a div:nth-of-type(2) h6 span.me-1::text").get()
+                #item["part_full_name"] = part.css("div a div:nth-of-type(2) h6 span.me-1::text").get() + part.css("div a div:nth-of-type(2) h6 span.badge::text").get() if part.css("div a div:nth-of-type(2) h6 span.badge::text").get() else part.css("div a div:nth-of-type(2) h6 span.me-1::text").get()
+                part_name_1 = part.css("div a div:nth-of-type(2) h6 span.me-1::text").get()
+                part_name_2 = part.css("div a div:nth-of-type(2) h6 span.badge::text").get()
+                if part_name_1 and part_name_2:
+                    item["part_full_name"] = part_name_1 + " " + part_name_2
+                else:
+                    item["part_full_name"] = part_name_1 if part_name_1 else part_name_2
+                
                 item["price"] = part.css("div a div:nth-of-type(2) small::text").get()
                 not_in_stock = part.css("div a div:nth-of-type(1) div.stock")
                 item["in_stock"] = False if not_in_stock else True

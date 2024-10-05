@@ -7,12 +7,12 @@ class PpSpider(scrapy.Spider):
     start_urls = ["https://pp.ge/"]
     custom_settings = {
         'ITEM_PIPELINES': {
-            #"nawilebi.pipelines.NawilebiPipeline": 100,
+            "nawilebi.pipelines.NawilebiPipeline": 300,
             "nawilebi.pipelines.PpPipeline": 200,
             #"nawilebi.pipelines.YearProcessPipeline": 300,
             "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
-        'DOWNLOAD_DELAY': 0.5,
+        #'DOWNLOAD_DELAY': 0.5,
     }
     
     
@@ -21,20 +21,19 @@ class PpSpider(scrapy.Spider):
         
         for car_mark in car_mark_list:
             car_mark_url = car_mark.css("::attr(href)").get()
-            car_mark_name = car_mark.css("div h2::text").get()
+            #car_mark_name = car_mark.css("div h2::text").get()
             
             yield response.follow(car_mark_url, callback = self.parse_mark_page,
-                                  meta= {"car_mark": car_mark_name})
+                                  )
             
     def parse_mark_page(self, response):
         part_list = response.css("#car-par > div > div > div > div.card-wrapper-view > div")
         if part_list:
             for part in part_list:
-                item = NawilebiItem()
-                car_mark = response.meta["car_mark"]
+                #car_mark = response.meta["car_mark"]
                 part_url = part.css("div a::attr(href)").get()
                 
-                yield response.follow(part_url, callback = self.parse_part_page
+                yield response.follow(part_url, callback = self.parse_part_page,
                                     )
             
         nav_list = response.css("ul.pagination li")
@@ -43,7 +42,7 @@ class PpSpider(scrapy.Spider):
                 classes = nav.css("::attr(class)").get(default="")
                 if "active" not in classes and "disabled" not in classes:
                     rel = nav.css("a::attr(rel)").get()
-                    if rel is not None and "next" not in rel:
+                    if rel is None:
                         href = nav.css("a::attr(href)").get()
                         if href:
                             yield response.follow(href, callback=self.parse_next_page)
@@ -53,7 +52,7 @@ class PpSpider(scrapy.Spider):
         if part_list:
             for part in part_list:
                 item = NawilebiItem()
-                car_mark = response.meta["car_mark"]
+                #car_mark = response.meta["car_mark"]
                 part_url = part.css("div a::attr(href)").get()
                 
                 yield response.follow(part_url, callback = self.parse_part_page

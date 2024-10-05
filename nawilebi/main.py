@@ -29,28 +29,8 @@ from nawilebi.spiders.zuparts import ZupartsSpider
 def main():
     settings = get_project_settings()
 
-    # Explicitly configure logging to write to a separate file
-    log_file = 'spider_logs.log'  # You can change this path if needed
-    log_level = settings.get('LOG_LEVEL', 'DEBUG')
-
-    logging.basicConfig(
-        level=log_level,  # Set log level from settings (default: DEBUG)
-        format='%(asctime)s [%(name)s] %(levelname)s: %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S',
-    )
-
-    # File handler for writing logs to a file
-    file_handler = logging.FileHandler(log_file)
-    file_handler.setLevel(log_level)
-    file_handler.setFormatter(logging.Formatter(
-        '%(asctime)s [%(name)s] %(levelname)s: %(message)s',
-        datefmt='%Y-%m-%d %H:%M:%S'
-    ))
-
-    # Add file handler to the root logger
-    logging.getLogger().addHandler(file_handler)
-
-    configure_logging()  # Keep Scrapy's internal logging configuration
+    # Configure Scrapy logging according to the settings file
+    configure_logging(settings)
 
     runner = CrawlerRunner(settings)
 

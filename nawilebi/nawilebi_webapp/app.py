@@ -114,9 +114,9 @@ def data():
     year = request.args.get('year')
 
     if car_mark:
-        query = query.filter(CarPart.car_mark == car_mark)
+        query = query.filter(CarPart.car_mark.ilike(f"%{car_mark}%"))
     if car_model:
-        query = query.filter(CarPart.car_model == car_model)
+        query = query.filter(CarPart.car_model.ilike(f"%{car_model}%"))
     if part_full_name:
         query = query.filter(
             or_(

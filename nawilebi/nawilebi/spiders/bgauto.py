@@ -7,12 +7,12 @@ class BgautoSpider(scrapy.Spider):
     start_urls = ["https://bgauto.ge/"]
     custom_settings = {
         'ITEM_PIPELINES': {
-            #"nawilebi.pipelines.NawilebiPipeline": 100,
+            "nawilebi.pipelines.NawilebiPipeline": 300,
             "nawilebi.pipelines.BgautoPipeline": 200,
             #"nawilebi.pipelines.YearProcessPipeline": 300,
             "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
-        'DOWNLOAD_DELAY': 0.5,
+        #'DOWNLOAD_DELAY': 0.5,
     }
     
     
@@ -52,6 +52,7 @@ class BgautoSpider(scrapy.Spider):
             in_stock = part.css("article div:nth-of-type(2) ul li span::text").get()
             item["in_stock"] = False if in_stock == "არ არის მარაგში" else True
             item["price"] = part.css("article div:nth-of-type(2) div.product__card--price span::text").get()
+            item["original_price"] = None
             
             yield item
         
@@ -81,5 +82,6 @@ class BgautoSpider(scrapy.Spider):
             in_stock = part.css("article div:nth-of-type(2) ul li span::text").get()
             item["in_stock"] = False if in_stock == "არ არის მარაგში" else True
             item["price"] = part.css("article div:nth-of-type(2) div.product__card--price span::text").get()
+            item["original_price"] = None
             
             yield item

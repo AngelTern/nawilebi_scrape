@@ -161,21 +161,21 @@ class SaveToMySQLPipeline:
                 in_stock, city, website, phone
             ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         ''', (
-            item.get('part_url'),
-            item.get('car_mark'),
-            item.get('car_model'),
-            item.get('part_full_name'),
-            item.get('alternative_name_1'),
-            item.get('alternative_name_2'),
-            item.get('start_year'),
-            item.get('end_year'),
-            item.get('price'),
-            item.get('original_price'),
-            item.get('in_stock'),
-            item.get('city'),
-            item.get('website'),
-            item.get('phone')
-        ))
+        item.get('part_url', ''),            
+        item.get('car_mark', ''),            
+        item.get('car_model', ''),           
+        item.get('part_full_name', ''),      
+        item.get('alternative_name_1', ''),  
+        item.get('alternative_name_2', ''),  
+        item.get('start_year', None),        
+        item.get('end_year', None),          
+        item.get('price', 0),                
+        item.get('original_price', 0),       
+        item.get('in_stock', False),         
+        item.get('city', ''),                
+        item.get('website', ''),             
+        item.get('phone', '')                
+    ))
 
         self.conn.commit()
         return item
@@ -234,6 +234,9 @@ class VgpartsPipeline:
                 adapter["car_model"] = car_model
             elif field_name == "year":
                 adapter["start_year"], adapter["end_year"] = process_year_vgparts(value)
+                
+            if field_name == "car_mark":
+                adapter[field_name] = value.upper()
 
         return item
 
@@ -273,13 +276,23 @@ class CarpartsPipeline:
             if field_name == "car_model":
                 adapter[field_name] = process_car_model_carparts(value)
             elif field_name == "part_full_name":
-                adapter[field_name] = process_part_full_name_carparts(value, adapter.get("car_model"), adapter.get("car_mark"))
+                adapter[field_name], year_value = process_part_full_name_carparts(value, adapter.get("car_model"), adapter.get("car_mark"))
             elif field_name == "year":
-                adapter["year"], start_year, end_year = process_year_carparts(value)
-                adapter["start_year"] = int(start_year) if start_year else None
-                adapter["end_year"] = int(end_year) if end_year else None
+                if value != None:
+                    adapter["year"], start_year, end_year = process_year_carparts(value)
+                    adapter["start_year"] = int(start_year) if start_year else None
+                    adapter["end_year"] = int(end_year) if end_year else None
+                else:
+                    adapter["year"], start_year, end_year = process_year_carparts(year_value)
+                    adapter["start_year"] = int(start_year) if start_year else None
+                    adapter["end_year"] = int(end_year) if end_year else None
             elif field_name == "price":
                 adapter[field_name] = parse_price(value)
+            elif field_name == "in_stock":
+                if value == "მარაგშია":
+                    adapter[field_name] = 1
+                else:
+                    adapter[field_name] = 0
 
         return item
 
@@ -333,6 +346,11 @@ class CarlinePipeline:
                     adapter[field_name] = True
             elif field_name == "part_full_name":
                 adapter["part_full_name"] = process_part_full_name_carline(value, adapter.get("car_model"), adapter.get("car_mark"))
+            if field_name == "price":
+                adapter["price"] = parse_price(value)
+            if field_name == "year":
+                if value:
+                    adapter["start_year"] = int(value)
 
         return item
 
@@ -346,6 +364,22 @@ class PartscornerPipeline:
                 adapter["start_year"], adapter["end_year"] = process_year_partscorner(value)
             elif field_name == "price":
                 adapter["price"] = parse_price(value)
+            elif field_name == "in_stock":
+                if value == "მარაგშია":
+                    adapter[field_name] = True
+                else:
+                    adapter[field_name] = False
+            elif field_name == "car_mark":
+                if value:
+                    adapter[field_name] = value.upper()
+            elif field_name == "car_model":
+                if value and value == "akordi":
+                    adapter[field_name] = "ACCORD"
+                elif value and value == "hrv":
+                    adapter[field_name] = "HR-V"
+                else:
+                    adapter[field_name] = value.upper()
+                    
                 
         return item
     
@@ -370,22 +404,35 @@ class GopartsPipeline:
                 if value == "0- საქარე მინის გერმეტიკი 310მლ":
                     adapter[field_name] = "საქარე მინის გერმეტიკი 310მლ"
                 else:
-                    adapter[field_name] = process_part_full_name_goparts(value)
+                    adapter[field_name] = process_part_full_name_goparts(value, adapter.get("car_model"), adapter.get("car_mark"))
+            elif field_name == "in_stock":
+                if value =="in_stock":
+                    adapter[field_name] = 1
+                else:
+                    adapter[field_name] = 0
+            elif field_name == "price":
+                adapter[field_name] = parse_price(value)
             
         return item
     
-class GeoparsPipeline:
+class GeopartsPipeline:
     def process_item(self, item, spider):
         adapter = ItemAdapter(item)
         field_names = adapter.field_names()
+        
         for field_name in field_names:
             value = adapter.get(field_name)
-            
-            if field_name == "car_model":
-                adapter[field_name], adapter["start_year"], adapter["end_year"], adapter["year"] = process_car_model_geoparts(value, adapter.get("car_mark"))
-            elif field_name == "price" or field_name == "original_price":
-                adapter[field_name] = parse_price(value)
+
+            if field_name == "car_mark" and value == "ᲢᲝᲘᲝᲢᲐ":
                 
+                adapter["car_mark"] = "TOYOTA"
+                
+            elif field_name == "car_model":
+                adapter[field_name], adapter["start_year"], adapter["end_year"], adapter["year"] = process_car_model_geoparts(value, adapter.get("car_mark"))
+            elif field_name in ["price", "original_price"]:
+                adapter[field_name] = parse_price(value)
+
+
         return item
     
 class ZupartsPipeline:
@@ -470,6 +517,10 @@ class SoloautoPipeline:
         if price:
             adapter["price"] = parse_price(price)
             
+        car_mark = adapter.get("car_mark")
+        if car_mark:
+            adapter["car_mark"] = car_mark.upper()
+            
         return item
     
 class CrossmotorsPipeline:
@@ -549,6 +600,10 @@ class PpPipeline:
         if year_list:
             adapter["year"], adapter["start_year"], adapter["end_year"] = process_year_pp(year_list)
             
+        part_full_name = adapter.get("part_full_name")
+        if part_full_name:
+            adapter["part_full_name"] = process_part_full_name_pp(part_full_name)
+            
             
         return item
             
@@ -572,5 +627,6 @@ class MmautoPipeline:
         price = adapter.get("price")
         if price:
             adapter["price"] = parse_price(price)
+            
             
         return item

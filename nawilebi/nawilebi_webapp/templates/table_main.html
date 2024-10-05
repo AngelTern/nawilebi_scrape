@@ -63,8 +63,8 @@
         <th>ავტო მარკა</th>
         <th>ავტო მოდელი</th>
         <th>ნაწილის სახელი</th>
-        <th>ალტერნატიული სახელი 1</th> <!-- New Column -->
-        <th>ალტერნატიული სახელი 2</th> <!-- New Column -->
+        <th>ალტერნატიული სახელი 1</th>
+        <th>ალტერნატიული სახელი 2</th>
         <th>საწყისი წელი</th>
         <th>დასასრული წელი</th>
         <th>ფასი</th>
@@ -80,17 +80,12 @@
 
 {% block scripts %}
 <!-- Include jQuery and jQuery UI for Autocomplete -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" 
-        integrity="sha256-K+ctZQ6Qzj1ZNjBvTnV4gdjFZ0VJraW6fjI3DzPMNJw=" 
-        crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" 
-        integrity="sha256-lHB4w6R1X6q/T5hAJX6TV4nQW3k5JGZMlM7pR8C/tQg=" 
-        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-K+ctZQ6Qzj1ZNjBvTnV4gdjFZ0VJraW6fjI3DzPMNJw=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lHB4w6R1X6q/T5hAJX6TV4nQW3k5JGZMlM7pR8C/tQg=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
 <!-- Include DataTables CSS and JS -->
-<link rel="stylesheet" 
-      href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 
 <script>
@@ -113,7 +108,7 @@
       serverSide: true,
       processing: true,
       columns: [
-        {data: 'part_url', render: function(data, type, row) {
+        {data: 'part_url', render: function(data) {
             return '<a href="'+data+'" target="_blank" class="btn btn-primary btn-sm">ნახე ნაწილი</a>';
         }},
         {data: 'car_mark'},

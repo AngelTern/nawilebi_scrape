@@ -7,12 +7,12 @@ class PartscornerSpider(scrapy.Spider):
     start_urls = ["https://partscorner.ge/"]
     custom_settings = {
         'ITEM_PIPELINES': {
-            #"nawilebi.pipelines.NawilebiPipeline": 100,
+            "nawilebi.pipelines.NawilebiPipeline": 300,
             "nawilebi.pipelines.PartscornerPipeline": 200,
             #"nawilebi.pipelines.YearProcessPipeline": 300,
             "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
-        'DOWNLOAD_DELAY': 0.5,
+        #'DOWNLOAD_DELAY': 0.5,
     }
         
     def parse(self, response):
@@ -36,7 +36,7 @@ class PartscornerSpider(scrapy.Spider):
                     yield response.follow("https://partscorner.ge/" + relative_url, callback=self.parse_part_list)
         
     def parse_part_list(self, response):
-        car_parts_list = response.css("body > section > section > div > div > div.col-lg-9.order-xs-1 > div.row.columns-3")
+        car_parts_list = response.css("body > section > section > div > div > div.col-lg-9.order-xs-1 > div.row.columns-3 > div")
         
         for car_part in car_parts_list:
             relative_url = car_part.css("div div.shop-img a::attr(href)").get()
@@ -50,13 +50,13 @@ class PartscornerSpider(scrapy.Spider):
         
         item["website"] = "https://partscorner.ge/"
         item["part_url"] = response.url        
-        item["part_full_name"] = response.css("#product-109 > section.shop-details-section.light-bg.pt-80.pb-80 > div > div > div:nth-child(2) > div > h1::text").get()
-        item["car_mark"] = response.css("#product-109 > section.shop-details-section.light-bg.pt-80.pb-80 > div > div > div:nth-child(2) > div > table > tbody > tr:nth-child(1) > td > span > ul > li::text").get()
-        item["car_model"] = response.css("#product-109 > section.shop-details-section.light-bg.pt-80.pb-80 > div > div > div:nth-child(2) > div > table > tbody > tr:nth-child(2) > td > span > ul > li::text").get()
-        item["year"] = response.css("#product-109 > section.shop-details-section.light-bg.pt-80.pb-80 > div > div > div:nth-child(2) > div > table > tbody > tr:nth-child(3) > td > span > ul > li::text").get()
+        item["part_full_name"] = response.css("h1.product_title::text").get()
+        item["car_mark"] = response.css("section.shop-details-section.light-bg.pt-80.pb-80 > div > div > div:nth-child(2) > div > table > tbody > tr:nth-child(1) > td > span > ul > li::text").get()
+        item["car_model"] = response.css("section.shop-details-section.light-bg.pt-80.pb-80 > div > div > div:nth-child(2) > div > table > tbody > tr:nth-child(2) > td > span > ul > li::text").get()
+        item["year"] = response.css("section.shop-details-section.light-bg.pt-80.pb-80 > div > div > div:nth-child(2) > div > table > tbody > tr:nth-child(3) > td > span > ul > li::text").get()
         item["start_year"] = None
         item["end_year"] = None
-        item["price"] = response.css("#product-109 > section.shop-details-section.light-bg.pt-80.pb-80 > div > div > div:nth-child(2) > div > p > span > bdi::text").get()
-        item["in_stock"] = response.css("#product-109 > section.shop-details-section.light-bg.pt-80.pb-80 > div > div > div:nth-child(2) > div > div.product_meta > span.sku_wrapper > span.sku::text").get()
+        item["price"] = response.css("section.shop-details-section.light-bg.pt-80.pb-80 > div > div > div:nth-child(2) > div > p > span > bdi::text").get()
+        item["in_stock"] = response.css("section.shop-details-section.light-bg.pt-80.pb-80 > div > div > div:nth-child(2) > div > div.product_meta > span.sku_wrapper > span.sku::text").get()
         
         return item

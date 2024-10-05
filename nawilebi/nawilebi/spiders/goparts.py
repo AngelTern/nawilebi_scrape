@@ -7,12 +7,12 @@ class GopartsSpider(scrapy.Spider):
     start_urls = ["https://goparts.ge/ge"]
     custom_settings = {
         'ITEM_PIPELINES': {
-            #"nawilebi.pipelines.NawilebiPipeline": 100,
+            "nawilebi.pipelines.NawilebiPipeline": 300,
             "nawilebi.pipelines.GopartsPipeline": 200,
             #"nawilebi.pipelines.YearProcessPipeline": 300,
             "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
-        'DOWNLOAD_DELAY': 0.5,
+        #'DOWNLOAD_DELAY': 0.5,
     }
 
     def parse(self, response):
@@ -39,7 +39,6 @@ class GopartsSpider(scrapy.Spider):
         car_part_list = response.css("#items > div")
 
         for car_part in car_part_list:
-            # Extract common fields outside the stock loop
             website = "https://goparts.ge/ge"
             part_url = car_part.css("div div.block2-txt a::attr(href)").get()
             car_mark = response.meta["car_mark"]
@@ -65,7 +64,7 @@ class GopartsSpider(scrapy.Spider):
                     item["car_mark"] = car_mark
                     item["car_model"] = car_model
                     item["part_full_name"] = part_full_name
-                    item["price"] = price
+                    item["price"] = price if price != '' else None
                     item["year"] = year
                     item["start_year"] = start_year
                     item["end_year"] = end_year
@@ -85,7 +84,7 @@ class GopartsSpider(scrapy.Spider):
                 item["car_mark"] = car_mark
                 item["car_model"] = car_model
                 item["part_full_name"] = part_full_name
-                item["price"] = price
+                item["price"] = price if price != '' else None
                 item["year"] = year
                 item["start_year"] = start_year
                 item["end_year"] = end_year

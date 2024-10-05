@@ -9,12 +9,12 @@ class VgpartsSpider(scrapy.Spider):
     start_urls = ["https://vgparts.ge/api/product/manufacturer/0"]
     custom_settings = {
         'ITEM_PIPELINES': {
-            #"nawilebi.pipelines.NawilebiPipeline": 100,
+            "nawilebi.pipelines.NawilebiPipeline": 300,
             "nawilebi.pipelines.VgpartsPipeline": 200,
             #"nawilebi.pipelines.YearProcessPipeline": 300,
             "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
-        'DOWNLOAD_DELAY': 0.5,
+        #'DOWNLOAD_DELAY': 0.5,
     }
     def parse(self, response):
         json_data = json.loads(response.text)

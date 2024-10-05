@@ -68,10 +68,13 @@ def process_car_model_vgparts(car_model):
     if match:
         year = f"{match.group(1)}-{match.group(2)}"
         car_model_cleaned = re.sub(r'\s*\d{4}\s*-\s*\d{4}', '', car_model).strip()
-        car_model_cleaned = re.sub(r'\s*\(\)\s*$', '', car_model_cleaned)
-        return year, car_model_cleaned
+        car_model_cleaned = re.sub(r'-\s*$', '', car_model_cleaned).strip()
+        car_model_cleaned = re.sub(r'\s*\(\)\s*$', '', car_model_cleaned).strip()
+        if car_model_cleaned == "RAV-4":
+            car_model_cleaned = "RAV4"
+        return year, car_model_cleaned.upper()
     else:
-        return None, car_model
+        return None, re.sub(r'-\s*$', '', car_model).strip().upper()
 
 def process_year_vgparts(year):
     year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4}|\s*)')
@@ -121,8 +124,16 @@ def process_car_model_carparts(car_model):
 def process_part_full_name_carparts(part_full_name, car_model, car_mark):
     part_full_name_adjusted = re.sub(re.escape(car_model), '', part_full_name, flags=re.IGNORECASE).strip()
     part_full_name_adjusted = re.sub(re.escape(car_mark), '', part_full_name_adjusted, flags=re.IGNORECASE).strip()
-    part_full_name_final = re.sub(r'(\b\d{2,4}(?:-\d{2,4})?\b)', '', part_full_name_adjusted).strip()
-    return part_full_name_final
+    
+    year_pattern = r'\b(\d{2,4})(?:-\d{2,4})?\b'
+    
+    year_match = re.search(year_pattern, part_full_name_adjusted)
+    year = year_match.group(0) if year_match else None
+
+    # Remove the year or year range from the part name
+    part_full_name_final = re.sub(year_pattern, '', part_full_name_adjusted).strip()
+
+    return part_full_name_final, year
 
 def process_year_carparts(year):
     year = year.strip()
@@ -156,7 +167,7 @@ def process_year_vsauto(year):
     if match:
         start_year = match.group(1)
         end_year = match.group(2)
-        return start_year, end_year
+        return int(start_year), int(end_year)
     else: return None, None
     
 def adjust_for_next_url_autotrans(car_mark, car_model):
@@ -165,7 +176,9 @@ def adjust_for_next_url_autotrans(car_mark, car_model):
     return car_mark_adjusted, car_model_adjusted
 
 def process_and_clean_car_model_autotrans(car_model):
-    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4})')
+    current_year = datetime.now().year
+    
+    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4}|ON|-)?', re.IGNORECASE)
     match = year_pattern.search(car_model)
     
     start_year = None
@@ -173,7 +186,13 @@ def process_and_clean_car_model_autotrans(car_model):
     
     if match:
         start_year = format_year(match.group(1))
-        end_year = format_year(match.group(2))
+        end_year_raw = match.group(2)
+        
+        if end_year_raw is None or end_year_raw.upper() == 'ON' or end_year_raw == '-':
+            end_year = current_year
+        else:
+            end_year = format_year(end_year_raw)
+        
         year_range = f"{start_year}-{end_year}"
     else:
         year_range = None
@@ -220,63 +239,109 @@ def process_kia_carline(part_full_name):
     return None, part_full_name
 
 def process_year_partscorner(year):
-    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4})')
+    year_pattern = re.compile(r'(\d{2,4})\s*[-–]\s*(\d{2,4})?|(\d{2,4})\s*[-–]\s*$')
     match = year_pattern.search(year)
-    
+
     start_year = None
     end_year = None
-    
+    current_year = datetime.now().year
+
     if match:
-        start_year = format_year(match.group(1))
-        end_year = format_year(match.group(2))
+        if match.group(1) and match.group(2):
+            start_year = format_year(match.group(1))
+            end_year = format_year(match.group(2))
+        elif match.group(3):
+
+            start_year = format_year(match.group(3))
+            end_year = current_year
 
     return start_year, end_year
 
 
 def process_year_goparts(car_model):
-    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4})')
+    current_year = datetime.now().year
+    year_pattern = re.compile(r'(\d{4})\s*-\s*(\d{2,4})|(\d{4})\s*[-]\s*$|(\d{4})\b')
     match = year_pattern.search(car_model)
     
     start_year = None
     end_year = None
     year_range = None
-    
+
     if match:
-        start_year = format_year(match.group(1))
-        end_year = format_year(match.group(2))
-        year_range = f"{start_year}-{end_year}"
+        if match.group(1) and match.group(2):
+            start_year = format_year(match.group(1))
+            end_year = format_year(match.group(2))
+            year_range = f"{start_year}-{end_year}"
         
+        elif match.group(3):
+            start_year = format_year(match.group(3))
+            end_year = current_year
+            year_range = f"{start_year}-{end_year}"
+
+        elif match.group(4):
+            start_year = format_year(match.group(4))
+            end_year = current_year
+            year_range = f"{start_year}-{end_year}"
+
         car_model = re.sub(match.group(0), '', car_model).strip()
     
     return car_model, start_year, end_year, year_range
     
-def process_part_full_name_goparts(part_full_name):
-    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4})')
+def process_part_full_name_goparts(part_full_name, car_model, car_mark):
+    part_prefix_pattern = re.compile(r'^\d{2,3}\s*[-–]?\s*')
+    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4})|(\d{2,4})\s*[-]\s*$')
+    
     match = year_pattern.search(part_full_name)
     
+    car_model_pattern = re.compile(re.escape(car_model), re.IGNORECASE)
+    car_mark_pattern = re.compile(re.escape(car_mark), re.IGNORECASE)
+
+    part_full_name = re.sub(part_prefix_pattern, '', part_full_name)
+
+    match_car_model = car_model_pattern.search(part_full_name)
+    if match_car_model:
+        part_full_name = re.sub(match_car_model.group(0), '', part_full_name).strip()
+
+    match_car_mark = car_mark_pattern.search(part_full_name)
+    if match_car_mark:
+        part_full_name = re.sub(match_car_mark.group(0), '', part_full_name).strip()
+
     if match:
-        return re.sub(match.group(0), '', part_full_name).strip()
-    else:
-        return part_full_name.strip()
+        part_full_name = re.sub(match.group(0), '', part_full_name).strip()
+
+    return re.sub('-', '', part_full_name).strip()
+
+def translate_car_model_geoparts(car_model):
+    georgian_to_english = {
+        'ᲯᲔᲢᲐ': 'JETTA',
+        'ᲞᲐᲡᲐᲢᲘ': 'PASSAT'
+    }
+    return georgian_to_english.get(car_model, car_model.upper())
 
 def process_car_model_geoparts(car_model, car_mark):
-    car_model = re.sub(car_mark, '', car_model)
+    car_model = re.sub(re.escape(car_mark), '', car_model).strip()
     
-    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4})')
+    year_pattern = re.compile(r'(\d{4}|\d{2})\s*[-–]{1,2}\s*(\d{4}|\d{2})?|(\d{4}|\d{2})\s*[-]{0,1}$')
     match = year_pattern.search(car_model)
-    
+
     start_year = None
     end_year = None
     year_range = None
-    
+    current_year = datetime.now().year
+
     if match:
-        start_year = format_year(match.group(1))
-        end_year = format_year(match.group(2))
-        year_range = f"{start_year}-{end_year}"
-        
+        if match.group(1) and match.group(2):
+            start_year = format_year(match.group(1))
+            end_year = format_year(match.group(2))
+            year_range = f"{start_year}-{end_year}"
+        elif match.group(3):
+            start_year = format_year(match.group(3))
+            end_year = current_year
+            year_range = f"{start_year}-{end_year}"
+
         car_model = re.sub(match.group(0), '', car_model).strip()
-    
-    return car_model, start_year, end_year, year_range
+
+    return translate_car_model_geoparts(car_model), start_year, end_year, year_range
     
 def process_car_model_zuparts(car_model):
     year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4})')
@@ -313,7 +378,7 @@ import re
 
 def process_car_model_newparts(car_model):
     engine_size_pattern = r'\d+(\.\d+)?L'
-    cleaned_model = re.sub(engine_size_pattern, '', car_model).strip()
+    cleaned_model = re.sub(engine_size_pattern, '', car_model).strip().upper()
     
     return cleaned_model if cleaned_model != car_model else car_model
 
@@ -322,7 +387,7 @@ def process_car_model_bgauto(car_model, car_mark):
 
     current_year = datetime.now().year
 
-    year_pattern = re.compile(r'(\d{4})\s*-\s*(\d{4})?')
+    year_pattern = re.compile(r'(\d{2,4})\s*-\s*(\d{2,4}|ON)?')
     match = year_pattern.search(car_model)
     
     start_year = None
@@ -332,7 +397,11 @@ def process_car_model_bgauto(car_model, car_mark):
     if match:
         start_year = format_year(match.group(1))
 
-        end_year = format_year(match.group(2)) if match.group(2) else current_year
+        end_year_str = match.group(2)
+        if end_year_str and end_year_str.upper() == 'ON':
+            end_year = current_year
+        else:
+            end_year = format_year(end_year_str) if end_year_str else current_year
 
         year = f"{start_year}-{end_year}"
 
@@ -388,9 +457,9 @@ def process_car_model_proauto(car_model, car_mark):
 
         year = f"{start_year}-{end_year}"
 
-        car_model = re.sub(year_pattern, '', car_model).strip()
+        car_model = re.sub(year_pattern, '', car_model).strip().upper()
 
-    return car_model, start_year, end_year, year    
+    return car_model.upper(), start_year, end_year, year    
     
 def process_car_model_crossmotors(car_model):
     current_year = datetime.now().year
@@ -564,6 +633,15 @@ def extract_id_mmauto(url):
         return vehicle_id
     else: return None
 
+def process_part_full_name_pp(part_full_name):
+    words = re.split(r'\s*,\s*|\s+', part_full_name)
+    
+    if len(words) == 2:
+        if words[0].lower() == words[1].lower():
+            return words[0]
+    
+    return part_full_name
+
 def process_car_model_mmauto(car_model):
     
     current_year = datetime.now().year
@@ -584,7 +662,7 @@ def process_car_model_mmauto(car_model):
             end_year = int(end_year_str)
         
         year = f"{start_year}-{end_year}"
-        return car_model, year, start_year, end_year
+        return car_model.upper(), year, start_year, end_year
     
     return car_model, None, None, None
 
@@ -596,6 +674,8 @@ def process_in_stock(in_stock_list):
     if "მარაგშია" in in_stock_list:
         in_stock = True
     elif "არ არის მარაგში" in in_stock_list:
+        in_stock = False
+    elif "გზაშია" in in_stock_list:
         in_stock = False
         
     if in_stock == True or in_stock == False:

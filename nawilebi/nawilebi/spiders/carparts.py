@@ -8,12 +8,12 @@ class CarpartsSpider(scrapy.Spider):
     start_urls = ["https://car-parts.ge"]
     custom_settings = {
         'ITEM_PIPELINES': {
-            #"nawilebi.pipelines.NawilebiPipeline": 100,
+            "nawilebi.pipelines.NawilebiPipeline": 300,
             "nawilebi.pipelines.CarpartsPipeline": 200,
             #"nawilebi.pipelines.YearProcessPipeline": 300,
             "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
-        'DOWNLOAD_DELAY': 0.5,
+        #'DOWNLOAD_DELAY': 0.5,
     }
     
 
@@ -72,13 +72,21 @@ class CarpartsSpider(scrapy.Spider):
     def parse_part_page(self, response):
         item = NawilebiItem()
         
+        
+        
+        
+        
+        
         item["website"] = "https://car-parts.ge"
         item["part_url"] = response.url
         item["car_mark"] = response.meta["car_mark"]
         item["part_full_name"] = response.css("#riva-site-wrapper > div.container > div > div.col-xs-12.col-sm-8.col-lg-9 > section > div.row > div.col-xs-12.col-sm-8.col-lg-7 > p.product-title::text").get()
         item["in_stock"] = response.css("#riva-site-wrapper > div.container > div > div.col-xs-12.col-sm-8.col-lg-9 > section > div.row > div.col-xs-12.col-sm-8.col-lg-7 > div.field.field-name-field-quantity.field-type-list-text.field-label-inline.clearfix > div.field-items > div::text").get()
         item["car_model"] = response.meta["car_model"]
-        item["year"] = response.css("#riva-site-wrapper > div.container > div > div.col-xs-12.col-sm-8.col-lg-9 > section > div.row > div.col-xs-12.col-sm-8.col-lg-7 > div.field.field-name-field-year.field-type-text.field-label-inline.clearfix > div.field-items > div::text").get()
+        year = response.css("#riva-site-wrapper > div.container > div > div.col-xs-12.col-sm-8.col-lg-9 > section > div.row > div.col-xs-12.col-sm-8.col-lg-7 > div.field.field-name-field-year.field-type-text.field-label-inline.clearfix > div.field-items > div::text").get()
+        if year:
+            item["year"] = year
+        
         item["price"] = response.css("#price_id::text").get()
         item["start_year"] = None
         item["end_year"] = None

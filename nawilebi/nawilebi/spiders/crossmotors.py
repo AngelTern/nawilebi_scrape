@@ -7,12 +7,12 @@ class CrossmotorsSpider(scrapy.Spider):
     start_urls = ["https://www.crossmotors.ge/"]
     custom_settings = {
         'ITEM_PIPELINES': {
-            #"nawilebi.pipelines.NawilebiPipeline": 100,
+            "nawilebi.pipelines.NawilebiPipeline": 300,
             "nawilebi.pipelines.CrossmotorsPipeline": 200,
             #"nawilebi.pipelines.YearProcessPipeline": 300,
             "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
-        'DOWNLOAD_DELAY': 10,
+        #'DOWNLOAD_DELAY': 10,
     }
 
     def parse(self, response):
@@ -57,7 +57,8 @@ class CrossmotorsSpider(scrapy.Spider):
         load_more_button = response.css("div > div > div > div > section > div > button")
         if load_more_button and load_more_button.css("::attr(data-hook)").get() == "load-more-button":
             yield response.follow(
-                f"https://www.crossmotors.ge/xv-2013-2015?page={response.meta['page_number']}",
+                response.url + f"?page={response.meta['page_number']}",
+                callback = self.parse_part_list,
                 meta={
                     "car_mark": response.meta["car_mark"],
                     "car_model": response.meta["car_model"],

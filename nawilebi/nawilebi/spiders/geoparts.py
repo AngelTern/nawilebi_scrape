@@ -11,12 +11,12 @@ class GeopartsSpider(scrapy.Spider):
     
     custom_settings = {
         'ITEM_PIPELINES': {
-            #"nawilebi.pipelines.NawilebiPipeline": 100,
-            "nawilebi.pipelines.GeoparsPipeline": 200,
+            "nawilebi.pipelines.NawilebiPipeline": 300,
+            "nawilebi.pipelines.GeopartsPipeline": 200,
             #"nawilebi.pipelines.YearProcessPipeline": 300,
             "nawilebi.pipelines.SaveToMySQLPipeline": 900
         },
-        'DOWNLOAD_DELAY': 0.5,
+        #'DOWNLOAD_DELAY': 0.5,
     }
     
     def __init__(self, *args, **kwargs):
@@ -57,7 +57,8 @@ class GeopartsSpider(scrapy.Spider):
         
         car_mark = response.css("#content > div > div > div > section > div > div > div > div.elementor-element > div > nav > a:nth-child(3)::text").get().upper()
         car_model = response.css("#content > div > div > div > section > div > div > div > div.elementor-element > div > nav::text").get().upper()
-        
+        if car_mark and car_mark == "ᲢᲝᲘᲝᲢᲐ":
+            car_mark = "TOYOTA"
         car_part_list = response.css("#content > div > div > div > section > div > div > div > div.elementor-element > div > div > ul > li")
         
         for car_part in car_part_list:
@@ -94,7 +95,9 @@ class GeopartsSpider(scrapy.Spider):
         
         car_mark = response.css("#content > div > div > div > section > div > div > div > div.elementor-element > div > nav > a:nth-child(3)::text").get().upper()
         car_model = response.css("#content > div > div > div > section > div > div > div > div.elementor-element > div > nav > a:nth-child(5)::text").get().upper()
-        
+        if car_mark and car_mark == "ᲢᲝᲘᲝᲢᲐ":
+            car_mark = "TOYOTA"
+            
         car_part_list = response.css("#content > div > div > div > section > div > div > div > div.elementor-element > div > div > ul > li")
         
         for car_part in car_part_list:
