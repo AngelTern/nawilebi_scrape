@@ -63,8 +63,6 @@
         <th>ავტო მარკა</th>
         <th>ავტო მოდელი</th>
         <th>ნაწილის სახელი</th>
-        <th>ალტერნატიული სახელი 1</th>
-        <th>ალტერნატიული სახელი 2</th>
         <th>საწყისი წელი</th>
         <th>დასასრული წელი</th>
         <th>ფასი</th>
@@ -76,6 +74,7 @@
     </tbody>
   </table>
 </div>
+
 {% endblock %}
 
 {% block scripts %}
@@ -108,24 +107,55 @@
       serverSide: true,
       processing: true,
       columns: [
-        {data: 'part_url', render: function(data) {
-            return '<a href="'+data+'" target="_blank" class="btn btn-primary btn-sm">ნახე ნაწილი</a>';
-        }},
+        {
+          data: 'part_url',
+          render: function(data) {
+            return `<a href="${data}" target="_blank" class="btn btn-primary btn-sm">ნახე ნაწილი</a>`;
+          }
+        },
         {data: 'car_mark'},
         {data: 'car_model'},
         {data: 'part_full_name'},
-        {data: 'alternative_name_1'},
-        {data: 'alternative_name_2'},
         {data: 'start_year'},
         {data: 'end_year'},
         {data: 'price'},
-        {data: 'website'},
+        {
+          data: 'website',
+          render: function(data) {
+            return `
+              <a href="${data}" target="_blank">${data}</a>
+              <button class="btn btn-secondary btn-sm copy-website" data-url="${data}">კოპირება</button>
+            `;
+          }
+        },
         {data: 'phone'}
       ],
       order: [],  // Disable default sorting
       language: {
         processing: "იტვირთება..."
-      }
+      },
+      autoWidth: false,
+      columnDefs: [
+        { width: '20%', targets: 0 },  // URL column width
+        { width: '15%', targets: 1 },  // Car Mark column width
+        { width: '15%', targets: 2 },  // Car Model column width
+        { width: '25%', targets: 3 },  // Part Full Name column width
+        { width: '10%', targets: 4 },  // Start Year column width
+        { width: '10%', targets: 5 },  // End Year column width
+        { width: '5%', targets: 6 },   // Price column width
+        { width: '10%', targets: 7 },  // Website column width
+        { width: '10%', targets: 8 }   // Phone column width
+      ]
+    });
+
+    // Copy website to clipboard
+    $(document).on('click', '.copy-website', function () {
+      var url = $(this).data('url');
+      navigator.clipboard.writeText(url).then(function() {
+        // Removed alert here
+      }).catch(function(err) {
+        console.error('Error copying URL: ', err);
+      });
     });
 
     // Initialize autocomplete for each filter
@@ -140,23 +170,19 @@
             url: url,
             data: data,
             success: function(data) {
-              // Pass the data to the autocomplete widget
               response(data);
             }
           });
         },
         minLength: 0,
         select: function (event, ui) {
-          // Do something on select, e.g., set value
           $(selector).val(ui.item.value);
           return false;
         }
       }).focus(function(){
-        // Trigger search to show all options when focused
         $(this).autocomplete('search', '');
       });
     }
-    
 
     // Initialize autocomplete for filters
     initializeAutocomplete('#car_mark_filter', '/api/filters/car_mark');
@@ -177,10 +203,10 @@
 
     // Reset filters
     $('#reset_filters').click(function () {
-      // Reset all filter values
       $('#car_mark_filter, #car_model_filter, #part_full_name_filter, #year_filter').val('');
       table.draw(false);
     });
   });
 </script>
+
 {% endblock %}

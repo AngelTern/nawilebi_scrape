@@ -61,6 +61,7 @@ class ApgpartsSpider(scrapy.Spider):
         
         for part in part_list:
             item = NawilebiItem()
+            item["website"] = "https://apgparts.ge/"
             item["part_url"] = part.css("div div:nth-of-type(1) a.product-image-link::attr(href)").get()
             item["part_full_name"] = part.css("div div:nth-of-type(2) h3 a::text").get()
             item["price"] = part.css("div div:nth-of-type(2) span.price span bdi::text").get()

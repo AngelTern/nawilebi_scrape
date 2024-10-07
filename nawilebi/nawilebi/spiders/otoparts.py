@@ -4,16 +4,16 @@ from scrapy_splash import SplashRequest
 
 class OtopartsSpider(scrapy.Spider):
     name = "otoparts"
-    allowed_domains = ["otoparts.ge"]
+    allowed_domains = ["otoparts.ge", "localhost"]
 
     custom_settings = {
     'ITEM_PIPELINES': {
-        # Uncomment and configure your pipelines as needed
         # "nawilebi.pipelines.NawilebiPipeline": 100,
         # "nawilebi.pipelines.CarpartsPipeline": 200,
         # "nawilebi.pipelines.SaveToMySQLPipeline": 900
     },
     'DOWNLOAD_DELAY': 0.5,
+    'CONCONCURRENT_REQUESTS': 1,
     'SPLASH_URL': 'http://localhost:8050',
     'DOWNLOADER_MIDDLEWARES': {
         "nawilebi.middlewares.FakeBrowserHeaderAgentMiddleware": 100,
@@ -27,29 +27,79 @@ class OtopartsSpider(scrapy.Spider):
         'scrapy_splash.SplashDeduplicateArgsMiddleware': 100,
     }
 }
-
+    lua_start = """
+    function main(splash, args)
+        assert(splash:go(args.url))
+        
+        while not splash:select('div.elementor-177 section > div div div div div a') do
+            splash:wait(0.1)
+            print('waiting...')
+        end
+        return {html=splash:html()}
+    end
+    """
+    lua_parse = """
+    function main(splash, args)
+        assert(splash:go(args.url))
+        
+        while not splash:select('.elementor-image-box-title a') do
+            splash.wait(0.1)
+            print('waiting...')
+        end
+        return {html=splash:html()}
+    end"""
+    
+    lua_mark_page = """
+    function main(splash, args)
+        assert(splash:go(args,url))
+        
+        while not splash:select('ul li.product div .premium-woo-products-details-wrap a.premium-woo-product__link') do
+            splash.wait(0.1)
+            print('waiting...')
+        end
+        return {html=splash:html()}
+    end"""
+    
+    lua_model_page = """
+    function main(splash, args)
+        assert(splash:go(args.url))
+        
+        while not splash:select('body > div.elementor.product > div > div > div.elementor-element.e-flex.e-con-boxed.e-con.e-child > div') do
+            splash.wait(0.1)
+            print('waiting...')
+        end
+        return {html=splash:html()}
+    end
+    """
     
     def start_requests(self):
         url = "https://otoparts.ge/dzaris-natsilebi/"
-        yield SplashRequest(url, callback=self.parse)
+        yield SplashRequest(url, callback=self.parse,
+                            endpoint='execute', args={'lua_source': self.lua_start, 'url': url})
 
     def parse(self, response):
         car_mark_urls_list = response.css("div.elementor-177 section > div div div div div a::attr(href)").getall()
-        
+        if not car_mark_urls_list:
+            self.logger.warning("No car marks found on %s", response.url)
+            return
+
         for car_mark_url in car_mark_urls_list:
-            yield SplashRequest(car_mark_url, callback=self.parse_mark_page)
+            yield SplashRequest(car_mark_url, callback=self.parse_mark_page,
+                                endpoint='execute', args = {"lua_source": self.lua_parse, 'url': car_mark_url})
 
     def parse_mark_page(self, response):
         car_model_urls = response.css(".elementor-image-box-title a::attr(href)").getall()
         
         for car_model_url in car_model_urls:
-            yield SplashRequest(car_model_url, callback=self.parse_model_page)
+            yield SplashRequest(car_model_url, callback=self.parse_model_page,
+                                endpoint='execute', args = {"lua_source": self.lua_mark_page, 'url': car_model_url})
 
     def parse_model_page(self, response):
         part_urls = response.css("ul li.product div .premium-woo-products-details-wrap a.premium-woo-product__link::attr(href)").getall()
         
         for part_url in part_urls:
-            yield SplashRequest(part_url, callback=self.parse_part_page, meta={'part_url': part_url})
+            yield SplashRequest(part_url, callback=self.parse_part_page, meta={'part_url': part_url},
+                                endpoint='execute', args = {"lua_source": self.lua_model_page, 'url': part_url})
 
     def parse_part_page(self, response):
         item = NawilebiItem()
