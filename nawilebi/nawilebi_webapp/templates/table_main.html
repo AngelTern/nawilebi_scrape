@@ -78,9 +78,10 @@
 {% endblock %}
 
 {% block scripts %}
-<!-- Include jQuery and jQuery UI for Autocomplete -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-K+ctZQ6Qzj1ZNjBvTnV4gdjFZ0VJraW6fjI3DzPMNJw=" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lHB4w6R1X6q/T5hAJX6TV4nQW3k5JGZMlM7pR8C/tQg=" crossorigin="anonymous"></script>
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<!-- Include jQuery UI -->
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
 <!-- Include DataTables CSS and JS -->
@@ -124,26 +125,33 @@
           render: function(data) {
             return `
               <a href="${data}" target="_blank">${data}</a>
-              <button class="btn btn-secondary btn-sm copy-website" data-url="${data}">კოპირება</button>
+              <button class="btn-secondary copy-website" data-url="${data}" title="Copy">
+                <i class="fa-regular fa-copy"></i>
+              </button>
             `;
           }
         },
-        {data: 'phone'}
+        {
+          data: 'phone',
+          render: function(data) {
+              return `<a href="tel:${data}">${data}</a>`;
+          }
+      }
       ],
       order: [],  // Disable default sorting
       language: {
         processing: "იტვირთება..."
       },
-      autoWidth: false,
+      autoWidth: true,
       columnDefs: [
-        { width: '20%', targets: 0 },  // URL column width
-        { width: '15%', targets: 1 },  // Car Mark column width
-        { width: '15%', targets: 2 },  // Car Model column width
-        { width: '25%', targets: 3 },  // Part Full Name column width
-        { width: '10%', targets: 4 },  // Start Year column width
-        { width: '10%', targets: 5 },  // End Year column width
-        { width: '5%', targets: 6 },   // Price column width
-        { width: '10%', targets: 7 },  // Website column width
+        { width: '8%', targets: 0 },  // URL column width
+        { width: '10%', targets: 1 },  // Car Mark column width
+        { width: '10%', targets: 2 },  // Car Model column width
+        { width: '28%', targets: 3 },  // Part Full Name column width
+        { width: '7%', targets: 4 },  // Start Year column width
+        { width: '7%', targets: 5 },  // End Year column width
+        { width: '6%', targets: 6 },   // Price column width
+        { width: '15%', targets: 7 },  // Website column width
         { width: '10%', targets: 8 }   // Phone column width
       ]
     });
@@ -152,7 +160,7 @@
     $(document).on('click', '.copy-website', function () {
       var url = $(this).data('url');
       navigator.clipboard.writeText(url).then(function() {
-        // Removed alert here
+        // Optionally notify user here
       }).catch(function(err) {
         console.error('Error copying URL: ', err);
       });

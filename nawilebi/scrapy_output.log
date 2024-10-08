@@ -1,18 +1,19 @@
-2024-10-07 17:16:43 [scrapy.utils.log] INFO: Scrapy 2.11.2 started (bot: nawilebi)
-2024-10-07 17:16:43 [scrapy.utils.log] INFO: Versions: lxml 5.3.0.0, libxml2 2.11.7, cssselect 1.2.0, parsel 1.9.1, w3lib 2.2.1, Twisted 24.7.0, Python 3.11.9 | packaged by Anaconda, Inc. | (main, Apr 19 2024, 16:40:41) [MSC v.1916 64 bit (AMD64)], pyOpenSSL 24.2.1 (OpenSSL 3.0.15 3 Sep 2024), cryptography 43.0.0, Platform Windows-10-10.0.22631-SP0
-2024-10-07 17:16:43 [scrapy.addons] INFO: Enabled addons:
+2024-10-08 18:20:17 [scrapy.utils.log] INFO: Scrapy 2.11.2 started (bot: nawilebi)
+2024-10-08 18:20:17 [scrapy.utils.log] INFO: Versions: lxml 5.3.0.0, libxml2 2.11.7, cssselect 1.2.0, parsel 1.9.1, w3lib 2.2.1, Twisted 24.7.0, Python 3.11.9 | packaged by Anaconda, Inc. | (main, Apr 19 2024, 16:40:41) [MSC v.1916 64 bit (AMD64)], pyOpenSSL 24.2.1 (OpenSSL 3.0.15 3 Sep 2024), cryptography 43.0.0, Platform Windows-10-10.0.22631-SP0
+2024-10-08 18:20:17 [scrapy.addons] INFO: Enabled addons:
 []
-2024-10-07 17:16:43 [asyncio] DEBUG: Using selector: SelectSelector
-2024-10-07 17:16:43 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.asyncioreactor.AsyncioSelectorReactor
-2024-10-07 17:16:43 [scrapy.utils.log] DEBUG: Using asyncio event loop: asyncio.windows_events._WindowsSelectorEventLoop
-2024-10-07 17:16:43 [scrapy.extensions.telnet] INFO: Telnet Password: 35ae9a064ac50ac6
-2024-10-07 17:16:43 [scrapy.middleware] INFO: Enabled extensions:
+2024-10-08 18:20:17 [asyncio] DEBUG: Using selector: SelectSelector
+2024-10-08 18:20:17 [scrapy.utils.log] DEBUG: Using reactor: twisted.internet.asyncioreactor.AsyncioSelectorReactor
+2024-10-08 18:20:17 [scrapy.utils.log] DEBUG: Using asyncio event loop: asyncio.windows_events._WindowsSelectorEventLoop
+2024-10-08 18:20:18 [scrapy.extensions.telnet] INFO: Telnet Password: ff4443af9edf9af7
+2024-10-08 18:20:18 [scrapy.middleware] INFO: Enabled extensions:
 ['scrapy.extensions.corestats.CoreStats',
  'scrapy.extensions.telnet.TelnetConsole',
  'scrapy.extensions.logstats.LogStats']
-2024-10-07 17:16:43 [scrapy.crawler] INFO: Overridden settings:
+2024-10-08 18:20:18 [scrapy.crawler] INFO: Overridden settings:
 {'BOT_NAME': 'nawilebi',
- 'DOWNLOAD_DELAY': 0.5,
+ 'DEPTH_LIMIT': 10,
+ 'DOWNLOAD_DELAY': 2,
  'DUPEFILTER_CLASS': 'scrapy_splash.SplashAwareDupeFilter',
  'FEED_EXPORT_ENCODING': 'utf-8',
  'HTTPCACHE_STORAGE': 'scrapy_splash.SplashAwareFSCacheStorage',
@@ -21,8 +22,8 @@
  'REQUEST_FINGERPRINTER_IMPLEMENTATION': '2.7',
  'SPIDER_MODULES': ['nawilebi.spiders'],
  'TWISTED_REACTOR': 'twisted.internet.asyncioreactor.AsyncioSelectorReactor'}
-2024-10-07 17:16:44 [FakeBrowserHeaderAgentMiddleware] INFO: Fake browser headers are enabled.
-2024-10-07 17:16:44 [scrapy.middleware] INFO: Enabled downloader middlewares:
+2024-10-08 18:20:18 [FakeBrowserHeaderAgentMiddleware] INFO: Fake browser headers are enabled.
+2024-10-08 18:20:18 [scrapy.middleware] INFO: Enabled downloader middlewares:
 ['scrapy.downloadermiddlewares.offsite.OffsiteMiddleware',
  'nawilebi.middlewares.FakeBrowserHeaderAgentMiddleware',
  'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
@@ -38,108 +39,925 @@
  'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
  'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
  'scrapy.downloadermiddlewares.stats.DownloaderStats']
-2024-10-07 17:16:44 [scrapy.middleware] INFO: Enabled spider middlewares:
+2024-10-08 18:20:18 [scrapy.middleware] INFO: Enabled spider middlewares:
 ['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
  'scrapy_splash.SplashDeduplicateArgsMiddleware',
  'scrapy.spidermiddlewares.referer.RefererMiddleware',
  'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
  'scrapy.spidermiddlewares.depth.DepthMiddleware']
-2024-10-07 17:16:44 [scrapy.middleware] INFO: Enabled item pipelines:
+2024-10-08 18:20:18 [scrapy.middleware] INFO: Enabled item pipelines:
 []
-2024-10-07 17:16:44 [scrapy.core.engine] INFO: Spider opened
-2024-10-07 17:16:44 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
-2024-10-07 17:16:44 [urllib3.connectionpool] DEBUG: Starting new HTTPS connection (1): headers.scrapeops.io:443
-2024-10-07 17:16:45 [urllib3.connectionpool] DEBUG: https://headers.scrapeops.io:443 "GET /v1/browser-headers?api_key=020f7e20-d5df-490d-a0b5-0fc569d5262a&num_results=50 HTTP/11" 200 28849
-2024-10-07 17:16:45 [FakeBrowserHeaderAgentMiddleware] INFO: Fetched 50 headers from ScrapeOps API.
-2024-10-07 17:16:45 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6024
-2024-10-07 17:16:49 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:16:53 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/jeep/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:16:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/tesla-2/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:16:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/volkswagen-2-2/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:16:58 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/toyota-5/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:16:58 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/subaru/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:00 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/nissan-2-2/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:01 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/mitsubishi-3/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:02 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/mazda-4/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:02 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/mercedes-benz-3/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:04 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/lexus-2-2/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:04 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:04 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/jeep/renegade-2015-2022/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:04 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/jeep/renegade-2015-2022/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:04 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/kia-3-2/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:05 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:05 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/volkswagen/tiguan-2008-2016/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:05 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/volkswagen/tiguan-2008-2016/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:06 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:06 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/toyota/rav-4-2019-2020/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:06 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/toyota/rav-4-2019-2020/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:06 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:06 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/subaru/xv/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:06 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/subaru/xv/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:07 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:07 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/nissan/nissan-rogue-2017-2020/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:07 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/nissan/nissan-rogue-2017-2020/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:07 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/hyundai-2-2/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:07 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/honda-2-2/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:07 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:07 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/mitsubishi/outlander-2019-on/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:07 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/mitsubishi/outlander-2019-on/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:08 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:08 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/mazda/mazda-cx5-2022-on/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:08 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/mazda/mazda-cx5-2022-on/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:08 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/fiat/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:09 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/chevrolet-4/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:09 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:09 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/mercedes-benz/gle-w167-2020-on/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:09 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/ford-3-2/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:09 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/mercedes-benz/gle-w167-2020-on/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:09 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/bmw-2-2/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:09 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:09 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/mercedes-benz/gls-x167-2020-on/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:09 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/mercedes-benz/gls-x167-2020-on/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:10 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:10 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/lexus/hs-2012-on/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:10 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/lexus/hs-2012-on/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:10 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:10 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/kia/soul-2008-2014/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:10 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/kia/soul-2008-2014/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:11 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/audi-4/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:11 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:11 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/kia/sportage-2016-2019/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:11 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/kia/sportage-2016-2019/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:12 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:12 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/kia/sportage-2010-2014/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:12 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/kia/sportage-2010-2014/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:12 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:12 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/kia/picanto-2015-on/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:12 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/kia/picanto-2015-on/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:13 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:13 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/kia/picanto-2011-2015/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:13 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/kia/picanto-2011-2015/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:14 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:14 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/kia/optima-k5-2020-2023/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:14 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/kia/optima-k5-2020-2023/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:14 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:14 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/kia/optima-2018-2019/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:14 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/kia/optima-2018-2019/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:15 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:15 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/honda/fit-2014-on/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:15 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/honda/fit-2014-on/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:15 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:15 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/honda/fit-2008-2014/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:15 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/honda/fit-2008-2014/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:16 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:16 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/fiat/500-2007-2014/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:16 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/fiat/500-2007-2014/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:16 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:16 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/honda/insight-2011-2015/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:16 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/honda/insight-2011-2015/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:17 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:17 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/honda/cr-v-2012-2015/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:17 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/honda/cr-v-2012-2015/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:17 [scrapy.crawler] INFO: Received SIGINT, shutting down gracefully. Send again to force 
-2024-10-07 17:17:17 [scrapy.core.engine] INFO: Closing spider (shutdown)
-2024-10-07 17:17:17 [scrapy_splash.middleware] WARNING: Bad request to Splash: {'error': 400, 'type': 'ScriptError', 'description': 'Error happened while executing Lua script', 'info': {'type': 'SPLASH_LUA_ERROR', 'message': '[string "..."]:3: Can\'t convert Lua object to Python: depth limit is reached', 'source': '[string "..."]', 'line_number': 3, 'error': "Can't convert Lua object to Python: depth limit is reached"}}
-2024-10-07 17:17:17 [scrapy.core.engine] DEBUG: Crawled (400) <GET https://otoparts.ge/product-category/ford/escape-2017/ via http://localhost:8050/execute> (referer: None)
-2024-10-07 17:17:17 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <400 https://otoparts.ge/product-category/ford/escape-2017/>: HTTP status code is not handled or not allowed
-2024-10-07 17:17:18 [scrapy.crawler] INFO: Received SIGINT twice, forcing unclean shutdown
+2024-10-08 18:20:18 [scrapy.core.engine] INFO: Spider opened
+2024-10-08 18:20:18 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2024-10-08 18:20:18 [urllib3.connectionpool] DEBUG: Starting new HTTPS connection (1): headers.scrapeops.io:443
+2024-10-08 18:20:19 [urllib3.connectionpool] DEBUG: https://headers.scrapeops.io:443 "GET /v1/browser-headers?api_key=020f7e20-d5df-490d-a0b5-0fc569d5262a&num_results=50 HTTP/11" 200 29051
+2024-10-08 18:20:19 [FakeBrowserHeaderAgentMiddleware] INFO: Fetched 50 headers from ScrapeOps API.
+2024-10-08 18:20:19 [scrapy.extensions.telnet] INFO: Telnet console listening on 127.0.0.1:6024
+2024-10-08 18:20:23 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:20:26 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/ford-3-2/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:20:28 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/chevrolet-4/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:20:32 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/bmw-2-2/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:20:34 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/audi-4/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:20:37 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/jeep/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:20:40 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/volkswagen-2-2/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:20:42 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/tesla-2/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:20:47 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/toyota-5/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:20:48 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/subaru/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:20:50 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/nissan-2-2/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:20:53 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/mitsubishi-3/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:20:56 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/mercedes-benz-3/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:20:59 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/mazda-4/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:02 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/lexus-2-2/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:03 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/kia-3-2/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:04 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/hyundai-2-2/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:07 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/dzaris-natsilebi/honda-2-2/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:11 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/ford/escape-2017/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:14 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/chevrolet/malibu-2019/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:17 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/bmw/x6-e71-2007-2013/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:18 [scrapy.extensions.logstats] INFO: Crawled 21 pages (at 21 pages/min), scraped 0 items (at 0 items/min)
+2024-10-08 18:21:21 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/jeep/renegade-2015-2022/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:21 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/audi/q7-2016-2019/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:23 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/volkswagen/passat-cc-2011-on/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:25 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/tesla/model-3/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:30 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/toyota/rav-4-2019-2020/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:31 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/subaru/xv/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:34 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/nissan/nissan-rogue-2017-2020/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:36 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/mitsubishi/outlander-2019-on/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:38 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/mercedes-benz/gle-w167-2020-on/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:41 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/mazda/mazda-cx5-2022-on/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:42 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/lexus/hs-2012-on/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:44 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/kia/soul-2008-2014/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:48 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/hyundai/kona-2018-2021/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:49 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product-category/honda/fit-2014-on/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:53 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%98%e1%83%a1-%e1%83%9c%e1%83%98%e1%83%99%e1%83%94%e1%83%9a%e1%83%98-2/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:53 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%98%e1%83%a1-%e1%83%9c%e1%83%98%e1%83%99%e1%83%94%e1%83%9a%e1%83%98-2/>
+{'car_mark': 'FORD',
+ 'car_model': 'Escape 2017-',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'ფრთის ნიკელი – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%98%e1%83%a1-%e1%83%9c%e1%83%98%e1%83%99%e1%83%94%e1%83%9a%e1%83%98-2/',
+ 'price': '50.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:21:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/g-287-r/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/g-287-r/>
+{'car_mark': 'CHEVROLET',
+ 'car_model': 'Malibu 2019',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'მაყუჩის თავი – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/g-287-r/',
+ 'price': '350.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:21:56 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a5%e1%83%95%e1%83%94%e1%83%93%e1%83%90-%e1%83%aa%e1%83%ae%e1%83%90%e1%83%a3/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:56 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a5%e1%83%95%e1%83%94%e1%83%93%e1%83%90-%e1%83%aa%e1%83%ae%e1%83%90%e1%83%a3/>
+{'car_mark': 'BMW',
+ 'car_model': 'X5 E70 2011-2013',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'წინა ბამპერის ქვედა ცხაური – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a5%e1%83%95%e1%83%94%e1%83%93%e1%83%90-%e1%83%aa%e1%83%ae%e1%83%90%e1%83%a3/',
+ 'price': '95.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:21:57 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/sy-jp06-02-r/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:57 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/sy-jp06-02-r/>
+{'car_mark': 'JEEP',
+ 'car_model': 'Renegade 2015 - 2022',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'კარები უკანა – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/sy-jp06-02-r/',
+ 'price': '750.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:21:59 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%a4%e1%83%94%e1%83%ae%e1%83%a3%e1%83%a0%e1%83%98/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:21:59 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%a4%e1%83%94%e1%83%ae%e1%83%a3%e1%83%a0%e1%83%98/>
+{'car_mark': 'AUDI',
+ 'car_model': 'Q7 2016 - 2019',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'საფეხური',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%a4%e1%83%94%e1%83%ae%e1%83%a3%e1%83%a0%e1%83%98/',
+ 'price': '500.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:02 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%99%e1%83%90%e1%83%a0%e1%83%94%e1%83%91%e1%83%98-4/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:02 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%99%e1%83%90%e1%83%a0%e1%83%94%e1%83%91%e1%83%98-4/>
+{'car_mark': 'VOLKSWAGEN',
+ 'car_model': 'PASSAT CC 2008 - 2011',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'უკანა კარები – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%99%e1%83%90%e1%83%a0%e1%83%94%e1%83%91%e1%83%98-4/',
+ 'price': '100.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:05 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/ld-md3-079/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:05 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/ld-md3-079/>
+{'car_mark': 'TESLA',
+ 'car_model': 'MODEL 3',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'კაპოტი (რკინა)',
+ 'part_url': 'https://otoparts.ge/product/ld-md3-079/',
+ 'price': '370.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:07 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/10410/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:07 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/10410/>
+{'car_mark': 'TOYOTA',
+ 'car_model': 'RAV 4 2019 - 2020',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'საბარგული',
+ 'part_url': 'https://otoparts.ge/product/10410/',
+ 'price': '575.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:09 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%a1%e1%83%90%e1%83%91%e1%83%a3%e1%83%a5%e1%83%a1%e1%83%98%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%ae%e1%83%a3%e1%83%a4%e1%83%98-taiwan-gordon/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:09 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%a1%e1%83%90%e1%83%91%e1%83%a3%e1%83%a5%e1%83%a1%e1%83%98%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%ae%e1%83%a3%e1%83%a4%e1%83%98-taiwan-gordon/>
+{'car_mark': 'Subaru',
+ 'car_model': 'XV - 2012-2015',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'წინა საბუქსირის ხუფი (Taiwan Gordon)',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%a1%e1%83%90%e1%83%91%e1%83%a3%e1%83%a5%e1%83%a1%e1%83%98%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%ae%e1%83%a3%e1%83%a4%e1%83%98-taiwan-gordon/',
+ 'price': '22.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:11 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%a8%e1%83%98%e1%83%93%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94-14/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:11 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%a8%e1%83%98%e1%83%93%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94-14/>
+{'car_mark': 'NISSAN',
+ 'car_model': 'Nissan Rogue 2017-2020',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'უკანა შიდა მაშუქი – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%a8%e1%83%98%e1%83%93%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94-14/',
+ 'price': '90.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:16 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/w167000001-r/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:16 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/w167000001-r/>
+{'car_mark': 'MERCEDES-BENZ',
+ 'car_model': 'GLE W167 2020-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'ფრთა – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/w167000001-r/',
+ 'price': '400.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:17 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%9c%e1%83%98%e1%83%a1%e1%83%9a%e1%83%a1%e1%83%90%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90%e1%83%90%e1%83%a6%e1%83%9b%e1%83%93%e1%83%94%e1%83%92%e1%83%9d-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98-263/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:17 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%9c%e1%83%98%e1%83%a1%e1%83%9a%e1%83%a1%e1%83%90%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90%e1%83%90%e1%83%a6%e1%83%9b%e1%83%93%e1%83%94%e1%83%92%e1%83%9d-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98-263/>
+{'car_mark': 'MITSUBISHI',
+ 'car_model': 'Outlander 2019 - ON\u200b',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'ნისლსაწინააღმდეგო ფარის ჩარჩო – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%9c%e1%83%98%e1%83%a1%e1%83%9a%e1%83%a1%e1%83%90%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90%e1%83%90%e1%83%a6%e1%83%9b%e1%83%93%e1%83%94%e1%83%92%e1%83%9d-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98-263/',
+ 'price': '25.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:18 [scrapy.extensions.logstats] INFO: Crawled 47 pages (at 26 pages/min), scraped 12 items (at 12 items/min)
+2024-10-08 18:22:21 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/hrd-22cx5-011/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:21 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/hrd-22cx5-011/>
+{'car_mark': 'MAZDA',
+ 'car_model': 'Mazda CX5 2022-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'უკანა ბამპერის საბუქსირე ხუფი',
+ 'part_url': 'https://otoparts.ge/product/hrd-22cx5-011/',
+ 'price': '12.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:23 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-7/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:23 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-7/>
+{'car_mark': 'LEXUS',
+ 'car_model': 'HS 2012 - ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'ფრთა – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-7/',
+ 'price': '750.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:25 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-%e1%83%93%e1%83%90%e1%83%92%e1%83%a0%e1%83%a3%e1%83%9c%e1%83%a2%e1%83%a3%e1%83%9a-2/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:25 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-%e1%83%93%e1%83%90%e1%83%92%e1%83%a0%e1%83%a3%e1%83%9c%e1%83%a2%e1%83%a3%e1%83%9a-2/>
+{'car_mark': 'KIA',
+ 'car_model': 'SOUL 2008-2014',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'უკანა ბამპერი (დაგრუნტული TAIWAN)',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-%e1%83%93%e1%83%90%e1%83%92%e1%83%a0%e1%83%a3%e1%83%9c%e1%83%a2%e1%83%a3%e1%83%9a-2/',
+ 'price': '250.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:27 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%a4%e1%83%a0%e1%83%97%e1%83%98%e1%83%a1-%e1%83%9b%e1%83%9d%e1%83%9a%e1%83%93%e1%83%98%e1%83%9c%e1%83%92%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0-6/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:27 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%a4%e1%83%a0%e1%83%97%e1%83%98%e1%83%a1-%e1%83%9b%e1%83%9d%e1%83%9a%e1%83%93%e1%83%98%e1%83%9c%e1%83%92%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0-6/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'უკანა ფრთის მოლდინგი – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%a4%e1%83%a0%e1%83%97%e1%83%98%e1%83%a1-%e1%83%9b%e1%83%9d%e1%83%9a%e1%83%93%e1%83%98%e1%83%9c%e1%83%92%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0-6/',
+ 'price': '100.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:30 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%91%e1%83%90%e1%83%a0%e1%83%92%e1%83%a3%e1%83%9a%e1%83%98-5/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:30 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%91%e1%83%90%e1%83%a0%e1%83%92%e1%83%a3%e1%83%9a%e1%83%98-5/>
+{'car_mark': 'HONDA',
+ 'car_model': 'FIT 2014-ON',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'საბარგული',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%91%e1%83%90%e1%83%a0%e1%83%92%e1%83%a3%e1%83%9a%e1%83%98-5/',
+ 'price': '0.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:34 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-56/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-56/>
+{'car_mark': 'HONDA',
+ 'car_model': 'FIT 2014-ON',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'უკანა ბამპერი (ტაივანი YCC) (დაგრუნტული)',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-56/',
+ 'price': '235.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:36 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%99%e1%83%90%e1%83%a0%e1%83%94%e1%83%91%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-15/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:36 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%99%e1%83%90%e1%83%a0%e1%83%94%e1%83%91%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-15/>
+{'car_mark': 'HONDA',
+ 'car_model': 'FIT 2014-ON',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'უკანა კარები – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%99%e1%83%90%e1%83%a0%e1%83%94%e1%83%91%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-15/',
+ 'price': '345.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:38 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%99%e1%83%90%e1%83%a0%e1%83%94%e1%83%91%e1%83%98-28/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:38 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%99%e1%83%90%e1%83%a0%e1%83%94%e1%83%91%e1%83%98-28/>
+{'car_mark': 'HONDA',
+ 'car_model': 'FIT 2014-ON',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'უკანა კარები – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%99%e1%83%90%e1%83%a0%e1%83%94%e1%83%91%e1%83%98-28/',
+ 'price': '345.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:41 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%99%e1%83%90%e1%83%a0%e1%83%94%e1%83%91%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-14/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:41 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%99%e1%83%90%e1%83%a0%e1%83%94%e1%83%91%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-14/>
+{'car_mark': 'HONDA',
+ 'car_model': 'FIT 2014-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'წინა კარები – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%99%e1%83%90%e1%83%a0%e1%83%94%e1%83%91%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-14/',
+ 'price': '350.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:45 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%99%e1%83%90%e1%83%a0%e1%83%94%e1%83%91%e1%83%98-27/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:46 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%99%e1%83%90%e1%83%a0%e1%83%94%e1%83%91%e1%83%98-27/>
+{'car_mark': 'HONDA',
+ 'car_model': 'FIT 2014-ON',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'წინა კარები – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%99%e1%83%90%e1%83%a0%e1%83%94%e1%83%91%e1%83%98-27/',
+ 'price': '350.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:48 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%aa%e1%83%ae%e1%83%90%e1%83%a3%e1%83%a0%e1%83%98-18/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:48 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%aa%e1%83%ae%e1%83%90%e1%83%a3%e1%83%a0%e1%83%98-18/>
+{'car_mark': 'HONDA',
+ 'car_model': 'FIT 2014-ON',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'ბამპერის ცხაური',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%aa%e1%83%ae%e1%83%90%e1%83%a3%e1%83%a0%e1%83%98-18/',
+ 'price': '147.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:50 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-38/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:50 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-38/>
+{'car_mark': 'HONDA',
+ 'car_model': 'FIT 2014-ON',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'წინა ბამპერი',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-38/',
+ 'price': '175.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:52 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:52 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95/>
+{'car_mark': 'HONDA',
+ 'car_model': 'FIT 2014-ON',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'წინა ფარის სამაგრი – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95/',
+ 'price': '0.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98/>
+{'car_mark': 'HONDA',
+ 'car_model': 'FIT 2014-ON',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'წინა ფარის სამაგრი – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98/',
+ 'price': '50.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:56 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%90-taiwan-gordon-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-39/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:56 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%90-taiwan-gordon-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-39/>
+{'car_mark': 'HONDA',
+ 'car_model': 'FIT 2014-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'ფრთა (Taiwan Gordon) – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%90-taiwan-gordon-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-39/',
+ 'price': '110.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:57 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%90-39/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:22:57 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%90-39/>
+{'car_mark': 'HONDA',
+ 'car_model': 'FIT 2014-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'ფრთა (Taiwan Gordon) – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%90-39/',
+ 'price': '110.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:22:59 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%99%e1%83%90%e1%83%9e%e1%83%9d%e1%83%a2%e1%83%98-48/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:00 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%99%e1%83%90%e1%83%9e%e1%83%9d%e1%83%a2%e1%83%98-48/>
+{'car_mark': 'HONDA',
+ 'car_model': 'FIT 2014-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'კაპოტი (Taiwan Gordon)',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%99%e1%83%90%e1%83%9e%e1%83%9d%e1%83%a2%e1%83%98-48/',
+ 'price': '280.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:02 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%a4%e1%83%a0%e1%83%97%e1%83%98%e1%83%a1-%e1%83%9b%e1%83%9d%e1%83%9a%e1%83%93%e1%83%98%e1%83%9c%e1%83%92%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0-5/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:02 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%a4%e1%83%a0%e1%83%97%e1%83%98%e1%83%a1-%e1%83%9b%e1%83%9d%e1%83%9a%e1%83%93%e1%83%98%e1%83%9c%e1%83%92%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0-5/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'უკანა ფრთის მოლდინგი – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%a4%e1%83%a0%e1%83%97%e1%83%98%e1%83%a1-%e1%83%9b%e1%83%9d%e1%83%9a%e1%83%93%e1%83%98%e1%83%9c%e1%83%92%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0-5/',
+ 'price': '100.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:05 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%90%e1%83%9b%e1%83%a0%e1%83%94%e1%83%99-33/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:05 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%90%e1%83%9b%e1%83%a0%e1%83%94%e1%83%99-33/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'უკანა ბამპერის შუქამრეკლი – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%90%e1%83%9b%e1%83%a0%e1%83%94%e1%83%99-33/',
+ 'price': '100.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:07 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%90%e1%83%9b%e1%83%a0%e1%83%94%e1%83%99-32/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:07 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%90%e1%83%9b%e1%83%a0%e1%83%94%e1%83%99-32/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'უკანა ბამპერის შუქამრეკლი – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a3%e1%83%99%e1%83%90%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%90%e1%83%9b%e1%83%a0%e1%83%94%e1%83%99-32/',
+ 'price': '100.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:09 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a0%e1%83%90%e1%83%93%e1%83%98%e1%83%90%e1%83%a2%e1%83%9d%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%94%e1%83%99%e1%83%a0%e1%83%90%e1%83%9c%e1%83%98-29/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:10 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a0%e1%83%90%e1%83%93%e1%83%98%e1%83%90%e1%83%a2%e1%83%9d%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%94%e1%83%99%e1%83%a0%e1%83%90%e1%83%9c%e1%83%98-29/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'რადიატორის ეკრანი',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a0%e1%83%90%e1%83%93%e1%83%98%e1%83%90%e1%83%a2%e1%83%9d%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%94%e1%83%99%e1%83%a0%e1%83%90%e1%83%9c%e1%83%98-29/',
+ 'price': '295.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:12 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%9c%e1%83%98%e1%83%a1%e1%83%9a%e1%83%94-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-18/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:12 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%9c%e1%83%98%e1%83%a1%e1%83%9a%e1%83%94-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-18/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'სანისლე ფარი – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%9c%e1%83%98%e1%83%a1%e1%83%9a%e1%83%94-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-18/',
+ 'price': '250.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:14 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%9c%e1%83%98%e1%83%a1%e1%83%9a%e1%83%94-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%aa%e1%83%ae%e1%83%94%e1%83%9c%e1%83%90-4/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:14 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%9c%e1%83%98%e1%83%a1%e1%83%9a%e1%83%94-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%aa%e1%83%ae%e1%83%94%e1%83%9c%e1%83%90-4/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'სანისლე ფარი – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%9c%e1%83%98%e1%83%a1%e1%83%9a%e1%83%94-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%aa%e1%83%ae%e1%83%94%e1%83%9c%e1%83%90-4/',
+ 'price': '250.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:16 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%9c%e1%83%98%e1%83%a1%e1%83%9a%e1%83%94-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-17/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:16 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%9c%e1%83%98%e1%83%a1%e1%83%9a%e1%83%94-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-17/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'სანისლე ფარი – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%9c%e1%83%98%e1%83%a1%e1%83%9a%e1%83%94-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-17/',
+ 'price': '85.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:18 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%9c%e1%83%98%e1%83%a1%e1%83%9a%e1%83%94-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%aa%e1%83%ae%e1%83%94%e1%83%9c%e1%83%90-3/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:18 [scrapy.extensions.logstats] INFO: Crawled 72 pages (at 25 pages/min), scraped 36 items (at 24 items/min)
+2024-10-08 18:23:18 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%9c%e1%83%98%e1%83%a1%e1%83%9a%e1%83%94-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%aa%e1%83%ae%e1%83%94%e1%83%9c%e1%83%90-3/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'სანისლე ფარი – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a1%e1%83%90%e1%83%9c%e1%83%98%e1%83%a1%e1%83%9a%e1%83%94-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%aa%e1%83%ae%e1%83%94%e1%83%9c%e1%83%90-3/',
+ 'price': '85.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:20 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%aa%e1%83%ae%e1%83%90%e1%83%a3%e1%83%a0%e1%83%90-14/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:21 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%aa%e1%83%ae%e1%83%90%e1%83%a3%e1%83%a0%e1%83%90-14/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'ბამპერის ცხაურა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%aa%e1%83%ae%e1%83%90%e1%83%a3%e1%83%a0%e1%83%90-14/',
+ 'price': '65.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:23 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%aa%e1%83%ae%e1%83%90%e1%83%a3%e1%83%a0%e1%83%90-32/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:23 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%aa%e1%83%ae%e1%83%90%e1%83%a3%e1%83%a0%e1%83%90-32/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'ცხაურა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%aa%e1%83%ae%e1%83%90%e1%83%a3%e1%83%a0%e1%83%90-32/',
+ 'price': '230.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:25 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90-64/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:25 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90-64/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'წინა ბამპერის სამაგრი – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90-64/',
+ 'price': '30.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:26 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90-63/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:26 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90-63/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'წინა ბამპერის სამაგრი – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90-63/',
+ 'price': '30.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:29 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-92/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:29 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-92/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'წინა ბამპერი',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-92/',
+ 'price': '190.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:32 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-91/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:33 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-91/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'წინა ბამპერი',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-91/',
+ 'price': '180.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:35 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0-14/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:35 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0-14/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'წინა მაშუქის ჩარჩო – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0-14/',
+ 'price': '45.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:37 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0-13/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:37 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0-13/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'წინა მაშუქის ჩარჩო – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%98%e1%83%a1-%e1%83%a1%e1%83%90%e1%83%9b%e1%83%90%e1%83%92%e1%83%a0%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0-13/',
+ 'price': '45.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:40 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-44/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:40 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-44/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'წინა მაშუქი – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-44/',
+ 'price': '375.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:42 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%aa%e1%83%ae%e1%83%94%e1%83%9c%e1%83%90-9/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:42 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%aa%e1%83%ae%e1%83%94%e1%83%9c%e1%83%90-9/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'წინა მაშუქი – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a8%e1%83%a3%e1%83%a5%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%aa%e1%83%ae%e1%83%94%e1%83%9c%e1%83%90-9/',
+ 'price': '375.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:45 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%98%e1%83%a1-%e1%83%9b%e1%83%9d%e1%83%9a%e1%83%93%e1%83%98%e1%83%9c%e1%83%92%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-6/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:45 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%98%e1%83%a1-%e1%83%9b%e1%83%9d%e1%83%9a%e1%83%93%e1%83%98%e1%83%9c%e1%83%92%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-6/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'წინა ფრთის მოლდინგი – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%98%e1%83%a1-%e1%83%9b%e1%83%9d%e1%83%9a%e1%83%93%e1%83%98%e1%83%9c%e1%83%92%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%af%e1%83%95%e1%83%94%e1%83%9c%e1%83%90-6/',
+ 'price': '110.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:47 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%98%e1%83%a1-%e1%83%9b%e1%83%9d%e1%83%9a%e1%83%93%e1%83%98%e1%83%9c%e1%83%92%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%aa%e1%83%ae%e1%83%94%e1%83%9c%e1%83%90-2/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:47 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%98%e1%83%a1-%e1%83%9b%e1%83%9d%e1%83%9a%e1%83%93%e1%83%98%e1%83%9c%e1%83%92%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%aa%e1%83%ae%e1%83%94%e1%83%9c%e1%83%90-2/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'წინა ფრთის მოლდინგი – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%98%e1%83%a1-%e1%83%9b%e1%83%9d%e1%83%9a%e1%83%93%e1%83%98%e1%83%9c%e1%83%92%e1%83%98-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%aa%e1%83%ae%e1%83%94%e1%83%9c%e1%83%90-2/',
+ 'price': '110.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:49 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/gdfn0524r/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:50 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/gdfn0524r/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'ფრთა (Taiwan GORDON) – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/gdfn0524r/',
+ 'price': '350.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:52 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/gdfn0524l/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:52 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/gdfn0524l/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'ფრთა (Taiwan GORDON) – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/gdfn0524l/',
+ 'price': '350.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:54 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/gdbt0594/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:54 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/gdbt0594/>
+{'car_mark': 'HYUNDAI',
+ 'car_model': 'KONA 2018-2021',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'კაპოტი (Taiwan GORDON)',
+ 'part_url': 'https://otoparts.ge/product/gdbt0594/',
+ 'price': '665.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:57 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%aa%e1%83%ae%e1%83%90%e1%83%a3%e1%83%a0%e1%83%98-taiwan-2/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:57 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%aa%e1%83%ae%e1%83%90%e1%83%a3%e1%83%a0%e1%83%98-taiwan-2/>
+{'car_mark': 'KIA',
+ 'car_model': 'SOUL 2008-2014',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'ცხაური (TAIWAN)',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%aa%e1%83%ae%e1%83%90%e1%83%a3%e1%83%a0%e1%83%98-taiwan-2/',
+ 'price': '125.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:23:59 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-%e1%83%93%e1%83%90%e1%83%92%e1%83%a0%e1%83%a3%e1%83%9c%e1%83%a2%e1%83%a3%e1%83%9a%e1%83%98-taiwan-15/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:23:59 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-%e1%83%93%e1%83%90%e1%83%92%e1%83%a0%e1%83%a3%e1%83%9c%e1%83%a2%e1%83%a3%e1%83%9a%e1%83%98-taiwan-15/>
+{'car_mark': 'KIA',
+ 'car_model': 'SOUL 2008-2014',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'ბამპერი\xa0(დაგრუნტული TAIWAN)',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%91%e1%83%90%e1%83%9b%e1%83%9e%e1%83%94%e1%83%a0%e1%83%98-%e1%83%93%e1%83%90%e1%83%92%e1%83%a0%e1%83%a3%e1%83%9c%e1%83%a2%e1%83%a3%e1%83%9a%e1%83%98-taiwan-15/',
+ 'price': '250.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:01 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%90-16/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:02 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%90-16/>
+{'car_mark': 'LEXUS',
+ 'car_model': 'HS 2012 - ON',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'ფრთა – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%90-16/',
+ 'price': '750.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:04 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%99%e1%83%90%e1%83%9e%e1%83%9d%e1%83%a2%e1%83%98-59/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:04 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%99%e1%83%90%e1%83%9e%e1%83%9d%e1%83%a2%e1%83%98-59/>
+{'car_mark': 'LEXUS',
+ 'car_model': 'HS 2012 - ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'კაპოტი',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%99%e1%83%90%e1%83%9e%e1%83%9d%e1%83%a2%e1%83%98-59/',
+ 'price': '1,200.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:06 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/hrd-22cx5-004/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:06 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/hrd-22cx5-004/>
+{'car_mark': 'MAZDA',
+ 'car_model': 'Mazda CX5 2022-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'უკანა ბამპერის ქვედა ნაწილი',
+ 'part_url': 'https://otoparts.ge/product/hrd-22cx5-004/',
+ 'price': '160.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:08 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/hrd-22cx5-003/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:08 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/hrd-22cx5-003/>
+{'car_mark': 'MAZDA',
+ 'car_model': 'Mazda CX5 2022-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'უკანა ბამპერი',
+ 'part_url': 'https://otoparts.ge/product/hrd-22cx5-003/',
+ 'price': '350.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:10 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/hrd-22cx5-009-r/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:10 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/hrd-22cx5-009-r/>
+{'car_mark': 'MAZDA',
+ 'car_model': 'Mazda CX5 2022-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'უკანა ფრთის მოლდინგი – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/hrd-22cx5-009-r/',
+ 'price': '75.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:13 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/hrd-22cx5-009-l/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:13 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/hrd-22cx5-009-l/>
+{'car_mark': 'MAZDA',
+ 'car_model': 'Mazda CX5 2022-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'უკანა ფრთის მოლდინგი – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/hrd-22cx5-009-l/',
+ 'price': '75.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:15 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/hrd-22cx5-010/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:15 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/hrd-22cx5-010/>
+{'car_mark': 'MAZDA',
+ 'car_model': 'Mazda CX5 2022-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'წინა ბამპერის საბუქსირე ხუფი',
+ 'part_url': 'https://otoparts.ge/product/hrd-22cx5-010/',
+ 'price': '12.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:16 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/hrd-22cx5-007/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:16 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/hrd-22cx5-007/>
+{'car_mark': 'MAZDA',
+ 'car_model': 'Mazda CX5 2022-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'ზედა ცხაურის დამატება',
+ 'part_url': 'https://otoparts.ge/product/hrd-22cx5-007/',
+ 'price': '95.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:18 [scrapy.extensions.logstats] INFO: Crawled 97 pages (at 25 pages/min), scraped 62 items (at 26 items/min)
+2024-10-08 18:24:19 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/hrd-22cx5-006/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:19 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/hrd-22cx5-006/>
+{'car_mark': 'MAZDA',
+ 'car_model': 'Mazda CX5 2022-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'ცხაურის მოლდინგი (კომპლექტი)',
+ 'part_url': 'https://otoparts.ge/product/hrd-22cx5-006/',
+ 'price': '175.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:22 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/hrd-22cx5-005/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:22 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/hrd-22cx5-005/>
+{'car_mark': 'MAZDA',
+ 'car_model': 'Mazda CX5 2022-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'ცხაურა',
+ 'part_url': 'https://otoparts.ge/product/hrd-22cx5-005/',
+ 'price': '150.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:25 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/hrd-22cx5-002/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:25 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/hrd-22cx5-002/>
+{'car_mark': 'MAZDA',
+ 'car_model': 'Mazda CX5 2022-ON',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'ბამპერის ქვედა ნაწილი',
+ 'part_url': 'https://otoparts.ge/product/hrd-22cx5-002/',
+ 'price': '180.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:27 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/hrd-22cx5-001/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:27 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/hrd-22cx5-001/>
+{'car_mark': 'MAZDA',
+ 'car_model': 'Mazda CX5 2022-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'წინა ბამპერი',
+ 'part_url': 'https://otoparts.ge/product/hrd-22cx5-001/',
+ 'price': '240.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:29 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/hrd-22cx5-008-r/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:29 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/hrd-22cx5-008-r/>
+{'car_mark': 'MAZDA',
+ 'car_model': 'Mazda CX5 2022-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'წინა ფრთის მოლდინგი – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/hrd-22cx5-008-r/',
+ 'price': '75.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:30 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/hrd-22cx5-008-l/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:30 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/hrd-22cx5-008-l/>
+{'car_mark': 'MAZDA',
+ 'car_model': 'Mazda CX5 2022-ON',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'წინა ფრთის მოლდინგი – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/hrd-22cx5-008-l/',
+ 'price': '75.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:32 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/gdfn0207dr/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:32 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/gdfn0207dr/>
+{'car_mark': 'MAZDA',
+ 'car_model': 'Mazda CX5 2017 - 2022',
+ 'end_year': None,
+ 'in_stock': False,
+ 'part_full_name': 'ფრთა (Taiwan GORDON) – მარჯვენა',
+ 'part_url': 'https://otoparts.ge/product/gdfn0207dr/',
+ 'price': '250.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:34 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/gdfn0207dl/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:34 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/gdfn0207dl/>
+{'car_mark': 'MAZDA',
+ 'car_model': 'Mazda CX5 2017 - 2022',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'ფრთა (Taiwan GORDON) – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/gdfn0207dl/',
+ 'price': '250.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:36 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/gdbt0331e/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:37 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/gdbt0331e/>
+{'car_mark': 'MAZDA',
+ 'car_model': 'Mazda CX5 2017 - 2022',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'კაპოტი (Taiwan GORDON)',
+ 'part_url': 'https://otoparts.ge/product/gdbt0331e/',
+ 'price': '450.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:39 [scrapy.crawler] INFO: Received SIGINT, shutting down gracefully. Send again to force 
+2024-10-08 18:24:39 [scrapy.core.engine] INFO: Closing spider (shutdown)
+2024-10-08 18:24:39 [scrapy.core.engine] DEBUG: Crawled (200) <GET https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%aa%e1%83%ae%e1%83%94%e1%83%9c%e1%83%90-5/ via http://localhost:8050/execute> (referer: None)
+2024-10-08 18:24:39 [scrapy.core.scraper] DEBUG: Scraped from <200 https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%aa%e1%83%ae%e1%83%94%e1%83%9c%e1%83%90-5/>
+{'car_mark': 'MERCEDES-BENZ',
+ 'car_model': 'GLE W167 2020-ON',
+ 'end_year': None,
+ 'in_stock': True,
+ 'part_full_name': 'ფრთა – მარცხენა',
+ 'part_url': 'https://otoparts.ge/product/%e1%83%a4%e1%83%a0%e1%83%97%e1%83%90-%e1%83%9b%e1%83%90%e1%83%a0%e1%83%aa%e1%83%ae%e1%83%94%e1%83%9c%e1%83%90-5/',
+ 'price': '400.00',
+ 'start_year': None,
+ 'website': 'https://otoparts.ge/',
+ 'year': None}
+2024-10-08 18:24:39 [scrapy.crawler] INFO: Received SIGINT twice, forcing unclean shutdown
+2024-10-08 18:24:39 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET https://otoparts.ge/product/%e1%83%9c%e1%83%98%e1%83%a1%e1%83%9a%e1%83%a1%e1%83%90%e1%83%ac%e1%83%98%e1%83%9c%e1%83%90%e1%83%90%e1%83%a6%e1%83%9b%e1%83%93%e1%83%94%e1%83%92%e1%83%9d-%e1%83%a4%e1%83%90%e1%83%a0%e1%83%98-262/ via http://localhost:8050/execute> (failed 1 times): [<twisted.python.failure.Failure twisted.internet.error.ConnectionLost: Connection to the other side was lost in a non-clean fashion: Connection lost.>]
+2024-10-08 18:24:39 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET https://otoparts.ge/product/%e1%83%aa%e1%83%ae%e1%83%90%e1%83%a3%e1%83%a0%e1%83%90-28/ via http://localhost:8050/execute> (failed 1 times): [<twisted.python.failure.Failure twisted.internet.error.ConnectionLost: Connection to the other side was lost in a non-clean fashion: Connection lost.>]

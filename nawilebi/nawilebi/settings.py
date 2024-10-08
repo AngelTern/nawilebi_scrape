@@ -39,7 +39,7 @@ LOG_FILE = 'scrapy_output.log'
 LOG_FORMAT = '%(asctime)s [%(name)s] %(levelname)s: %(message)s'
 LOG_DATEFORMAT = '%Y-%m-%d %H:%M:%S'
 
-
+DEPTH_LIMIT = 10
 #AUTOTHROTTLE_ENABLED = True
 
 SCRAPEOPS_API_KEY = "020f7e20-d5df-490d-a0b5-0fc569d5262a"

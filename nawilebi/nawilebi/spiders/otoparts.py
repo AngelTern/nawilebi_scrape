@@ -12,8 +12,8 @@ class OtopartsSpider(scrapy.Spider):
         # "nawilebi.pipelines.CarpartsPipeline": 200,
         # "nawilebi.pipelines.SaveToMySQLPipeline": 900
     },
-    'DOWNLOAD_DELAY': 0.5,
-    'CONCONCURRENT_REQUESTS': 1,
+    'DOWNLOAD_DELAY': 2,
+    #'CONCONCURRENT_REQUESTS': 1,
     'SPLASH_URL': 'http://localhost:8050',
     'DOWNLOADER_MIDDLEWARES': {
         "nawilebi.middlewares.FakeBrowserHeaderAgentMiddleware": 100,
@@ -51,14 +51,14 @@ class OtopartsSpider(scrapy.Spider):
     
     lua_mark_page = """
     function main(splash, args)
-        assert(splash:go(args,url))
-        
-        while not splash:select('ul li.product div .premium-woo-products-details-wrap a.premium-woo-product__link') do
-            splash.wait(0.1)
-            print('waiting...')
-        end
-        return {html=splash:html()}
-    end"""
+        assert(splash:go(args.url))
+        assert(splash:wait(0.5))
+        return {
+            html = splash:html(),
+        }
+    end
+    """
+
     
     lua_model_page = """
     function main(splash, args)
@@ -88,11 +88,12 @@ class OtopartsSpider(scrapy.Spider):
                                 endpoint='execute', args = {"lua_source": self.lua_parse, 'url': car_mark_url})
 
     def parse_mark_page(self, response):
-        car_model_urls = response.css(".elementor-image-box-title a::attr(href)").getall()
-        
-        for car_model_url in car_model_urls:
-            yield SplashRequest(car_model_url, callback=self.parse_model_page,
-                                endpoint='execute', args = {"lua_source": self.lua_mark_page, 'url': car_model_url})
+        model_links = response.css("body > div.elementor > section.elementor-section.elementor-top-section.elementor-section-boxed.elementor-section-height-default.elementor-section-height-default > div > div > div > section.elementor-section.elementor-inner-section.elementor-element.elementor-section-boxed.elementor-section-height-default.elementor-section-height-default > div > div.elementor-column.elementor-inner-column.elementor-element > div > div > div > div > div > h1 a::attr(href), body > div.elementor > section.elementor-section.elementor-top-section.elementor-section-boxed.elementor-section-height-default.elementor-section-height-default > div > div > div > section.elementor-section.elementor-inner-section.elementor-element.elementor-section-boxed.elementor-section-height-default.elementor-section-height-default > div > div.elementor-column.elementor-inner-column.elementor-element > div > div > div > div > div > h3 a::attr(href)").getall()
+
+        for model_link in model_links:
+            yield SplashRequest(model_link, callback= self.parse_model_page,
+                                endpoint='execute', args={"lua_source": self.lua_mark_page, 'url': model_link})
+
 
     def parse_model_page(self, response):
         part_urls = response.css("ul li.product div .premium-woo-products-details-wrap a.premium-woo-product__link::attr(href)").getall()
@@ -100,6 +101,7 @@ class OtopartsSpider(scrapy.Spider):
         for part_url in part_urls:
             yield SplashRequest(part_url, callback=self.parse_part_page, meta={'part_url': part_url},
                                 endpoint='execute', args = {"lua_source": self.lua_model_page, 'url': part_url})
+
 
     def parse_part_page(self, response):
         item = NawilebiItem()
