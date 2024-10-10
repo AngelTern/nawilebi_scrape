@@ -134,7 +134,14 @@
         {
           data: 'phone',
           render: function(data) {
-              return `<a href="tel:${data}">${data}</a>`;
+              if (data.includes(',')) {
+                  var phones = data.split(',');  // Split by comma
+                  return phones.map(function(phone) {
+                      return `<a href="tel:${phone.trim()}">${phone.trim()}</a>`;  // Generate a link for each phone number
+                  }).join('<br>');  // Join them with a line break for readability
+              } else {
+                  return `<a href="tel:${data.trim()}">${data.trim()}</a>`;  // Single phone number case
+              }
           }
       }
       ],

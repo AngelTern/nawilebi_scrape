@@ -40,6 +40,31 @@ from scrapy.exceptions import DropItem
         return item
 '''
 class NawilebiPipeline:
+    
+    phone_map = {
+                "https://apgparts.ge/": "555 21 21 96",
+                "https://autogama.ge/": "593 10 08 78, 557 67 72 01, 568 82 93 33, 551 87 77 75",
+                "https://autopia.ge": "0322 233 133",
+                "https://autotrans.ge/": "511 30 13 03",
+                "https://bgauto.ge/": "574 73 67 57",
+                "https://carline.ge/": "514 22 98 98",
+                "https://car-parts.ge": "577 12 73 76", 
+                "https://www.crossmotors.ge/": "595 10 18 02",
+                "https://geoparts.ge/": "596 80 20 00",
+                "https://goparts.ge/ge": "577 01 20 06",
+                "https://mmauto.ge/": "593 27 79 16, 599 38 21 18",
+                "https://newparts.ge/": "599 84 88 45",
+                "https://partscorner.ge/": "591 93 07 41",
+                "https://pp.ge/": "322 80 13 13, 591 22 99 33",
+                "https://pro-auto.ge/": "596 27 82 78, 571 00 00 71",
+                "https://soloauto.ge/": "555 20 20 50",
+                "https://topautoparts.ge/": "599 92 07 52",
+                "https://vgparts.ge/": "555 74 41 11",
+                "https://vsauto.ge/": "596 10 31 03",
+                "https://zupart.ge/ka": "555 52 24 90",
+                "https://otoparts.ge/": "577 54 51 74"
+            }
+    
     def process_item(self, item, spider):
         
         name_combinations = [
@@ -76,6 +101,13 @@ class NawilebiPipeline:
         item["alternative_name_1"] = alternative_names[0] if len(alternative_names) >= 1 else None
         item["alternative_name_2"] = alternative_names[1] if len(alternative_names) >= 2 else None
         
+        website = item.get('website')
+
+        if website in self.phone_map:
+            item['phone'] = self.phone_map[website]
+        else:
+            spider.logger.info(f'No phone number found for website: {website}')       
+              
         return item
 
 
@@ -122,8 +154,10 @@ class YearProcessPipeline:
         return item
 
 
+
 class SaveToMySQLPipeline:
     def __init__(self):
+        # Connect to the MySQL database using mysql.connector
         self.conn = mysql.connector.connect(
             host='localhost',
             user='root',
@@ -132,26 +166,55 @@ class SaveToMySQLPipeline:
         )
         self.cur = self.conn.cursor()
 
-        self.cur.execute('''
-            CREATE TABLE IF NOT EXISTS nawilebi(
-                id int NOT NULL auto_increment,
-                part_url VARCHAR(1000),
-                car_mark VARCHAR(70),
-                car_model VARCHAR(150),
-                part_full_name VARCHAR(150),
-                alternative_name_1 VARCHAR(150),
-                alternative_name_2 VARCHAR(150),
-                start_year INT,
-                end_year INT,
-                price NUMERIC,
-                original_price NUMERIC,
-                in_stock BOOLEAN,
-                website VARCHAR(255),
-                city VARCHAR(50),
-                phone VARCHAR(50),
-                PRIMARY KEY (id)
-            )
-        ''')
+        # Read freeze_yesterday and update_day from the text file
+        self.freeze_yesterday, self.update_day = self.read_control_file()
+
+        # Get the current date
+        current_day = datetime.datetime.now().strftime("%Y-%m-%d")
+
+        # Only proceed with table changes if update_day is not the current day
+        if self.update_day != current_day:
+            # If freeze_yesterday is 1, don't move data to nawilebi_yesterday
+            if self.freeze_yesterday == 0:
+                # Check if the 'nawilebi_yesterday' table exists, if not, create it
+                self.cur.execute('''
+                    CREATE TABLE IF NOT EXISTS nawilebi_yesterday LIKE nawilebi;
+                ''')
+
+                # Truncate 'nawilebi_yesterday' if it already contains data
+                self.cur.execute('''
+                    TRUNCATE TABLE nawilebi_yesterday;
+                ''')
+
+                # Copy the data from 'nawilebi' to 'nawilebi_yesterday' (only if there's data in 'nawilebi')
+                self.cur.execute('''
+                    INSERT INTO nawilebi_yesterday SELECT * FROM nawilebi;
+                ''')
+
+            # Truncate 'nawilebi' to clear out the data without affecting the structure or triggers
+            self.cur.execute('''
+                TRUNCATE TABLE nawilebi;
+            ''')
+
+    def read_control_file(self):
+        """
+        Reads the control values from a text file.
+        Expects a file format like:
+        freeze_yesterday=0
+        update_day=2024-10-08
+        """
+        freeze_yesterday = 0
+        update_day = ""
+        
+        with open("control_file.txt", "r") as file:
+            lines = file.readlines()
+            for line in lines:
+                if "freeze_yesterday" in line:
+                    freeze_yesterday = int(line.split('=')[1].strip())
+                if "update_day" in line:
+                    update_day = line.split('=')[1].strip()
+                    
+        return freeze_yesterday, update_day
 
     def process_item(self, item, spider):
         self.cur.execute('''
@@ -161,21 +224,21 @@ class SaveToMySQLPipeline:
                 in_stock, city, website, phone
             ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         ''', (
-        item.get('part_url', ''),            
-        item.get('car_mark', ''),            
-        item.get('car_model', ''),           
-        item.get('part_full_name', ''),      
-        item.get('alternative_name_1', ''),  
-        item.get('alternative_name_2', ''),  
-        item.get('start_year', None),        
-        item.get('end_year', None),          
-        item.get('price', 0),                
-        item.get('original_price', 0),       
-        item.get('in_stock', False),         
-        item.get('city', ''),                
-        item.get('website', ''),             
-        item.get('phone', '')                
-    ))
+            item.get('part_url', ''),            
+            item.get('car_mark', ''),            
+            item.get('car_model', ''),           
+            item.get('part_full_name', ''),      
+            item.get('alternative_name_1', ''),  
+            item.get('alternative_name_2', ''),  
+            item.get('start_year', None),        
+            item.get('end_year', None),          
+            item.get('price', 0),                
+            item.get('original_price', 0),       
+            item.get('in_stock', False),         
+            item.get('city', ''),                
+            item.get('website', ''),             
+            item.get('phone', '')                
+        ))
 
         self.conn.commit()
         return item
@@ -630,3 +693,27 @@ class MmautoPipeline:
             
             
         return item
+    
+class OtopartsPipeline:
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        
+        car_model = adapter.get("car_model")
+        if car_model:
+            adapter["car_model"], adapter["year"], adapter["start_year"], adapter["end_year"] = process_car_model_otoparts(car_model, adapter.get("car_mark"))
+            
+        part_full_name = adapter.get("part_full_name")
+        if part_full_name:
+            adapter["part_full_name"] = re.sub(r"[-–]", "", part_full_name)
+            
+        price = adapter.get("price")
+        if price:
+            adapter["price"] = parse_price(price)
+            
+        car_mark = adapter.get("car_mark")
+        if car_mark:
+            adapter["car_mark"] = car_mark.upper()
+            
+        return item
+            
+        

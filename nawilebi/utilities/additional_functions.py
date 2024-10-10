@@ -683,6 +683,32 @@ def process_in_stock(in_stock_list):
     else: return None
     
 
+def process_car_model_otoparts(car_model, car_mark):
+    car_model = re.sub(car_mark, "", car_model, flags=re.IGNORECASE).strip()
+    current_year = datetime.now().year
+    
+    year_pattern = re.compile(r'(\d{2,4})\s*[-–]\s*(\d{4}|ON)?')
+    
+    match = year_pattern.search(car_model)
+    
+    if match:
+        car_model = re.sub(year_pattern, '', car_model).strip()
+        car_model = re.sub('-', '', car_model).strip()
+        #car_model = re.sub('-', '', car_model).strip()
+        car_model = re.sub(r'[\u200b\uFEFF]', '', car_model).strip
+        start_year = format_year(match.group(1))
+        end_year_str = match.group(2)
+        
+        if end_year_str == "ON" or end_year_str is None:
+            end_year = current_year
+        else:
+            end_year = format_year(end_year_str)
+        
+        year = f"{start_year}-{end_year}"
+        return car_model.upper(), year, start_year, end_year
+    
+    return car_model, None, None, None
+
 '''---------------------------------------------------------'''
 
 def format_year(year):
@@ -717,4 +743,3 @@ def parse_price(value):
         return float(cleaned_string)
     except ValueError:
         return None
-

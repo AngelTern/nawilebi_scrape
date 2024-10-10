@@ -21,7 +21,8 @@ predefined_phone_map = {
     "https://topautoparts.ge/": "599 92 07 52",
     "https://vgparts.ge/": "555 74 41 11",
     "https://vsauto.ge/": "596 10 31 03",
-    "https://zupart.ge/ka": "555 52 24 90"
+    "https://zupart.ge/ka": "555 52 24 90",
+    "https://otoparts.ge/": "577 54 51 74"
 }
 
 # Connect to the database
