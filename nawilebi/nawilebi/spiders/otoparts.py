@@ -2,12 +2,13 @@ import scrapy
 from nawilebi.items import NawilebiItem
 
 class Otoparts1Spider(scrapy.Spider):
-    name = "otoparts1"
+    name = "otoparts"
     allowed_domains = ["otoparts.ge"]
     start_urls = ["https://otoparts.ge/dzaris-natsilebi/"]
 
     custom_settings = {
     'ITEM_PIPELINES': {
+        "nawilebi.pipelines.NawilebiPipeline": 300,
         "nawilebi.pipelines.OtopartsPipeline": 200,
         "nawilebi.pipelines.SaveToMySQLPipeline": 900
     },

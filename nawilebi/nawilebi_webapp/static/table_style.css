@@ -39,23 +39,23 @@
 /* Container for the table */
 .container {
     max-width: 100%;
-    padding: 0 20px;  /* Padding around container for spacing */
+    padding: 0 20px;
 }
 
 .table {
     border-collapse: collapse;
-    width: 100%;  /* Full-width table */
+    width: 100%;
     margin-top: 15px;
     background-color: #fff;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    table-layout: fixed; /* Makes column width proportional */
+    table-layout: fixed;
 }
 
 .table th, .table td {
     padding: 12px 15px;
     border: 1px solid #ddd;
     text-align: left;
-    white-space: normal;  /* Allow text wrapping */
+    white-space: normal;
 }
 
 .table th {
@@ -73,45 +73,43 @@
     background-color: #e9ecef;
 }
 
-/* Adjust Column Widths Proportionally */
-.table th:nth-child(1), .table td:nth-child(1) { /* Part URL (Decreased width) */
+.table th:nth-child(1), .table td:nth-child(1) {
     width: 5%;
 }
 
 .table th:nth-child(2), .table td:nth-child(2),
-.table th:nth-child(3), .table td:nth-child(3) { /* Car Mark, Car Model */
+.table th:nth-child(3), .table td:nth-child(3) {
     width: 12%;
 }
 
-.table th:nth-child(4), .table td:nth-child(4) { /* Part Full Name */
-    width: 20%; /* Wider for full part name */
+.table th:nth-child(4), .table td:nth-child(4) {
+    width: 20%;
 }
 
 .table th:nth-child(5), .table td:nth-child(5),
-.table th:nth-child(6), .table td:nth-child(6) { /* Start Year, End Year */
+.table th:nth-child(6), .table td:nth-child(6) {
     width: 8%;
 }
 
-.table th:nth-child(7), .table td:nth-child(7) { /* Price */
-    width: 5%;  /* Narrower column for prices */
+.table th:nth-child(7), .table td:nth-child(7) {
+    width: 5%;
 }
 
-.table th:nth-child(8), .table td:nth-child(8) { /* Website (Increased width) */
+.table th:nth-child(8), .table td:nth-child(8) {
     width: 30%;
 }
 
-.table th:nth-child(9), .table td:nth-child(9) { /* Phone */
-    width: 10%;  /* Medium width for phone numbers */
+.table th:nth-child(9), .table td:nth-child(9) {
+    width: 10%;
 }
 
-/* Adjust button for "ნახე ნაწილი" */
 .table .btn-primary {
     background-color: #007bff;
     border-color: #007bff;
-    font-size: 15px;  /* Set readable text size */
-    padding: 5px 10px;  /* Appropriate padding for the button */
-    display: inline-block;  /* Ensure it's displayed inline */
-    vertical-align: middle;  /* Align button to text */
+    font-size: 15px;
+    padding: 5px 10px;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .table .btn-primary:hover {
@@ -120,29 +118,24 @@
 }
 
 .table .btn-secondary {
-    font-size: 0; /* Keep hidden if not needed */
+    font-size: 0;
     padding: 0.2em;
-    width: 32px; /* Increased width to accommodate icon */
-    height: 32px; /* Increased height */
+    width: 32px;
+    height: 32px;
     display: inline-block;
     vertical-align: middle;
-    background-color: transparent; /* Make background transparent */
+    background-color: transparent;
 }
 
-.table .btn-secondary i { /* Ensure icon is displayed */
-    font-size: 20px; /* Set icon size */
-    color: #343a40; /* Change color to match theme */
-}
-
-.table .btn-secondary span {
-    margin-right: 5px; /* Space between icon and button text */
+.table .btn-secondary i {
+    font-size: 20px;
+    color: #343a40;
 }
 
 .table .btn-secondary:hover {
-    background-color: #d1d1d1; /* Light background on hover */
+    background-color: #d1d1d1;
 }
 
-/* Input Fields */
 input[type="search"] {
     border-radius: 5px;
     padding: 6px 10px;
@@ -158,17 +151,22 @@ input[type="search"] {
     z-index: 1000;
 }
 
-/* Media Queries */
-@media (max-width: 850px) {
-    .filter-bar .col-md-3 {
-        margin-bottom: 10px;
-    }
-
-    #reset_filters {
-        width: 100%;
-    }
+/* Freeze Status Styling */
+.freeze-status {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
 }
 
+.freeze-status p {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Button Styles */
 .btn-primary {
     background-color: #007bff;
     border: none;
@@ -176,6 +174,10 @@ input[type="search"] {
     border-radius: 5px;
     color: white;
     transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
 }
 
 .btn-secondary {
@@ -187,8 +189,19 @@ input[type="search"] {
     transition: background-color 0.3s ease;
 }
 
-.btn-primary:hover, .btn-secondary:hover {
+.btn-secondary:hover {
     background-color: #0056b3;
+}
+
+/* Media Queries */
+@media (max-width: 850px) {
+    .filter-bar .col-md-3 {
+        margin-bottom: 10px;
+    }
+
+    #reset_filters {
+        width: 100%;
+    }
 }
 
 /* Autocomplete Styles */
@@ -199,4 +212,41 @@ input[type="search"] {
     background-color: white;
     border: 1px solid #ccc;
     z-index: 1000;
+}
+
+/* Status Indicator Styles */
+.status-indicator {
+    margin-top: 15px;
+}
+
+.badge {
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.badge-success {
+    background-color: #28a745; 
+    color: white;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
 }

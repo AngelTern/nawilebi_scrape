@@ -1,6 +1,8 @@
 
 
-freeze_yesterday=1
+freeze_yesterday=0
 
 
 update_day= 2024-10-08
+
+override = False

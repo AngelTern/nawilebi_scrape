@@ -244,6 +244,32 @@ def delete_user(user_id):
         flash('მომხმარებელი წარმატებით წაიშალა', 'success')
     return redirect(url_for('manage_users'))
 
+def check_freeze_status():
+    try:
+        with open('control_file.txt', 'r') as file:
+            freeze_value = file.read().strip()
+            return freeze_value == '1'
+    except FileNotFoundError:
+        return False
+
+@app.route('/toggle_freeze', methods=['POST'])
+@login_required
+def toggle_freeze():
+    if not current_user.is_admin:
+        return jsonify({'error': 'მხოლოდ ადმინისტრატორებს შეუძლიათ ამ ფუნქციის გამოყენება.'}), 403
+
+    freeze_status = check_freeze_status()
+    new_value = '0' if freeze_status else '1'
+
+    try:
+        with open('control_file.txt', 'w') as file:
+            file.write(new_value)
+        return jsonify({'status': 'success', 'freeze_status': new_value})
+    except Exception as e:
+        return jsonify({'status': 'error', 'message': f'შეცდომა მოხდა: {str(e)}'}), 500
+
+    
+    
 @app.route('/logout', methods=["GET", "POST"])
 @login_required
 def logout():

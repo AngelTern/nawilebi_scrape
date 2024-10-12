@@ -62,7 +62,8 @@ class NawilebiPipeline:
                 "https://vgparts.ge/": "555 74 41 11",
                 "https://vsauto.ge/": "596 10 31 03",
                 "https://zupart.ge/ka": "555 52 24 90",
-                "https://otoparts.ge/": "577 54 51 74"
+                "https://otoparts.ge/": "577 54 51 74",
+                "https://megaautoparts.ge/": "568 68 55 36"
             }
     
     def process_item(self, item, spider):
@@ -715,5 +716,20 @@ class OtopartsPipeline:
             adapter["car_mark"] = car_mark.upper()
             
         return item
+    
+class MetaautopartsPipeline:
+    def process_item(self, item, spider):
+        adapter = ItemAdapter(item)
+        
+        car_model = adapter.get("car_model")
+        if car_model:
+            adapter["car_model"], adapter["start_year"], adapter["end_year"], adapter["year"] = process_car_model_megaauto(car_model, adapter.get("car_mark"))
+            
+        price = adapter.get("price")
+        if price:
+            adapter["price"] = parse_price(price)
+            
+        return item
+        
             
         

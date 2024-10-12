@@ -21,7 +21,52 @@
   </div>
 </nav>
 
-<div class="container mt-4">
+<div class="freeze-status mt-4">
+  <p id="freeze-status-text">
+    მიმდინარე სტატუსი: 
+    <strong id="freeze-status-label">{{ 'გაყინულია' if freeze_status else 'გათბობილია' }}</strong>
+  </p>
+  <form id="freeze-form">
+    <button type="button" id="toggle-freeze-btn" class="btn btn-primary">
+      {{ 'გათბობა' if freeze_status else 'გაყინვა' }}
+    </button>
+  </form>
+</div>
+</div>
+
+<script>
+document.getElementById('toggle-freeze-btn').addEventListener('click', function() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '{{ url_for("toggle_freeze") }}', true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  
+  xhr.onload = function() {
+      if (xhr.status === 200) {
+          var response = JSON.parse(xhr.responseText);
+          var newStatus = response.freeze_status;
+
+          // Update the status label and button text
+          var freezeStatusLabel = document.getElementById('freeze-status-label');
+          var freezeButton = document.getElementById('toggle-freeze-btn');
+
+          if (newStatus === '1') {
+              freezeStatusLabel.textContent = 'გაყინულია';
+              freezeButton.textContent = 'გათბობა';
+          } else {
+              freezeStatusLabel.textContent = 'გათბობილია';
+              freezeButton.textContent = 'გაყინვა';
+          }
+      } else if (xhr.status === 403) {
+          alert('მხოლოდ ადმინისტრატორებს შეუძლიათ ამ ფუნქციის გამოყენება.');
+      } else {
+          alert('შეცდომა მოხდა, სცადეთ ხელახლა.');
+      }
+  };
+  
+  xhr.send(); // Send the POST request
+});
+</script>
+
   <h2>ახალი მომხმარებლის დამატება</h2>
   <form method="POST">
     {{ form.hidden_tag() }}

@@ -695,7 +695,7 @@ def process_car_model_otoparts(car_model, car_mark):
         car_model = re.sub(year_pattern, '', car_model).strip()
         car_model = re.sub('-', '', car_model).strip()
         #car_model = re.sub('-', '', car_model).strip()
-        car_model = re.sub(r'[\u200b\uFEFF]', '', car_model).strip
+        car_model = re.sub(r'[\u200b\uFEFF]', '', car_model).strip()
         start_year = format_year(match.group(1))
         end_year_str = match.group(2)
         
@@ -708,6 +708,34 @@ def process_car_model_otoparts(car_model, car_mark):
         return car_model.upper(), year, start_year, end_year
     
     return car_model, None, None, None
+
+def adjust_car_name_for_url_megaauto(string):
+    string = string.lower()
+
+    string = re.sub(r'\s+', '-', string)
+
+    string = re.sub(r'[()]', '', string)
+
+    string = re.sub(r'[^a-z0-9-]', '', string)
+
+    return string
+
+def process_car_model_megaauto(car_model, car_mark):
+    car_model = re.sub(car_mark, "", car_model, flags=re.IGNORECASE).strip()
+
+    year_pattern = re.compile(r'(\d{4})\s*-\s*(\d{4}|\s*)')
+    
+    match = year_pattern.search(car_model)
+    
+    if match:
+        start_year = format_year(match.group(1))
+        end_year = format_year(match.group(2))
+        year = match.group(0)
+        
+        return car_model, start_year, end_year, year
+    
+    return car_model, None, None, None
+        
 
 '''---------------------------------------------------------'''
 
